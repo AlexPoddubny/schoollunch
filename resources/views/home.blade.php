@@ -1,3 +1,6 @@
+<?php use App\User;
+
+	dump(User::all()); ?>
 @extends('layouts.app')
 
 @section('content')
@@ -15,6 +18,7 @@
                     @endif
 
                     You are logged in!
+
                 </div>
             </div>
         </div>
