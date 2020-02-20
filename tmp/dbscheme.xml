@@ -136,7 +136,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="785" y="183" name="classes">
+    <table x="775" y="172" name="classes">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -210,7 +210,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="377" y="37" name="parents_children">
+    <table x="408" y="20" name="parents_children">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -229,16 +229,18 @@
             <part>id</part>
         </key>
     </table>
-    <table x="624" y="627" name="messages">
+    <table x="152" y="392" name="messages">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
         <row name="from_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default></row>
+            <default>NULL</default><relation table="users" row="id" />
+        </row>
         <row name="to_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default></row>
+            <default>NULL</default><relation table="users" row="id" />
+        </row>
         <row name="subject" null="0" autoincrement="0">
             <datatype>VARCHAR(255)</datatype>
             <default>'NULL'</default></row>
@@ -310,7 +312,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="617" y="381" name="breaks">
+    <table x="624" y="409" name="breaks">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -424,12 +426,31 @@
             <part>id</part>
         </key>
     </table>
-    <table x="971" y="298" name="categories">
+    <table x="962" y="275" name="categories">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
         <row name="name" null="0" autoincrement="0">
             <datatype>VARCHAR</datatype>
+            <default>'NULL'</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="409" y="839" name="comments">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="user_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="users" row="id" />
+        </row>
+        <row name="order_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="order" row="id" />
+        </row>
+        <row name="text" null="0" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
             <default>'NULL'</default></row>
         <key type="PRIMARY" name="">
             <part>id</part>
