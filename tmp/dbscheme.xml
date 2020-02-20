@@ -37,7 +37,7 @@
             <type label="SET" length="1" sql="SET" quote=""/>
             <type label="Bit" length="0" sql="bit" quote=""/>
         </group>
-    </datatypes><table x="145" y="116" name="users">
+    </datatypes><table x="134" y="125" name="users">
     <row name="id" null="0" autoincrement="1">
         <datatype>INTEGER</datatype>
         <default>NULL</default></row>
@@ -63,7 +63,7 @@
         <part>id</part>
     </key>
 </table>
-    <table x="128" y="455" name="roles">
+    <table x="146" y="599" name="roles">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -74,7 +74,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="119" y="655" name="permissions">
+    <table x="130" y="731" name="permissions">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -117,7 +117,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="423" y="307" name="school">
+    <table x="417" y="306" name="school">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -136,7 +136,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="589" y="177" name="classes">
+    <table x="791" y="219" name="classes">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -148,6 +148,13 @@
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="school" row="id" />
         </row>
+        <row name="category" null="0" autoincrement="0">
+            <datatype>VARCHAR(100)</datatype>
+            <default>'NULL'</default></row>
+        <row name="break_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="breaks" row="id" />
+        </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
@@ -156,19 +163,19 @@
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
-        <row name="school_id" null="0" autoincrement="0">
-            <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="school" row="id" />
-        </row>
         <row name="user_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="users" row="id" />
+        </row>
+        <row name="school_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="school" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
     </table>
-    <table x="737" y="53" name="students">
+    <table x="952" y="19" name="students">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -179,11 +186,14 @@
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="classes" row="id" />
         </row>
+        <row name="privilege" null="1" autoincrement="0">
+            <datatype>bit</datatype>
+            <default>NULL</default></row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
     </table>
-    <table x="439" y="450" name="cooks">
+    <table x="428" y="454" name="cooks">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -218,7 +228,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="595" y="342" name="messages">
+    <table x="624" y="627" name="messages">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -234,6 +244,177 @@
         <row name="read" null="1" autoincrement="0">
             <datatype>bit</datatype>
             <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1213" y="748" name="components">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="name" null="0" autoincrement="0">
+            <datatype>VARCHAR(100)</datatype>
+            <default>'NULL'</default></row>
+        <row name="costs" null="0" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1215" y="537" name="course">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="type" null="0" autoincrement="0">
+            <datatype>ENUM</datatype>
+            <default>NULL</default><comment>first/second/desert</comment>
+        </row>
+        <row name="portion_size" null="0" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="portion_weight" null="0" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="calories" null="0" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="recipe" null="0" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
+            <default>'NULL'</default></row>
+        <row name="photo" null="0" autoincrement="0">
+            <datatype>VARCHAR(255)</datatype>
+            <default>'NULL'</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+        <comment>Блюдо</comment>
+    </table>
+    <table x="1439" y="619" name="courses_components">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="course_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="course" row="id" />
+        </row>
+        <row name="component_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="components" row="id" />
+        </row>
+        <row name="component_qty" null="0" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="614" y="440" name="breaks">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="school_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="school" row="id" />
+        </row>
+        <row name="break_num" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="break_time" null="0" autoincrement="0">
+            <datatype>VARCHAR</datatype>
+            <default>'NULL'</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1260" y="236" name="menu_daily">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="date" null="0" autoincrement="0">
+            <datatype>DATE</datatype>
+            <default>'NULL'</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1051" y="490" name="order">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="school_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="school" row="id" />
+        </row>
+        <row name="break_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="breaks" row="id" />
+        </row>
+        <row name="privilege" null="0" autoincrement="0">
+            <datatype>bit</datatype>
+            <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1470" y="335" name="order_items">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="order_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="order" row="id" />
+        </row>
+        <row name="course_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="course" row="id" />
+        </row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="988" y="339" name="menu_daily_items">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="menu_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="menu_daily" row="id" />
+        </row>
+        <row name="order_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="order" row="id" />
+        </row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1001" y="196" name="menu_weekly">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="begin_date" null="1" autoincrement="0">
+            <datatype>DATE</datatype>
+            <default>NULL</default></row>
+        <row name="end_date" null="0" autoincrement="0">
+            <datatype>DATE</datatype>
+            <default>'NULL'</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1217" y="43" name="menu_weekly_items">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="menu_weekly_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="menu_weekly" row="id" />
+        </row>
+        <row name="menu_daily_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="menu_daily" row="id" />
+        </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
