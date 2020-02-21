@@ -67,7 +67,7 @@
         <part>phone</part>
     </key>
 </table>
-    <table x="151" y="708" name="roles">
+    <table x="149" y="676" name="roles">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -78,7 +78,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="127" y="815" name="permissions">
+    <table x="136" y="790" name="permissions">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -89,7 +89,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="415" y="698" name="users_roles">
+    <table x="409" y="654" name="users_roles">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -105,7 +105,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="404" y="807" name="roles_permissions">
+    <table x="399" y="762" name="roles_permissions">
         <row name="id" null="0" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -121,7 +121,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="417" y="306" name="school">
+    <table x="418" y="253" name="schools">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -136,11 +136,15 @@
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="users" row="id" />
         </row>
+        <row name="address" null="1" autoincrement="0">
+            <datatype>VARCHAR(255)</datatype>
+            <default>NULL</default></row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
+        <comment>Перечень школ</comment>
     </table>
-    <table x="818" y="75" name="classes">
+    <table x="816" y="91" name="classes">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -150,7 +154,7 @@
         </row>
         <row name="school_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="school" row="id" />
+            <default>NULL</default><relation table="schools" row="id" />
         </row>
         <row name="category_id" null="0" autoincrement="0">
             <datatype>INTEGER(100)</datatype>
@@ -164,7 +168,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="410" y="183" name="teachers">
+    <table x="410" y="145" name="teachers">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -174,7 +178,7 @@
         </row>
         <row name="school_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="school" row="id" />
+            <default>NULL</default><relation table="schools" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
@@ -198,7 +202,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="428" y="454" name="cooks">
+    <table x="426" y="405" name="cooks">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -208,7 +212,7 @@
         </row>
         <row name="school_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="school" row="id" />
+            <default>NULL</default><relation table="schools" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
@@ -233,7 +237,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="144" y="371" name="messages">
+    <table x="128" y="330" name="messages">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -255,7 +259,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="1154" y="776" name="components">
+    <table x="1153" y="782" name="components">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -269,7 +273,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="1160" y="556" name="course">
+    <table x="1160" y="556" name="courses">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -292,10 +296,13 @@
         <row name="photo" null="0" autoincrement="0">
             <datatype>VARCHAR(255)</datatype>
             <default>'NULL'</default></row>
+        <row name="costs" null="1" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
-        <comment>Блюдо</comment>
+        <comment>Блюда</comment>
     </table>
     <table x="1409" y="682" name="courses_components">
         <row name="id" null="1" autoincrement="1">
@@ -303,7 +310,7 @@
             <default>NULL</default></row>
         <row name="course_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="course" row="id" />
+            <default>NULL</default><relation table="courses" row="id" />
         </row>
         <row name="component_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
@@ -322,7 +329,7 @@
             <default>NULL</default></row>
         <row name="school_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="school" row="id" />
+            <default>NULL</default><relation table="schools" row="id" />
         </row>
         <row name="break_num" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
@@ -343,13 +350,13 @@
             <default>'NULL'</default></row>
         <row name="school_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="school" row="id" />
+            <default>NULL</default><relation table="schools" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
     </table>
-    <table x="1186" y="402" name="order">
+    <table x="1173" y="393" name="orders">
         <row name="category_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="categories" row="id" />
@@ -367,22 +374,24 @@
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
+        <comment>Завтрак/обед (из нескольких блюд)</comment>
     </table>
-    <table x="1439" y="519" name="order_items">
+    <table x="1439" y="519" name="orders_items">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
         <row name="order_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="order" row="id" />
+            <default>NULL</default><relation table="orders" row="id" />
         </row>
         <row name="course_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="course" row="id" />
+            <default>NULL</default><relation table="courses" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
+        <comment>Блюда, входящие в один завтрак/обед</comment>
     </table>
     <table x="1392" y="293" name="menu_daily_items">
         <row name="id" null="1" autoincrement="1">
@@ -394,7 +403,7 @@
         </row>
         <row name="order_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="order" row="id" />
+            <default>NULL</default><relation table="orders" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
@@ -411,7 +420,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="416" y="564" name="comments">
+    <table x="418" y="515" name="comments">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -421,7 +430,7 @@
         </row>
         <row name="order_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="order" row="id" />
+            <default>NULL</default><relation table="orders" row="id" />
         </row>
         <row name="text" null="0" autoincrement="0">
             <datatype>MEDIUMTEXT</datatype>
