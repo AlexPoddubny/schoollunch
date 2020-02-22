@@ -8,7 +8,7 @@ abstract class BaseModel extends Model
 {
     protected static function tableName()
     {
-        $name = strtolower(static::className());
+        $name = strtolower(static::class());
         $name = substr($name, strripos($name, '\\') + 1);
         $l = substr($name, -1);
         switch ($l){
