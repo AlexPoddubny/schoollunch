@@ -14,5 +14,7 @@
         'login' => 'Увійти',
         'to_register' => 'Зареєструватись',
         'remember'=> 'Запам\'ятати',
-        'password_forgot' => 'Забули пароль?'
+        'password_forgot' => 'Забули пароль?',
+        'password_reset' => 'Відновлення паролю',
+        'send_password_reset_link' => 'Надіслати посилання для відновлення паролю'
     ];
