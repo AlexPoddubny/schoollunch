@@ -28,4 +28,5 @@ Route::group([
                 'as' => 'adminIndex'
             ]
         );
+        Route::get('/users', ['uses' => 'Admin\UsersController@index']);
 });
