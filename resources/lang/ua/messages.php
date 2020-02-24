@@ -16,5 +16,6 @@
         'remember'=> 'Запам\'ятати',
         'password_forgot' => 'Забули пароль?',
         'password_reset' => 'Відновлення паролю',
-        'send_password_reset_link' => 'Надіслати посилання для відновлення паролю'
+        'send_password_reset_link' => 'Надіслати посилання для відновлення паролю',
+        'logout' => 'Вихід'
     ];
