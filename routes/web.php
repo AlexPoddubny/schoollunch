@@ -11,10 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    
+    Auth::routes();
+    
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::group([
+            'prefix' => 'admin',
+            'middleware' => 'auth'
+        ], function (){
+            Route::get('/',[
+                    'uses' => 'Admin\IndexController@index',
+                    'as' => 'adminIndex'
+                ]
+            );
+        }
+    );

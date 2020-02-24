@@ -22,7 +22,7 @@ abstract class BaseModel extends Model
                 $name .= 's';
                 break;
         }
-        static::$table = $name;
+        return $name;
     }
     
     public function __construct(array $attributes = [])
