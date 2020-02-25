@@ -28,5 +28,10 @@
                     'as' => 'adminIndex'
                 ]
             );
+            Route::get('/users',[
+                    'uses' => 'Admin\UsersController@index',
+                    'as' => 'adminUsers'
+                ]
+            );
         }
     );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class HomeController extends Controller
 {
@@ -11,9 +12,13 @@ class HomeController extends Controller
      *
      * @return void
      */
+    
+//    public $vars = [];
+    
     public function __construct()
     {
         $this->middleware('auth');
+        
     }
 
     /**
@@ -23,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $this->vars = Arr::add($this->vars, 'title', config('app.name', 'Laravel'));
+        return view('home')->with($this->vars);
     }
 }
