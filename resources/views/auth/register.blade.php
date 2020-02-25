@@ -86,8 +86,8 @@
 
                             <div class="col-md-6">
                                 <select name="sex" class="form-control">
-                                    <option value="female">@lang('messages.female')</option>
-                                    <option value="male">@lang('messages.male')</option>
+                                    <option value="female" {{ (old('sex') == 'female') ? 'selected' : ''}} > @lang('messages.female')</option>
+                                    <option value="male" {{ (old('sex') == 'male') ? 'selected' : '' }} > @lang('messages.male')</option>
                                 </select>
                                 <small>(Потрібно для коректного звернення до вас)</small>
                                 {{--<div class="form-check form-check-inline">
