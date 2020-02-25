@@ -47,8 +47,9 @@ class AdminController extends Controller
     public function getMenu()
     {
         return \Menu::make('adminMenu', function ($menu){
-            $menu->add('Користувачі', ['route' => 'adminUsers']);
-            $menu->add('Ролі та привілеї', ['route' => 'adminUsers']);
+            $menu->add('Головна сторінка', ['route' => 'adminIndex', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            $menu->add('Користувачі', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);;
+            $menu->add('Ролі та привілеї', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);;
         });
     }
     

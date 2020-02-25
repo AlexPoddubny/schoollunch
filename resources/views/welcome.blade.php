@@ -70,6 +70,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/admin') }}">@lang('messages.admin')</a>
                     @else
                         <a href="{{ route('login') }}">@lang('messages.login')</a>
 
