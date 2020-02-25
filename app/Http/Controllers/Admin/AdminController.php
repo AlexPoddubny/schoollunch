@@ -13,6 +13,7 @@ class AdminController extends Controller
 {
     
     protected $user;
+    protected $title = 'Адміністрування: ';
     protected $template;
     protected $content = FALSE;
     
@@ -47,7 +48,7 @@ class AdminController extends Controller
     {
         return \Menu::make('adminMenu', function ($menu){
             $menu->add('Користувачі', ['route' => 'adminUsers']);
-            $menu->add('Ролі', ['route' => 'adminUsers']);
+            $menu->add('Ролі та привілеї', ['route' => 'adminUsers']);
         });
     }
     

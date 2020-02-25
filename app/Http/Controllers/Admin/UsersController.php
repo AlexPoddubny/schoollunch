@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class UsersController extends AdminController
 {
+    
+    protected $content = 'Редагування користувачів';
+    
     public function __construct()
     {
         parent::__construct();
@@ -15,7 +18,7 @@ class UsersController extends AdminController
     
     public function index()
     {
-        $this->title = 'Адмінка::Користувачі';
+        $this->title .= 'Користувачі';
         return $this->renderOutput();
     }
 }

@@ -19,7 +19,7 @@ class IndexController extends AdminController
     
     public function index()
     {
-        $this->title = 'Адмінка::Головна сторінка';
+        $this->title .= 'Головна сторінка';
         return $this->renderOutput();
     }
     
