@@ -11,8 +11,8 @@ use Lavary\Menu\Menu;
 
 class AdminController extends Controller
 {
-    
-    protected $user;
+
+//    protected $user;
     protected $title = 'Адміністрування: ';
     protected $template;
     protected $content = FALSE;

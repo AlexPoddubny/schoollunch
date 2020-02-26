@@ -11,7 +11,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-    public $vars = [];
+    protected $user;
+    protected $vars = [];
     protected $title;
     
 }
