@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 26 2020 г., 22:36
+-- Время создания: Фев 27 2020 г., 00:14
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.3.9
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `permissions`
@@ -54,7 +54,11 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (12, 'User_Register', 'Зареєструвати користувача'),
 (13, 'School_Register', 'Зареєструвати школу'),
 (14, 'School_Admin_Assign', 'Призначити адміністратора школи'),
-(15, 'Cook_Assign', 'Призначити технолога шкільного комбінату харчування');
+(15, 'Cook_Assign', 'Призначити технолога шкільного комбінату харчування'),
+(16, 'View_Admin', 'Доступ до адміністрування системи'),
+(17, 'View_School_Admin', 'Доступ до адміністрування школи'),
+(18, 'View_Class', 'Доступ до адміністрування класу'),
+(19, 'View_Cook', 'Доступ до адміністрування шкільного комбінату харчування');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
