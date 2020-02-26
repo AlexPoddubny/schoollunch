@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class IndexController extends AdminController
 {
     
-    protected $content = 'Індексна сторінка';
+    protected $content = 'Адміністрування системи';
     
     public function __construct()
     {
@@ -19,7 +19,7 @@ class IndexController extends AdminController
     
     public function index()
     {
-        $this->title .= 'Головна сторінка';
+        $this->title .= $this->content;
         return $this->renderOutput();
     }
     

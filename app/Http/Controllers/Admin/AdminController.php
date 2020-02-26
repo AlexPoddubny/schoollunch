@@ -34,9 +34,7 @@ class AdminController extends Controller
     {
         $this->vars = Arr::add($this->vars, 'title', $this->title);
         $menu = $this->getMenu();
-//        dump($menu);
-        $navigation =view('admin.navigation')->with('menu', $menu)->render();
-        
+        $navigation = view('admin.navigation')->with('menu', $menu)->render();
         $this->vars = Arr::add($this->vars, 'navigation', $navigation);
         if($this->content){
             $this->vars = Arr::add($this->vars, 'content', $this->content);
@@ -47,9 +45,9 @@ class AdminController extends Controller
     public function getMenu()
     {
         return \Menu::make('adminMenu', function ($menu){
-            $menu->add('Головна сторінка', ['route' => 'adminIndex', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
-            $menu->add('Користувачі', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);;
-            $menu->add('Ролі та привілеї', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);;
+            $menu->add('Адміністрування системи', ['route' => 'adminIndex', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            $menu->add('Користувачі', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            $menu->add('Ролі та привілеї', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
         });
     }
     
