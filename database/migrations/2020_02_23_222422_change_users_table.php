@@ -15,7 +15,7 @@ class ChangeUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('name');
-            $table->string('phone')->after('id');
+            $table->string('phone')->after('id')->unique();
             $table->string('firstname')->after('email');
             $table->string('middlename')->after('firstname');
             $table->string('lastname')->after('middlename');
