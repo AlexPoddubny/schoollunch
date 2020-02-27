@@ -33,5 +33,6 @@
                     'as' => 'adminUsers'
                 ]
             );
+            Route::resource('permissions', 'Admin\PermissionsController');
         }
     );
