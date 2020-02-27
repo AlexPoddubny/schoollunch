@@ -21,9 +21,12 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot($permission)
     {
         $this->registerPolicies();
+        Gate::define($permission, function ($user) use ($permission) {
+            return $user->can($permission);
+        });
 
         //
     }

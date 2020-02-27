@@ -36,4 +36,56 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'users_roles');
+    }
+    
+    public function can($permission, $require = false)
+    {
+        if (is_array($permission)){
+            foreach ($permission as $permName){
+                $perm = $this->can($permName);
+                if ($perm && !$require){
+                    return true;
+                } elseif (!$perm && $require){
+                    return false;
+                }
+            }
+            return $require;
+        } else {
+            foreach ($this->roles as $role){
+                foreach ($role->permissions as $perm){
+                    if (Str::is($permission, $perm)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public function hasRole($name, $require = false)
+    {
+        if (is_array($name)){
+            foreach ($name as $roleName){
+                $hasRole = $this->hasRole($roleName);
+                if ($hasRole && !$require){
+                    return true;
+                } elseif (!$hasRole && $require){
+                    return false;
+                }
+            }
+            return $require;
+        } else {
+            foreach ($this->roles as $role){
+                if ($role->name == $name){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 }
