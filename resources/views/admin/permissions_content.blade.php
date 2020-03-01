@@ -6,7 +6,7 @@
                 <tr>
                     <th scope="col" style="text-align: center">Дозвіл</th>
                     @foreach($roles as $role)
-                        <th scope="col" style="text-align: center">{{$role->description}}</th>
+                        <th scope="col" style="text-align: center">{{$role->description}}<br>({{$role->permissions_count}})</th>
                     @endforeach
                 </tr>
             </thead>

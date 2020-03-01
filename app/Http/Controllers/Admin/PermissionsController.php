@@ -29,7 +29,7 @@ class PermissionsController extends AdminController
     public function index()
     {
         $this->title .= 'Ролі та дозволи';
-        $roles = $this->role_rep->get();
+        $roles = $this->role_rep->getWithRelationCount('permissions');
         $perms = $this->perm_rep->get();
         $this->content = view('admin.permissions_content')
             ->with(['roles' => $roles, 'perms' => $perms])
