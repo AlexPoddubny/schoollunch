@@ -13,5 +13,10 @@
         {
             return $this->model::all();
         }
+    
+        public function getWithRelationCount($table)
+        {
+            return $this->model::withCount($table)->get();
+        }
         
     }
