@@ -13,6 +13,11 @@
         {
             return $this->model::all();
         }
+        
+        public function getPaginated($num)
+        {
+            return $this->model::paginate($num);
+        }
     
         public function getWhere($id, $key = 'id')
         {
