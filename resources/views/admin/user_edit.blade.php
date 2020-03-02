@@ -5,6 +5,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('users.store') }}">
                         @csrf
+                        <input name="id" type="hidden" value="{{$user->id}}">
 
                         <div class="form-group row">
                             <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __('messages.firstname') }}</label>
@@ -102,15 +103,15 @@
                                 </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ 'Права:' }}</label>
-                            <div class="card col-md-6">
+                            <div class="col-md-6 form-group">
                                 @foreach($roles as $role)
-                                    <div class="row">
-                                        <input name="{{$user->id}}[]"
+                                    <div class="form-check text-left mlr-auto">
+                                        <input name="roles[]"
                                             type="checkbox"
                                             class="form-check-input"
                                             value="{{$role->id}}"
                                             {{ ($user->hasRole($role->name)) ? 'checked' : ''}}>
-                                        {{$role->description}}
+                                        <label class="form-check-label">{{$role->description}}</label>
                                     </div>
                                 @endforeach
                             </div>
