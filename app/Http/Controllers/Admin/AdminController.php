@@ -14,7 +14,7 @@ class AdminController extends Controller
 
 //    protected $user;
     protected $title = 'Адміністрування: ';
-    protected $template;
+    protected $template = 'admin.index';
     protected $content = FALSE;
     
 //    protected $vars = [];
@@ -47,7 +47,7 @@ class AdminController extends Controller
         return \Menu::make('adminMenu', function ($menu){
             $menu->add('Адміністрування системи', ['route' => 'adminIndex', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
             $menu->add('Користувачі', ['route' => 'adminUsers', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
-            $menu->add('Ролі та дозволи', ['route' => 'permissions.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            $menu->add('Ролі та дозволи', ['route' => 'roles.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
         });
     }
     

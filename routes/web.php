@@ -34,5 +34,6 @@
                 ]
             );
             Route::resource('permissions', 'Admin\PermissionsController');
+            Route::resource('roles', 'Admin\RolesController');
         }
     );
