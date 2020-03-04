@@ -13,4 +13,11 @@
         {
             $this->model = $role;
         }
+    
+        public function changeRoles($request)
+        {
+            $roles = $request->only('roles');
+            dd($roles);
+        }
+        
     }
