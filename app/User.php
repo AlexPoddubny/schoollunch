@@ -88,4 +88,13 @@ class User extends Authenticatable
         return false;
     }
     
+    public function saveRoles($inputRoles)
+    {
+        if(!empty($inputRoles)){
+            $this->roles()->sync($inputRoles);
+        } else {
+            $this->roles()->detach();
+        }
+    }
+    
 }

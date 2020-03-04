@@ -1,5 +1,6 @@
 <form action="{{ route('roles.store') }}" method="post">
     {{ @csrf_field() }}
+    <input name="id" type="hidden" value="{{$role->id}}">
     <div class="form-group row">
         <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('messages.role_name') }}</label>
         <div class="col-md-6">
@@ -17,7 +18,7 @@
         <div class="col-md-6 form-group">
             @foreach($perms as $perm)
                 <div class="form-check text-left mlr-auto">
-                    <input name="{{$role->id}}[]"
+                    <input name="perms[]"
                            type="checkbox"
                            class="form-check-input"
                            value="{{$perm->id}}"

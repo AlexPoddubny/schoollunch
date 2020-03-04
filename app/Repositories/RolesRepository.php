@@ -5,19 +5,30 @@
     
     
     use App\Role;
+    use App\User;
+    use Gate;
 
     class RolesRepository
         extends Repository
     {
-        public function __construct(Role $role)
+    
+        protected $user_rep;
+        
+        public function __construct(Role $role, UsersRepository $user_rep)
         {
             $this->model = $role;
+            $this->user_rep = $user_rep;
         }
     
         public function changeRoles($request)
         {
-            $roles = $request->only('roles');
-            dd($roles);
+            if(Gate::denies('change', $this->model)) {
+//                abort(403);
+            }
+            $data = $request->except('_token');
+            $user = $this->user_rep->getWhere($request->only('id'));
+            $user->saveRoles($data['roles'] ?? []);
+            return ['status' => 'Ролі оновлено'];
         }
         
     }

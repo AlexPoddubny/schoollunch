@@ -55,6 +55,10 @@ class UsersController extends AdminController
     public function store(Request $request)
     {
         $result = $this->role_rep->changeRoles($request);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return back()->with($result);
     }
 
     /**
