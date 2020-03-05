@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+
 
 class User extends Authenticatable
 {
@@ -57,7 +59,7 @@ class User extends Authenticatable
         } else {
             foreach ($this->roles as $role){
                 foreach ($role->permissions as $perm){
-                    if (Str::is($permission, $perm)){
+                    if (Str::is($permission, $perm->name)){
                         return true;
                     }
                 }
