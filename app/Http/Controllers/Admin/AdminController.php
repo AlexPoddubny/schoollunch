@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Lavary\Menu\Menu;
+use Gate;
 
 
 class AdminController extends Controller
@@ -45,9 +46,11 @@ class AdminController extends Controller
     public function getMenu()
     {
         return \Menu::make('adminMenu', function ($menu){
-            $menu->add('Адміністрування системи', ['route' => 'adminIndex', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
-            $menu->add('Користувачі', ['route' => 'users.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
-            $menu->add('Ролі та дозволи', ['route' => 'roles.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            if(Gate::allows('View_Admin')) {
+                $menu->add('Адміністрування системи', ['route' => 'adminIndex', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+                $menu->add('Користувачі', ['route' => 'users.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+                $menu->add('Ролі та дозволи', ['route' => 'roles.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            }
         });
     }
     
