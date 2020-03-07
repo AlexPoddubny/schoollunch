@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Permission;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,10 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('View_Admin', function ($user){
-            return $user->can('View_Admin');
-        });
-
-        //
+        $perms = Permission::all();
+        foreach ($perms as $perm) {
+            $name = $perm->name;
+            Gate::define($name, function ($user) use ($name) {
+                return $user->can($name);
+            });
+        }
     }
 }
