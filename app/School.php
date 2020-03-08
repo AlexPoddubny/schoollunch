@@ -10,6 +10,6 @@ class School extends Model
     
     public function admin()
     {
-        return $this->hasOne('App\Users', 'admin_id');
+        return $this->hasOne('App\Users', );
     }
 }

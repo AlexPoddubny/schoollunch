@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role', 'users_roles');
     }
     
+    public function school()
+    {
+        return $this->hasOne('App\School', 'admin_id');
+    }
+    
     public function can($permission, $require = false)
     {
         if (is_array($permission)){

@@ -36,5 +36,16 @@
             Route::resource('permissions', 'Admin\PermissionsController');
             Route::resource('roles', 'Admin\RolesController');
             Route::resource('users', 'Admin\UsersController');
+            Route::get('schools/import', [
+                    'uses' => 'Admin\SchoolsController@import',
+                    'as' => 'schools.import'
+                ]
+            );
+            Route::post('schools/generate', [
+                    'uses' => 'Admin\SchoolsController@generate',
+                    'as' => 'schools.generate'
+                ]
+            );
+            Route::resource('schools', 'Admin\SchoolsController');
         }
     );

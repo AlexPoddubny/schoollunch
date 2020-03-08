@@ -19,8 +19,8 @@
         public static function import()
         {
             $schools = [];
-            $html = mb_convert_encoding(file_get_contents(static::LINK), 'UTF-8', 'CP1251');
-            $arr = explode('<tr class="spravka"', $html);
+            $arr = explode('<tr class="spravka"',
+                mb_convert_encoding(file_get_contents(static::LINK), 'UTF-8', 'CP1251'));
             unset($arr[0]);
             unset($arr[1]);
             foreach ($arr as $item){
