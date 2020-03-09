@@ -16,7 +16,6 @@ class AdminController extends Controller
 //    protected $user;
     protected $title = 'Адміністрування: ';
     protected $template = 'admin.index';
-    protected $content = FALSE;
     
 //    protected $vars = [];
     
