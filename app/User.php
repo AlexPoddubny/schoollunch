@@ -1,107 +1,108 @@
 <?php
-
-namespace App;
-
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-
-
-class User extends Authenticatable
-{
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'phone', 'email', 'firstname', 'middlename', 'lastname', 'sex', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
     
-    public function roles()
-    {
-        return $this->belongsToMany('App\Role', 'users_roles');
-    }
+    namespace App;
     
-    public function school()
-    {
-        return $this->hasOne('App\School', 'admin_id');
-    }
+    use Illuminate\Contracts\Auth\MustVerifyEmail;
+    use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Notifications\Notifiable;
+    use Illuminate\Support\Str;
     
-    public function can($permission, $require = false)
+    
+    class User extends Authenticatable
     {
-        if (is_array($permission)){
-            foreach ($permission as $permName){
-                $perm = $this->can($permName);
-                if ($perm && !$require){
-                    return true;
-                } elseif (!$perm && $require){
-                    return false;
+        use Notifiable;
+        
+        /**
+         * The attributes that are mass assignable.
+         *
+         * @var array
+         */
+        protected $fillable = [
+            'phone', 'email', 'firstname', 'middlename', 'lastname', 'sex', 'password',
+        ];
+        
+        /**
+         * The attributes that should be hidden for arrays.
+         *
+         * @var array
+         */
+        protected $hidden = [
+            'password', 'remember_token',
+        ];
+        
+        /**
+         * The attributes that should be cast to native types.
+         *
+         * @var array
+         */
+        protected $casts = [
+            'email_verified_at' => 'datetime',
+        ];
+        
+        public function roles()
+        {
+            return $this->belongsToMany('App\Role', 'users_roles');
+        }
+        
+        public function school()
+        {
+            return $this->hasOne('App\School', 'admin_id');
+        }
+        
+        public function can($permission, $require = false)
+        {
+            if (is_array($permission)) {
+                foreach ($permission as $permName) {
+                    $perm = $this->can($permName);
+                    if ($perm && !$require) {
+                        return true;
+                    } elseif (!$perm && $require) {
+                        return false;
+                    }
+                }
+                return $require;
+            } else {
+                $roles = $this->roles()->with('permissions')->get();
+                foreach ($roles as $role) {
+                    foreach ($role->permissions as $perm) {
+                        if (Str::is($permission, $perm->name)) {
+                            return true;
+                        }
+                    }
                 }
             }
-            return $require;
-        } else {
-            foreach ($this->roles as $role){
-                foreach ($role->permissions as $perm){
-                    if (Str::is($permission, $perm->name)){
+            return false;
+        }
+        
+        public function hasRole($name, $require = false)
+        {
+            if (is_array($name)) {
+                foreach ($name as $roleName) {
+                    $hasRole = $this->hasRole($roleName);
+                    if ($hasRole && !$require) {
+                        return true;
+                    } elseif (!$hasRole && $require) {
+                        return false;
+                    }
+                }
+                return $require;
+            } else {
+                foreach ($this->roles as $role) {
+                    if ($role->name == $name) {
                         return true;
                     }
                 }
             }
+            return false;
         }
-        return false;
-    }
-    
-    public function hasRole($name, $require = false)
-    {
-        if (is_array($name)){
-            foreach ($name as $roleName){
-                $hasRole = $this->hasRole($roleName);
-                if ($hasRole && !$require){
-                    return true;
-                } elseif (!$hasRole && $require){
-                    return false;
-                }
-            }
-            return $require;
-        } else {
-            foreach ($this->roles as $role){
-                if ($role->name == $name){
-                    return true;
-                }
+        
+        public function saveRoles($inputRoles)
+        {
+            if (!empty($inputRoles)) {
+                $this->roles()->sync($inputRoles);
+            } else {
+                $this->roles()->detach();
             }
         }
-        return false;
+        
     }
-    
-    public function saveRoles($inputRoles)
-    {
-        if(!empty($inputRoles)){
-            $this->roles()->sync($inputRoles);
-        } else {
-            $this->roles()->detach();
-        }
-    }
-    
-}
