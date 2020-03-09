@@ -45,7 +45,8 @@
                     'uses' => 'Admin\SchoolsController@add',
                     'as' => 'schools.add'
                 ]
-            );Route::post('schools/generate', [
+            );
+            Route::post('schools/generate', [
                     'uses' => 'Admin\SchoolsController@generate',
                     'as' => 'schools.generate'
                 ]
