@@ -7,11 +7,10 @@ use App\Repositories\SchoolsRepository;
 use App\School;
 use Illuminate\Http\Request;
 use ImportSchools;
+use Gate;
 
 class SchoolsController extends AdminController
 {
-    
-    protected $content = 'Підключення шкіл';
     
     /**
      * Display a listing of the resource.
@@ -20,7 +19,7 @@ class SchoolsController extends AdminController
      */
     public function index()
     {
-        $this->title .= $this->content;
+        $this->title .= 'Підключення шкіл';
         $schools = School::all();
         $this->content = view('admin.schools')
             ->with(['schools' => $schools])
@@ -92,7 +91,12 @@ class SchoolsController extends AdminController
      */
     public function edit($id)
     {
-        //
+        $school = School::with('admin')->where('id', $id)->first();
+        $this->title .= $school->name;
+        $this->content = view('admin.school_edit')
+            ->with(['school' => $school])
+            ->render();
+        return $this->renderOutput();
     }
 
     /**

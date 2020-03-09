@@ -4,7 +4,8 @@
             <thead>
                 <tr>
                     <th scope="col" style="text-align: center">Школа</th>
-                    <th scope="col" colspan="2" style="text-align: center">Статус</th>
+                    <th scope="col" style="text-align: center">{{__('messages.admin_name')}}</th>
+                    <th scope="col" style="text-align: center">Статус</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,18 +16,17 @@
                     </td>
                     <td style="text-align: center">
                         @if($school->admin_id != null)
-                            Підключено
+                            {{fullname($school->admin)}}
                         @else
                             <a class="btn btn-primary" href="{{route('schools.edit', ['school' => $school->id])}}" role="button">{{__('messages.school_admin_assign')}}</a>
                         @endif
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         <form action="{{route('schools.destroy', ['school' => $school->id])}}" method="post">
                             @csrf
                             {{ method_field('DELETE') }}
-{{--                            <a class="btn btn-danger" href="{{route('schools.destroy', ['school' => $school->id])}}" role="button">Видалити школу</a>--}}
                             <button type="submit" class="btn btn-danger">
-                                Видалити школу
+                                {{__('messages.school_delete')}}
                             </button>
                         </form>
                     </td>
