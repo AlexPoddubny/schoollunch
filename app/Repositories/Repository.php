@@ -28,5 +28,20 @@
         {
             return $this->model::withCount($table)->get();
         }
+    
+        public function new()
+        {
+            return new $this->model;
+        }
+        
+        public function save()
+        {
+            return $this->model->save();
+        }
+    
+        public function delete($id)
+        {
+            return $this->model::destroy($id);
+        }
         
     }

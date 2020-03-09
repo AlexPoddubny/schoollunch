@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th scope="col" style="text-align: center">Школа</th>
-                    <th scope="col" style="text-align: center">Статус</th>
+                    <th scope="col" colspan="2" style="text-align: center">Статус</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +20,16 @@
                             <a class="btn btn-primary" href="{{route('schools.edit', ['school' => $school->id])}}" role="button">{{__('messages.school_admin_assign')}}</a>
                         @endif
                     </td>
+                    <td>
+                        <form action="{{route('schools.destroy', ['school' => $school->id])}}" method="post">
+                            @csrf
+                            {{ method_field('DELETE') }}
+{{--                            <a class="btn btn-danger" href="{{route('schools.destroy', ['school' => $school->id])}}" role="button">Видалити школу</a>--}}
+                            <button type="submit" class="btn btn-danger">
+                                Видалити школу
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
@@ -27,7 +37,8 @@
     </div>
 @endif
 <br>
-<form method="post" action="{{route('schools.store')}}">
+<form method="post" action="{{route('schools.add')}}">
+    @csrf
     <div>
         <div class="form-group row">
             <label for="schoolname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name')}}</label>
@@ -42,6 +53,7 @@
 </form>
 <br>
 <form method="post" action="{{route('schools.generate')}}">
+    @csrf
     <div class="card">
         <div class="card-header">Додати школи пакетом</div>
         <div class="card-body">

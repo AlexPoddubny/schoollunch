@@ -12,13 +12,6 @@ class SchoolsController extends AdminController
 {
     
     protected $content = 'Підключення шкіл';
-    protected $school_rep;
-    
-    public function __construct(SchoolsRepository $school_rep)
-    {
-        parent::__construct();
-        $this->school_rep = $school_rep;
-    }
     
     /**
      * Display a listing of the resource.
@@ -28,7 +21,7 @@ class SchoolsController extends AdminController
     public function index()
     {
         $this->title .= $this->content;
-        $schools = $this->school_rep->get();
+        $schools = School::all();
         $this->content = view('admin.schools')
             ->with(['schools' => $schools])
             ->render();
@@ -38,15 +31,18 @@ class SchoolsController extends AdminController
     public function import()
     {
         foreach (ImportSchools::import() as $item){
-            $school = new School();
-            $school->name = $item;
-            $school->save();
+            School::create(['name' => $item]);
         }
+        return redirect(route('adminIndex'));
     }
     
     public function generate(Request $request)
     {
-    
+        $data = $request->except('_token');
+        for ($i = $data['firstnum']; $i <= $data['lastnum']; $i++){
+            School::create(['name' => $data['schoolname'] . ' ' . $i]);
+        }
+        return redirect(route('adminIndex'));
     }
     
     /**
@@ -68,6 +64,13 @@ class SchoolsController extends AdminController
     public function store(Request $request)
     {
         //
+    }
+    
+    public function add(Request $request)
+    {
+        $data = $request->only('schoolname');
+        School::create(['name' => $data['schoolname']]);
+        return redirect(route('adminIndex'));
     }
 
     /**
@@ -112,6 +115,7 @@ class SchoolsController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        School::destroy($id);
+        return redirect(route('adminIndex'));
     }
 }
