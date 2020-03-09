@@ -12,7 +12,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
-        "lavary/laravel-menu": "^1.7"
+        "lavary/laravel-menu": "^1.7",
+        "snapappointments/bootstrap-select": "^1.13"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
