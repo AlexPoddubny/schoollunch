@@ -93,6 +93,9 @@ class SchoolsController extends AdminController
     {
         $school = School::with('admin')->where('id', $id)->first();
         $this->title .= $school->name;
+        if ($school->admin == null){
+            $this->title .= ' - Не підключено';
+        }
         $this->content = view('admin.school_edit')
             ->with(['school' => $school])
             ->render();

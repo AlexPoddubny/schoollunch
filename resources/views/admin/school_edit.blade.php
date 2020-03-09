@@ -21,7 +21,7 @@
 
         <div class="col-md-6">
             <input id="adminname" type="text" class="form-control @error('adminname') is-invalid @enderror" name="adminname"
-                   value="{{ ($school->admin_id != null) ? fullname($school->admin) : 'No Admin' }}"
+                   value="{{ ($school->admin_id != null) ? fullname($school->admin) : 'Не призначено' }}"
                    required autocomplete="adminname" autofocus>
             @error('adminname')
                 <span class="invalid-feedback" role="alert">
