@@ -4,20 +4,22 @@
     
     use App\User;
     use Illuminate\Http\Request;
-    
+    use Illuminate\Support\Arr;
+
     class SearchController extends Controller
     {
         public function search(Request $request)
         {
             if ($request->ajax()) {
-                $name = $request->only('name');
-                $users = User::where('firstname', $name['name'])
-                    ->orWhere('middlename', $name['name'])
-                    ->orWhere('lastname', $name['name'])
+                $name = $request->only('adminname');
+                $users = User::where('firstname', $name['adminname'])
+                    ->orWhere('middlename', $name['adminname'])
+                    ->orWhere('lastname', $name['adminname'])
                     ->get();
-                $this->content = view('search')
+                $search = view('layouts.search')
                     ->with(['users' => $users])
                     ->render();
+                $this->vars = Arr::add($this->vars, 'search', $search);
                 return $this->renderOutput();
             }
         }
