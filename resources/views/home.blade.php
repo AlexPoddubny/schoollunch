@@ -14,8 +14,6 @@
                         </div>
                     @endif
 
-                        @livewire('search')
-
                 </div>
             </div>
         </div>
