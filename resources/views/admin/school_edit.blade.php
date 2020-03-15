@@ -1,6 +1,7 @@
 <form method="POST" action="{{ route('schools.store') }}">
     @csrf
     <input name="id" type="hidden" value="{{$school->id}}">
+    <input name="admin_id" id="admin-id" type="hidden" value="">
 
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.school_name') }}</label>
@@ -22,7 +23,7 @@
         <div class="col-md-6">
             <input id="adminname" type="text" class="form-control @error('adminname') is-invalid @enderror" name="adminname"
                    value="{{ ($school->admin_id != null) ? fullname($school->admin) : '' }}"
-                   required autocomplete="adminname" autofocus>
+                   autocomplete="adminname" autofocus>
             @error('adminname')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

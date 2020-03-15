@@ -3,7 +3,7 @@
     <ul class="list-group">
         @foreach($users as $user)
             <li class="list-group-item">
-                <a href="#" onclick="alert('Clicked!')">{{fullname($user)}}</a>
+                <a href="#" class="add-user" data-id="{{$user->id}}" data-name="{{fullname($user)}}">{{fullname($user)}}</a>
             </li>
         @endforeach
     </ul>
