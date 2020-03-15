@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\SchoolsRepository;
+use App\Repositories\UsersRepository;
 use App\School;
 use Illuminate\Http\Request;
 use ImportSchools;
@@ -12,10 +13,21 @@ use Gate;
 class SchoolsController extends AdminController
 {
     
+    protected $user_rep;
+    protected $school_rep;
+    
+    public function __construct(UsersRepository $user_rep, SchoolsRepository $school_rep)
+    {
+        parent::__construct();
+        $this->user_rep = $user_rep;
+        $this->school_rep = $school_rep;
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function index()
     {
@@ -62,7 +74,11 @@ class SchoolsController extends AdminController
      */
     public function store(Request $request)
     {
-        //
+        $result = $this->school_rep->saveAdmin($request);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return back()->with($result);
     }
     
     public function add(Request $request)

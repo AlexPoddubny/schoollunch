@@ -16,7 +16,7 @@
                     </td>
                     <td style="text-align: center">
                         @if($school->admin_id != null)
-                            {{fullname($school->admin)}}
+                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">{{fullname($school->admin)}}</a>
                         @else
                             <a class="btn btn-primary" href="{{route('schools.edit', ['school' => $school->id])}}" role="button">{{__('messages.school_admin_assign')}}</a>
                         @endif
