@@ -74,7 +74,7 @@ class SchoolsController extends AdminController
      */
     public function store(Request $request)
     {
-        $result = $this->school_rep->saveAdmin($request);
+        $result = $this->school_rep->saveSchool($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
@@ -87,32 +87,38 @@ class SchoolsController extends AdminController
         School::create(['name' => $data['schoolname']]);
         return redirect(route('adminIndex'));
     }
-
+    
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function show($id)
     {
-        //
+        $school = $this->school_rep->getWhere($id);
+        $this->content = view('admin.school')
+            ->with(['school' => $school])
+            ->render();
+        return $this->renderOutput();
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function edit($id)
+    public function edit($id, $type)
     {
-        $school = School::with('admin')->where('id', $id)->first();
+        $school = School::with($type)->where('id', $id)->first();
         $this->title .= $school->name;
-        if ($school->admin == null){
-            $this->title .= ' - Не підключено';
+        if ($school->$type == null){
+            $this->title .= ' - Не призначено';
         }
-        $this->content = view('admin.school_edit')
+        $this->content = view('admin.school_' . $type . '_edit')
             ->with(['school' => $school])
             ->render();
         return $this->renderOutput();

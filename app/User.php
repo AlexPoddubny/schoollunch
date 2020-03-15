@@ -49,6 +49,11 @@
             return $this->hasOne('App\School', 'admin_id');
         }
         
+        public function cook()
+        {
+            return $this->hasOne('App\School', 'cook_id');
+        }
+        
         public function can($permission, $require = false)
         {
             if (is_array($permission)) {

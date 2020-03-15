@@ -16,4 +16,10 @@
         {
             return $this->belongsTo('App\User', 'admin_id');
         }
+        
+        public function cook()
+        {
+            return $this->belongsTo('App\User', 'cook_id');
+        }
+        
     }

@@ -48,6 +48,11 @@
                     'as' => 'schools.add'
                 ]
             );
+            Route::get('schools/edit/{school}/{type}', [
+                    'uses' => 'Admin\SchoolsController@edit',
+                    'as' => 'schools.edit.type'
+                ]
+            );
             Route::post('schools/generate', [
                     'uses' => 'Admin\SchoolsController@generate',
                     'as' => 'schools.generate'

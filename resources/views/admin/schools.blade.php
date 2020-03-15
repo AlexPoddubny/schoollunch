@@ -5,6 +5,7 @@
                 <tr>
                     <th scope="col" style="text-align: center">Школа</th>
                     <th scope="col" style="text-align: center">{{__('messages.admin_name')}}</th>
+                    <th scope="col" style="text-align: center">{{__('messages.cook_name')}}</th>
                     <th scope="col" style="text-align: center">Статус</th>
                 </tr>
             </thead>
@@ -12,13 +13,22 @@
             @foreach($schools as $school)
                 <tr>
                     <td>
-                        <a href="{{ route('schools.edit', ['school' => $school->id]) }}">{{$school->name}}</a>
+                        <a href="{{ route('schools.show', ['school' => $school->id]) }}">{{$school->name}}</a>
                     </td>
+                    <!-- School Admin Assign -->
                     <td style="text-align: center">
                         @if($school->admin_id != null)
-                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">{{fullname($school->admin)}}</a>
+                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}" target="_blank">{{fullname($school->admin)}}</a>
                         @else
-                            <a class="btn btn-primary" href="{{route('schools.edit', ['school' => $school->id])}}" role="button">{{__('messages.school_admin_assign')}}</a>
+                            <a class="btn btn-primary" href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}" role="button">{{__('messages.assign')}}</a>
+                        @endif
+                    </td>
+                    <!-- School Cook Assign -->
+                    <td style="text-align: center">
+                        @if($school->cook_id != null)
+                            <a href="{{ route('users.show', ['user' => $school->cook->id]) }} "target="_blank">{{fullname($school->cook)}}</a>
+                        @else
+                            <a class="btn btn-primary" href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}" role="button">{{__('messages.assign')}}</a>
                         @endif
                     </td>
                     <td style="text-align: center">
@@ -26,7 +36,7 @@
                             @csrf
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-danger">
-                                {{__('messages.school_delete')}}
+                                {{__('messages.delete')}}
                             </button>
                         </form>
                     </td>

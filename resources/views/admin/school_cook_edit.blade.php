@@ -1,7 +1,7 @@
 <form method="POST" action="{{ route('schools.store') }}">
     @csrf
     <input name="id" type="hidden" value="{{$school->id}}">
-    <input name="admin_id" id="admin-id" type="hidden" value="">
+    <input name="cook_id" id="user-id" type="hidden" value="{{$school->cook_id ?? ''}}">
 
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.school_name') }}</label>
@@ -18,12 +18,12 @@
     </div>
 
     <div class="form-group row">
-        <label for="adminname" class="col-md-4 col-form-label text-md-right">{{ __('messages.admin_name') }}</label>
+        <label for="adminname" class="col-md-4 col-form-label text-md-right">{{ __('messages.cook_name') }}</label>
 
         <div class="col-md-6">
-            <input id="adminname" type="text" class="form-control @error('adminname') is-invalid @enderror" name="adminname"
-                   value="{{ ($school->admin_id != null) ? fullname($school->admin) : '' }}"
-                   autocomplete="adminname" autofocus>
+            <input id="username" type="text" class="form-control @error('adminname') is-invalid @enderror" name="username"
+                   value="{{ ($school->cook_id != null) ? fullname($school->cook) : '' }}"
+                   autocomplete="cookname" autofocus>
             @error('adminname')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">Обрати адміністратора</label>
+        <label for="name" class="col-md-4 col-form-label text-md-right">Обрати технолога шкільного комбінату харчування</label>
         <div class="col-md-6">
             @livewire('search')
         </div>

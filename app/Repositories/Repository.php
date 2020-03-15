@@ -43,5 +43,10 @@
         {
             return $this->model::destroy($id);
         }
+    
+        public function getWithRelated($index, $table, $key = 'id')
+        {
+            return $this->model::with($table)->where($key, $index);
+        }
         
     }
