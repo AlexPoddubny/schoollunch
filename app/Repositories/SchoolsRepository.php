@@ -5,6 +5,7 @@
     
     
     use App\School;
+    use App\User;
 
     class SchoolsRepository
         extends Repository
@@ -36,13 +37,7 @@
             }
             if ($type && isset($data[$type])){
                 $school->$type = $data[$type];
-                $user = $this->user_rep->getWithRelated($data[$type], 'roles')->first();
-                $role = $this->role_rep->getWhere($role_name, 'name')->toArray();
-                $roles = $user->roles->pluck('id')->toArray();
-                if (!in_array($role['id'], $roles)){
-                    $roles[] = $role['id'];
-                    $user->saveRoles($roles);
-                }
+                User::addRole($data[$type], $role_name);
             }
             $school->save();
             return ['status' => 'Інформацію про школу оновлено'];

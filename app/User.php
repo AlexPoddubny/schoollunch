@@ -109,5 +109,16 @@
                 $this->roles()->detach();
             }
         }
+    
+        public static function addRole($id, $role_name)
+        {
+            $user = static::with('roles')->where('id', $id)->first();
+            $role = Role::where('name', $role_name)->get()->first();
+            $roles = $user->roles->pluck('id')->toArray();
+            if (!in_array($role->id, $roles)){
+                $roles[] = $role->id;
+                $user->saveRoles($roles);
+            }
+        }
         
     }

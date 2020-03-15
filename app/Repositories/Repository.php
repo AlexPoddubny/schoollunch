@@ -46,7 +46,7 @@
     
         public function getWithRelated($index, $table, $key = 'id')
         {
-            return $this->model::with($table)->where($key, $index);
+            return $this->model::with($table)->where($key, $index)->first();
         }
         
     }
