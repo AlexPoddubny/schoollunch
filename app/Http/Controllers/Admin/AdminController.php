@@ -50,6 +50,9 @@ class AdminController extends Controller
                 $menu->add('Користувачі', ['route' => 'users.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
                 $menu->add('Ролі та дозволи', ['route' => 'roles.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
             }
+            if(Gate::allows('View_School_Admin')) {
+                $menu->add('Адміністрування школи', ['route' => 'school.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+            }
         });
     }
     

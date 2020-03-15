@@ -54,5 +54,6 @@
                 ]
             );
             Route::resource('schools', 'Admin\SchoolsController');
+            Route::resource('school', 'Admin\SchoolController');
         }
     );
