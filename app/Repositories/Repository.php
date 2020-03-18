@@ -21,7 +21,7 @@
     
         public function getWhere($id, $key = 'id')
         {
-            return $this->model::where($key, $id)->first();
+            return $this->model::where($key, $id)->get();
         }
     
         public function getWithRelationCount($table)
@@ -46,7 +46,22 @@
     
         public function getWithRelated($index, $table, $key = 'id')
         {
-            return $this->model::with($table)->where($key, $index)->first();
+            return $this->model::with($table)->where($key, $index)->get();
+        }
+        
+        public function getNotNull($key = 'id')
+        {
+            return $this->model::whereNotNull($key)->get();
+        }
+        
+        public function getNotNullWithRelated($table, $key = 'id')
+        {
+            return $this->model::with($table)->whereNotNull($key)->get();
+        }
+        
+        public function getAllWithRelated($table)
+        {
+            return $this->model::with($table)->get();
         }
         
     }

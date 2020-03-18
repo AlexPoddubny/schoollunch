@@ -25,7 +25,7 @@
 //                abort(403);
             }
             $data = $request->except('_token');
-            $role = $this->role_rep->getWhere($request->only('id'));
+            $role = $this->role_rep->getWhere($request->only('id'))->first();
             $role->savePermissions($data['perms'] ?? []);
             return ['status' => 'Права оновлено'];
         }

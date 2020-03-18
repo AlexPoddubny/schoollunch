@@ -32,7 +32,8 @@ class SchoolsController extends AdminController
     public function index()
     {
         $this->title .= 'Підключення шкіл';
-        $schools = School::all();
+//        $schools = School::all();
+        $schools = $this->school_rep->getAllWithRelated(['admin', 'cook']);
         $this->content = view('admin.schools')
             ->with(['schools' => $schools])
             ->render();
@@ -97,8 +98,9 @@ class SchoolsController extends AdminController
      */
     public function show($id)
     {
-        $school = $this->school_rep->getWhere($id);
-        $this->content = view('admin.school')
+//        $school = $this->school_rep->getWhere($id);
+        $school = $this->school_rep->getWhere($id)->first();
+        $this->content = view('admin.school_view')
             ->with(['school' => $school])
             ->render();
         return $this->renderOutput();

@@ -72,7 +72,7 @@ class RolesController extends AdminController
      */
     public function show($id)
     {
-        $role = $this->role_rep->getWhere($id);
+        $role = $this->role_rep->getWhere($id)->first();
         $perms = $this->perm_rep->get();
         $this->title .= 'Роль - ' . $role->description;
         $this->content = view('admin.role_edit')

@@ -21,5 +21,10 @@
         {
             return $this->belongsTo('App\User', 'cook_id');
         }
+    
+        public function breakTime()
+        {
+            return $this->hasMany('App\BreakTime');
+        }
         
     }

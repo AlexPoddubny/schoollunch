@@ -46,12 +46,12 @@
         
         public function school()
         {
-            return $this->hasOne('App\School', 'admin_id');
+            return $this->hasMany('App\School', 'admin_id');
         }
         
         public function cook()
         {
-            return $this->hasOne('App\School', 'cook_id');
+            return $this->hasMany('App\School', 'cook_id');
         }
         
         public function can($permission, $require = false)

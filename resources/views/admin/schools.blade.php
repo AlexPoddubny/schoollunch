@@ -49,16 +49,14 @@
 <br>
 <form method="post" action="{{route('schools.add')}}">
     @csrf
-    <div>
-        <div class="form-group row">
-            <label for="schoolname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name')}}</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="schoolname">
-            </div>
-            <button type="submit" class="btn btn-primary">
-                {{__('messages.add_school')}}
-            </button>
+    <div class="form-group row">
+        <label for="schoolname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name')}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="schoolname">
         </div>
+        <button type="submit" class="btn btn-primary">
+            {{__('messages.add_school')}}
+        </button>
     </div>
 </form>
 <br>

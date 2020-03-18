@@ -24,7 +24,7 @@
         public function saveSchool($request)
         {
             $data = $request->except('_token');
-            $school = $this->getWhere($data['id']);
+            $school = $this->getWhere($data['id'])->first();
             $school->name = $data['name'];
             $type = false;
             if (isset($data['admin_id'])){
@@ -37,7 +37,7 @@
             }
             if ($type && isset($data[$type])){
                 $school->$type = $data[$type];
-                User::addRole($data[$type], $role_name);
+                User::addRole($data[$type], $role_name); //change to attach()
             }
             $school->save();
             return ['status' => 'Інформацію про школу оновлено'];

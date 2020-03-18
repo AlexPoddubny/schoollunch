@@ -59,6 +59,17 @@
                 ]
             );
             Route::resource('schools', 'Admin\SchoolsController');
+            
+            Route::post('school/select', [
+                    'uses' => 'Admin\SchoolController@select',
+                    'as' => 'school.select'
+                ]
+            );
+            Route::post('school/add_break', [
+                    'uses' => 'Admin\SchoolController@addBreak',
+                    'as' => 'school.add_break'
+                ]
+            );
             Route::resource('school', 'Admin\SchoolController');
         }
     );
