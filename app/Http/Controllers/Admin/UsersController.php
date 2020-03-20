@@ -70,7 +70,7 @@ class UsersController extends AdminController
     public function show($id)
     {
         $user = $this->user_rep->getWhere($id)->first();
-        $roles = $this->role_rep->get();
+        $roles = $this->role_rep->getAll();
         $this->title .= 'Користувач - ' . fullname($user);
         $this->content = view('admin.user_edit')
             ->with(['user' => $user, 'roles' => $roles])

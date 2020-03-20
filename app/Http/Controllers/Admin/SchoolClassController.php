@@ -2,24 +2,43 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\PermissionsRepository;
-use App\Repositories\RolesRepository;
-use App\Role;
+use App\Repositories\BreakTimesRepository;
+use App\Repositories\CategoriesRepository;
+use App\Repositories\SchoolClassesRepository;
+use App\Repositories\SchoolsRepository;
+use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 
-class RolesController extends AdminController
+class SchoolClassController
+    extends AdminController
 {
     
-    protected $perm_rep;
-    protected $role_rep;
+    protected $user_rep;
+    protected $school_rep;
+    protected $class_rep;
+    protected $breaks_rep;
+    protected $cat_rep;
     
-    public function __construct(PermissionsRepository $perm_rep, RolesRepository $role_rep)
+    protected $related = [
+        'school.breakTime',
+        'teacher',
+        'category'
+    ];
+    
+    public function __construct(
+        UsersRepository $user_rep,
+        SchoolsRepository $school_rep,
+        SchoolClassesRepository $class_rep,
+        BreakTimesRepository $breaks_rep,
+        CategoriesRepository $cat_rep
+    )
     {
         parent::__construct();
-        $this->perm_rep = $perm_rep;
-        $this->role_rep = $role_rep;
-//        $this->template = 'admin.roles';
+        $this->user_rep = $user_rep;
+        $this->class_rep = $class_rep;
+        $this->school_rep = $school_rep;
+        $this->breaks_rep = $breaks_rep;
+        $this->cat_rep = $cat_rep;
     }
     
     /**
@@ -29,12 +48,7 @@ class RolesController extends AdminController
      */
     public function index()
     {
-        $this->title .= 'Ролі та дозволи';
-        $roles = $this->role_rep->getWithRelationCount('users');
-        $this->content = view('admin.roles_content')
-            ->with(['roles' => $roles])
-            ->render();
-        return $this->renderOutput();
+        //
     }
 
     /**
@@ -55,13 +69,11 @@ class RolesController extends AdminController
      */
     public function store(Request $request)
     {
-        $result = $this->perm_rep->changePermissions($request);
-    
+        /*$result = $this->class_rep->saveClass($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-    
-        return back()->with($result);
+        return back()->with($result);*/
     }
 
     /**
@@ -72,13 +84,7 @@ class RolesController extends AdminController
      */
     public function show($id)
     {
-        $role = $this->role_rep->getWhere($id)->first();
-        $perms = $this->perm_rep->getAll();
-        $this->title .= 'Роль - ' . $role->description;
-        $this->content = view('admin.role_edit')
-            ->with(['role' => $role, 'perms' => $perms])
-            ->render();
-        return $this->renderOutput();
+        //
     }
 
     /**
@@ -89,7 +95,16 @@ class RolesController extends AdminController
      */
     public function edit($id)
     {
-        //
+        $schoolClass = $this->class_rep->getWithRelated($id, $this->related)->first();
+        dump($schoolClass);
+        $this->title .= $schoolClass->school->name . ': ' . $schoolClass->name;
+        $cat = $this->cat_rep->getAll();
+        dump($cat);
+        $this->content = view('admin.schoolClass_edit')
+            ->with(['schoolClass' => $schoolClass])
+            ->with(['categories' => $cat])
+            ->render();
+        return $this->renderOutput();
     }
 
     /**

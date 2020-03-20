@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\BreakTime;
-use App\Http\Controllers\Controller;
 use App\Repositories\BreakTimesRepository;
+use App\Repositories\SchoolClassesRepository;
 use App\Repositories\SchoolsRepository;
 use App\Repositories\UsersRepository;
+use App\SchoolClass;
 use Illuminate\Http\Request;
 
 class SchoolController
@@ -16,22 +17,29 @@ class SchoolController
     protected $user_rep;
     protected $school_rep;
     protected $breaks_rep;
+    protected $classes_rep;
     
     protected $related = [
         'admin',
         'cook',
-        'breakTime'
+        'breakTime',
+        'schoolClass.teacher',
+        'schoolClass.category',
+        'schoolClass.breakTime'
     ];
     
     public function __construct(
         UsersRepository $user_rep,
         SchoolsRepository $school_rep,
-        BreakTimesRepository $breaks_rep)
+        BreakTimesRepository $breaks_rep,
+        SchoolClassesRepository $classes_rep
+    )
     {
         parent::__construct();
         $this->user_rep = $user_rep;
         $this->school_rep = $school_rep;
         $this->breaks_rep = $breaks_rep;
+        $this->classes_rep = $classes_rep;
     }
     
     /**
@@ -103,7 +111,7 @@ class SchoolController
     public function show($id)
     {
         $school = $this->school_rep->getWithRelated($id, $this->related)->first();
-//        dd($school->breakTime);
+        dump($school);
         $this->title .= $school->name;
         $this->content = view('admin.school_index')
             ->with(['school' => $school])
@@ -113,11 +121,6 @@ class SchoolController
     
     public function addBreak(Request $request)
     {
-        /*$result = $this->breaks_rep->addBreak($request);
-        if(is_array($result) && !empty($result['error'])) {
-            return back()->with($result);
-        }
-        return back()->with($result);*/
         $data = $request->except('_token');
         $break = new BreakTime([
             'break_num' => $data['break_num'],
@@ -128,6 +131,24 @@ class SchoolController
         return redirect(route('school.show', [
             'school' => $data['school_id']
         ]));
+    }
+    
+    public function addClass(Request $request)
+    {
+        $data = $request->except('_token');
+        $schoolClass = new schoolClass([
+            'name' => $data['classname'],
+        ]);
+        $school = $this->school_rep->getWhere($data['school_id'])->first();
+        $school->schoolClass()->save($schoolClass);
+        return redirect(route('school.show', [
+            'school' => $data['school_id']
+        ]));
+    }
+    
+    public function copyClass()
+    {
+        //
     }
 
     /**

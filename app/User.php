@@ -53,6 +53,11 @@
         {
             return $this->hasMany('App\School', 'cook_id');
         }
+    
+        public function schoolClass()
+        {
+            return $this->hasOne('App\SchoolClass', 'teacher_id');
+        }
         
         public function can($permission, $require = false)
         {

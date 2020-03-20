@@ -9,7 +9,7 @@
     {
         protected $model = false;
     
-        public function get()
+        public function getAll()
         {
             return $this->model::all();
         }

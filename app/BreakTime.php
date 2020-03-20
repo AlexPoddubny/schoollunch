@@ -20,5 +20,10 @@
         {
             return $this->belongsTo('App\School');
         }
+    
+        public function schoolClass()
+        {
+            return $this->hasMany('App\SchoolClass');
+        }
         
     }

@@ -70,6 +70,17 @@
                     'as' => 'school.add_break'
                 ]
             );
+            Route::post('school/add_class', [
+                    'uses' => 'Admin\SchoolController@addClass',
+                    'as' => 'school.add_class'
+                ]
+            );
+            Route::post('school/copy_class/{class}', [
+                    'uses' => 'Admin\SchoolController@copyClass',
+                    'as' => 'school.copy_class'
+                ]
+            );
             Route::resource('school', 'Admin\SchoolController');
+            Route::resource('schoolclass', 'Admin\SchoolClassController');
         }
     );

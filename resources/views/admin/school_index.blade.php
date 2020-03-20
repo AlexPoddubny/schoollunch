@@ -1,7 +1,6 @@
 <div class="card">
     <div class="card-header">Перерви</div>
     <div class="table-responsive">
-{{--        <label class="col-form-label"></label>--}}
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -10,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($school->breakTime as $breakTime)
+                @foreach($school->breakTime as $n => $breakTime)
                     <tr>
                         <td scope="col" style="text-align: center">{{$breakTime->break_num}}</td>
                         <td scope="col" style="text-align: center">{{$breakTime->break_time}}</td>
@@ -26,7 +25,7 @@
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="break_num">Номер перерви</label>
-                    <input name="break_num" value="1" class="form-control" type="number">
+                    <input name="break_num" value="{{isset($n) ? $n + 2 : 1}}" class="form-control" type="number">
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -52,6 +51,54 @@
         </div>
     </form>
 </div>
+<br>
 <div class="card">
     <div class="card-header">Класи</div>
+    <br>
+    <form method="post" action="{{route('school.add_class')}}">
+        @csrf
+        <input name="school_id" type="hidden" value="{{$school->id}}">
+        <div class="form-group row">
+            <label for="classname" class="col-md-4 col-form-label text-md-right">{{__('messages.class_name')}}</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="classname">
+            </div>
+            <button type="submit" class="btn btn-primary">
+                {{__('messages.add_class')}}
+            </button>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col" style="text-align: center">Клас</th>
+                <th scope="col" style="text-align: center">Обідня перерва</th>
+                <th scope="col" style="text-align: center">Категорія</th>
+                <th scope="col" style="text-align: center">Класний керівник</th>
+                <th scope="col" style="text-align: center">Опції</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($school->schoolClass as $schoolClass)
+                <tr>
+                    <td scope="col" style="text-align: center">
+                        <a href="{{route('schoolclass.edit', ['schoolclass' => $schoolClass->id])}}">{{$schoolClass->name}}</a>
+                    </td>
+                    <td scope="col" style="text-align: center">{{$schoolClass->break_id == null ? 'Не вказано' : $schoolClass->breakTime->break_time}}</td>
+                    <td scope="col" style="text-align: center">{{$schoolClass->category->name ?? 'Не вказано'}}</td>
+                    <td scope="col" style="text-align: center">{{$schoolClass->teacher_id == null ? 'Не призначено' : fullname($schoolClass->teacher)}}</td>
+                    <td scope="col" style="text-align: center">
+                        <form method="post" action="{{route('school.copy_class', ['class' => $schoolClass->id])}}">
+                            @csrf
+                            <button type="submit" class="btn btn-primary" id="copy_class">
+                                {{__('messages.copy_class')}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>

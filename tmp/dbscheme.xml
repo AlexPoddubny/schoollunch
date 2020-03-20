@@ -144,13 +144,13 @@
         </key>
         <comment>Перечень школ</comment>
     </table>
-    <table x="816" y="91" name="classes">
+    <table x="809" y="91" name="classes">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
         <row name="teacher_id" null="1" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="teachers" row="id" />
+            <default>NULL</default><relation table="users" row="id" />
         </row>
         <row name="school_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
@@ -163,22 +163,6 @@
         <row name="break_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="breaks" row="id" />
-        </row>
-        <key type="PRIMARY" name="">
-            <part>id</part>
-        </key>
-    </table>
-    <table x="410" y="145" name="teachers">
-        <row name="id" null="1" autoincrement="1">
-            <datatype>INTEGER</datatype>
-            <default>NULL</default></row>
-        <row name="user_id" null="0" autoincrement="0">
-            <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="users" row="id" />
-        </row>
-        <row name="school_id" null="0" autoincrement="0">
-            <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="schools" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
