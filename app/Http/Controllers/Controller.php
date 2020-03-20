@@ -31,15 +31,6 @@ class Controller extends BaseController
         });
     }
     
-    /*public function renderOutput()
-    {
-        $this->vars = Arr::add($this->vars, 'title', $this->title);
-        if($this->content){
-            $this->vars = Arr::add($this->vars, 'content', $this->content);
-        }
-        return view($this->template)->with($this->vars);
-    }*/
-    
     public function renderOutput()
     {
         $this->vars = Arr::add($this->vars, 'title', $this->title);
@@ -56,7 +47,7 @@ class Controller extends BaseController
     {
         return \Menu::make('mainMenu', function ($menu){
             if(Gate::allows('View_Class')) {
-                $menu->add('Класне керівництво', ['route' => 'schoolclass.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+                $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
             }
             if(Gate::allows(['View_Admin', 'View_School_Admin'])) {
                 $menu->add('Адмініструвати', ['url' => 'admin', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);

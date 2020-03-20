@@ -45,7 +45,7 @@
                 $schoolClass->category_id = $data['category_id'];
             }
             $schoolClass->save();
-            return ['status' => 'Інформацію про школу оновлено'];
+            return ['status' => 'Інформацію про клас оновлено'];
         }
         
     }

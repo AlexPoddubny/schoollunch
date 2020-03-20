@@ -21,7 +21,7 @@
     
 //    Route::get('/search','SearchController@search')->name('search');
     
-    Route::resource('schoolclass', 'SchoolClassController');
+    Route::resource('students', 'StudentsController');
     
     Route::group([
             'prefix' => 'admin',

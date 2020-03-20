@@ -7,7 +7,7 @@
     class SchoolClass extends Model
     {
     
-        public $timestamps = FALSE;
+        public $timestamps = false;
         
         protected $fillable = [
             'name',
@@ -34,6 +34,11 @@
         public function category()
         {
             return $this->belongsTo('App\Category');
+        }
+    
+        public function student()
+        {
+            return $this->hasMany('App\Student', 'class_id');
         }
         
     }

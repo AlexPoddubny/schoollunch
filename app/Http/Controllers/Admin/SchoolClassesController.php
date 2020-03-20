@@ -13,10 +13,7 @@ class SchoolClassesController
     extends AdminController
 {
     
-    protected $user_rep;
-    protected $school_rep;
     protected $class_rep;
-    protected $breaks_rep;
     protected $cat_rep;
     
     protected $related = [
@@ -26,18 +23,12 @@ class SchoolClassesController
     ];
     
     public function __construct(
-        UsersRepository $user_rep,
-        SchoolsRepository $school_rep,
         SchoolClassesRepository $class_rep,
-        BreakTimesRepository $breaks_rep,
         CategoriesRepository $cat_rep
     )
     {
         parent::__construct();
-        $this->user_rep = $user_rep;
         $this->class_rep = $class_rep;
-        $this->school_rep = $school_rep;
-        $this->breaks_rep = $breaks_rep;
         $this->cat_rep = $cat_rep;
     }
     
@@ -69,11 +60,11 @@ class SchoolClassesController
      */
     public function store(Request $request)
     {
-        /*$result = $this->class_rep->saveClass($request);
+        $result = $this->class_rep->saveClass($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-        return back()->with($result);*/
+        return back()->with($result);
     }
 
     /**

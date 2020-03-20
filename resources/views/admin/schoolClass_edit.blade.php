@@ -1,71 +1,80 @@
-<form method="POST" action="{{ route('schoolclass.store') }}">
-    @csrf
-    <input name="id" type="hidden" value="{{$schoolClass->id}}">
+<div class="card">
+    <div class="card-header">Головна інформація</div>
+    <br>
+    <form method="POST" action="{{ route('schoolclass.store') }}">
+        @csrf
+        <input name="id" type="hidden" value="{{$schoolClass->id}}">
 
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.class_name') }}</label>
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.class_name') }}</label>
 
-        <div class="col-md-6">
-            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $schoolClass->name }}" required autocomplete="name" autofocus>
+            <div class="col-md-6">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $schoolClass->name }}" required autocomplete="name" autofocus>
 
-            @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <label for="lunchbreak" class="col-md-4 col-form-label text-md-right">{{ __('messages.lunch_break') }}</label>
-        <div class="col-md-6">
-            <select name="break_id" class="form-control">
-                <option disabled {{($schoolClass->break_id == null) ? 'selected' : ''}}>Оберіть обідню перерву</option>
-                @foreach($schoolClass->school->breakTime as $breakTime)
-                    <option value="{{$breakTime->id}}" {{($schoolClass->break_id == $breakTime->id) ? 'selected' : ''}}>{{$breakTime->break_time}}</option>
-                @endforeach
-            </select>
+        <div class="form-group row">
+            <label for="lunchbreak" class="col-md-4 col-form-label text-md-right">{{ __('messages.lunch_break') }}</label>
+            <div class="col-md-6">
+                <select name="break_id" class="form-control">
+                    <option disabled {{($schoolClass->break_id == null) ? 'selected' : ''}}>Оберіть обідню перерву</option>
+                    @foreach($schoolClass->school->breakTime as $breakTime)
+                        <option value="{{$breakTime->id}}" {{($schoolClass->break_id == $breakTime->id) ? 'selected' : ''}}>{{$breakTime->break_time}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('messages.category') }}</label>
-        <div class="col-md-6">
-            <select name="category_id" class="form-control">
-                <option disabled {{($schoolClass->category_id == null) ? 'selected' : ''}}>Оберіть категорію харчування</option>
-                @foreach($categories as $category)
-                    <option value="{{$category->id}}" {{$schoolClass->category_id == $category->id ? 'selected' : ''}}>{{$category->name}}</option>
-                @endforeach
-            </select>
+        <div class="form-group row">
+            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('messages.category') }}</label>
+            <div class="col-md-6">
+                <select name="category_id" class="form-control">
+                    <option disabled {{($schoolClass->category_id == null) ? 'selected' : ''}}>Оберіть категорію харчування</option>
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}" {{$schoolClass->category_id == $category->id ? 'selected' : ''}}>{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <input name="teacher_id" id="user-id" type="hidden" value="{{$schoolClass->teacher_id ?? ''}}">
-        <label for="teacher" class="col-md-4 col-form-label text-md-right">{{ __('messages.teacher') }}</label>
+        <div class="form-group row">
+            <input name="teacher_id" id="user-id" type="hidden" value="{{$schoolClass->teacher_id ?? ''}}">
+            <label for="teacher" class="col-md-4 col-form-label text-md-right">{{ __('messages.teacher') }}</label>
 
-        <div class="col-md-6">
-            <input id="username" type="text" class="form-control @error('teacher') is-invalid @enderror"
-                   value="{{ ($schoolClass->teacher_id != null) ? fullname($schoolClass->teacher) : '' }}"
-                   autocomplete="teacher" autofocus>
-            @error('adminname')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+            <div class="col-md-6">
+                <input id="username" type="text" class="form-control @error('teacher') is-invalid @enderror"
+                       value="{{ ($schoolClass->teacher_id != null) ? fullname($schoolClass->teacher) : '' }}"
+                       autocomplete="teacher" autofocus>
+                @error('adminname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">Обрати класного керівника</label>
-        <div class="col-md-6">
-            @livewire('search')
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label text-md-right">Обрати класного керівника</label>
+            <div class="col-md-6">
+                @livewire('search')
+            </div>
         </div>
-    </div>
-    <div class="form-group row mb-0">
-        <div class="col-md-6 offset-md-4">
-            <button type="submit" class="btn btn-primary">
-                {{ __('messages.save_changes') }}
-            </button>
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('messages.save_changes') }}
+                </button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+    <br>
+</div>
+<br>
+<div class="card">
+    <div class="card-header">Учні класу</div>
+</div>
