@@ -9,7 +9,7 @@ use App\Repositories\SchoolsRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
 
-class SchoolClassController
+class SchoolClassesController
     extends AdminController
 {
     
@@ -96,10 +96,8 @@ class SchoolClassController
     public function edit($id)
     {
         $schoolClass = $this->class_rep->getWithRelated($id, $this->related)->first();
-        dump($schoolClass);
         $this->title .= $schoolClass->school->name . ': ' . $schoolClass->name;
         $cat = $this->cat_rep->getAll();
-        dump($cat);
         $this->content = view('admin.schoolClass_edit')
             ->with(['schoolClass' => $schoolClass])
             ->with(['categories' => $cat])

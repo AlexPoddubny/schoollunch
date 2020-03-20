@@ -19,7 +19,9 @@
     
     Route::get('/home', 'HomeController@index')->name('home');
     
-    Route::get('/search','SearchController@search')->name('search');
+//    Route::get('/search','SearchController@search')->name('search');
+    
+    Route::resource('schoolclass', 'SchoolClassController');
     
     Route::group([
             'prefix' => 'admin',
@@ -81,6 +83,6 @@
                 ]
             );
             Route::resource('school', 'Admin\SchoolController');
-            Route::resource('schoolclass', 'Admin\SchoolClassController');
+            Route::resource('schoolclass', 'Admin\SchoolClassesController');
         }
     );

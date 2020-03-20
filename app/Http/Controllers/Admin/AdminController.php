@@ -15,11 +15,11 @@ class AdminController extends Controller
 
 //    protected $user;
     protected $title = 'Адміністрування: ';
-    protected $template = 'admin.index';
-    
+//    protected $template = 'admin.index';
+
 //    protected $vars = [];
     
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
@@ -28,20 +28,20 @@ class AdminController extends Controller
             };
             return $next($request);
         });
-    }
+    }*/
     
-    public function renderOutput()
+    /*public function renderOutput()
     {
         $this->vars = Arr::add($this->vars, 'title', $this->title);
         $menu = $this->getMenu();
-        $navigation = view('admin.navigation')->with('menu', $menu)->render();
+        $navigation = view('navigation')->with('menu', $menu)->render();
         $this->vars = Arr::add($this->vars, 'navigation', $navigation);
         if($this->content){
             $this->vars = Arr::add($this->vars, 'content', $this->content);
         }
         return view($this->template)->with($this->vars);
     }
-    
+    */
     public function getMenu()
     {
         return \Menu::make('adminMenu', function ($menu){

@@ -111,7 +111,6 @@ class SchoolController
     public function show($id)
     {
         $school = $this->school_rep->getWithRelated($id, $this->related)->first();
-        dump($school);
         $this->title .= $school->name;
         $this->content = view('admin.school_index')
             ->with(['school' => $school])

@@ -14,9 +14,12 @@ class HomeController extends Controller
      */
     
 //    public $vars = [];
+
+    public $content = 'Головна сторінка';
     
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth');
         
     }
@@ -29,6 +32,6 @@ class HomeController extends Controller
     public function index()
     {
         $this->vars = Arr::add($this->vars, 'title', config('app.name', 'Laravel'));
-        return view('home')->with($this->vars);
+        return $this->renderOutput();
     }
 }
