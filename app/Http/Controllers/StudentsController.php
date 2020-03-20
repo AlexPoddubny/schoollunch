@@ -2,8 +2,10 @@
     
     namespace App\Http\Controllers;
     
+    use App\BreakTime;
     use App\Repositories\SchoolClassesRepository;
     use App\Repositories\StudentsRepository;
+    use App\Student;
     use Illuminate\Http\Request;
     
     class StudentsController extends Controller
@@ -16,9 +18,9 @@
         
         protected $students;
         protected $class_rep;
+        protected $id;
     
         protected $related = [
-            'school',
             'student'
         ];
         
@@ -31,17 +33,26 @@
     
         public function index()
         {
-            $classId = $this->user->schoolClass;
-            if(!$classId){
+            $schoolClass = $this->user->schoolClass;
+            if(!$schoolClass){
                 abort(403); //в дальнейшем переделать на Gate::denies
             }
 //            $students = $this->students->getWithRelated($classId, $this->related, 'class_id');
-            $students = $this->students->getWhere($classId, 'class_id');
+            $students = $this->students->getWhere($schoolClass->id, 'class_id');
             dump($students);
             $this->content = view('students_index')
                 ->with(['students' => $students])
                 ->render();
             return $this->renderOutput();
+        }
+    
+        public function add(Request $request)
+        {
+            $data = $request->except('_token');
+            $student = new Student();
+            $student->fill($data);
+            $this->user->schoolClass->student()->save($student);
+            return redirect(route('students.index'));
         }
         
         /**

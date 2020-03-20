@@ -21,6 +21,12 @@
     
 //    Route::get('/search','SearchController@search')->name('search');
     
+    Route::post('students/add', [
+            'uses' => 'StudentsController@add',
+            'as' => 'students.add'
+        ]
+    );
+    
     Route::resource('students', 'StudentsController');
     
     Route::group([

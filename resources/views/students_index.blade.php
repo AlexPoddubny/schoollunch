@@ -1,4 +1,16 @@
-
+<form method="post" action="{{route('students.add')}}">
+    @csrf
+    <div class="form-group row">
+        <label for="fullname" class="col-md-4 col-form-label text-md-right">{{__('messages.student_name')}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="fullname">
+        </div>
+        <button type="submit" class="btn btn-primary">
+            {{__('messages.add')}}
+        </button>
+    </div>
+</form>
+<br>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
