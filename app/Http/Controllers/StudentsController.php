@@ -42,10 +42,20 @@
     
         public function add(Request $request)
         {
-            $data = $request->except('_token');
-            $student = new Student($data);
-            $this->user->schoolClass->student()->save($student);
-            return redirect(route('students.index'));
+            $result = $this->students->add($request, $this->user->schoolClass);
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+            return back()->with($result);
+        }
+    
+        public function addMass(Request $request)
+        {
+            $result = $this->students->addMass($request, $this->user->schoolClass);
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+            return back()->with($result);
         }
         
         /**

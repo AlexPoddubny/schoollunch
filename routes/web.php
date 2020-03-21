@@ -26,6 +26,11 @@
             'as' => 'students.add'
         ]
     );
+    Route::post('students/addmass', [
+            'uses' => 'StudentsController@addMass',
+            'as' => 'students.addmass'
+        ]
+    );
     
     Route::resource('students', 'StudentsController');
     
