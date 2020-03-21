@@ -19,7 +19,8 @@ class SchoolClassesController
     protected $related = [
         'school.breakTime',
         'teacher',
-        'category'
+        'category',
+//        'student'
     ];
     
     public function __construct(
@@ -87,10 +88,12 @@ class SchoolClassesController
     public function edit($id)
     {
         $schoolClass = $this->class_rep->getWithRelated($id, $this->related)->first();
+        $students = $schoolClass->student()->get();
         $this->title .= $schoolClass->school->name . ': ' . $schoolClass->name;
         $cat = $this->cat_rep->getAll();
         $this->content = view('admin.schoolClass_edit')
             ->with(['schoolClass' => $schoolClass])
+            ->with(['students' => $students])
             ->with(['categories' => $cat])
             ->render();
         return $this->renderOutput();

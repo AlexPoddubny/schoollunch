@@ -77,4 +77,6 @@
 <br>
 <div class="card">
     <div class="card-header">Учні класу</div>
+    <br>
+    @include('students_index')
 </div>

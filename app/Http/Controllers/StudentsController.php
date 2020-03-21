@@ -19,10 +19,6 @@
         protected $students;
         protected $class_rep;
         protected $id;
-    
-        protected $related = [
-            'student'
-        ];
         
         public function __construct(StudentsRepository $students, SchoolClassesRepository $class_rep)
         {
@@ -37,9 +33,7 @@
             if(!$schoolClass){
                 abort(403); //в дальнейшем переделать на Gate::denies
             }
-//            $students = $this->students->getWithRelated($classId, $this->related, 'class_id');
-            $students = $this->students->getWhere($schoolClass->id, 'class_id');
-            dump($students);
+            $students = $schoolClass->student()->get()->sortBy('fullname');
             $this->content = view('students_index')
                 ->with(['students' => $students])
                 ->render();
@@ -49,8 +43,7 @@
         public function add(Request $request)
         {
             $data = $request->except('_token');
-            $student = new Student();
-            $student->fill($data);
+            $student = new Student($data);
             $this->user->schoolClass->student()->save($student);
             return redirect(route('students.index'));
         }
