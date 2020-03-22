@@ -58,6 +58,11 @@
         {
             return $this->hasOne('App\SchoolClass', 'teacher_id');
         }
+    
+        public function children()
+        {
+            return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id');
+        }
         
         public function can($permission, $require = false)
         {

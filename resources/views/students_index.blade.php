@@ -27,7 +27,7 @@
     </table>
 </div>
 <div class="card">
-    <div class="card-header">Dashboard</div>
+    <div class="card-header">Додавання учнів</div>
     <br>
     <form method="post" action="{{route('students.add')}}">
         @csrf
