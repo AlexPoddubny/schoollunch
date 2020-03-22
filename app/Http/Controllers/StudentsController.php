@@ -39,24 +39,6 @@
                 ->render();
             return $this->renderOutput();
         }
-    
-        public function add(Request $request)
-        {
-            $result = $this->students->add($request, $this->user->schoolClass);
-            if(is_array($result) && !empty($result['error'])) {
-                return back()->with($result);
-            }
-            return back()->with($result);
-        }
-    
-        public function addMass(Request $request)
-        {
-            $result = $this->students->addMass($request, $this->user->schoolClass);
-            if(is_array($result) && !empty($result['error'])) {
-                return back()->with($result);
-            }
-            return back()->with($result);
-        }
         
         /**
          * Show the form for creating a new resource.
@@ -76,7 +58,17 @@
          */
         public function store(Request $request)
         {
-            //
+            if (isset($request['fullname'])){
+                $result = $this->students->add($request, $this->user->schoolClass);
+            } elseif (isset($request['list'])){
+                $result = $this->students->addMass($request, $this->user->schoolClass);
+            } else {
+                return back();
+            }
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+            return back()->with($result);
         }
         
         /**

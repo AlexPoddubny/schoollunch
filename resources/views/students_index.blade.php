@@ -29,7 +29,7 @@
 <div class="card">
     <div class="card-header">Додавання учнів</div>
     <br>
-    <form method="post" action="{{route('students.add')}}">
+    <form method="post" action="{{route('students.store')}}">
         @csrf
         <div class="form-group row">
             <label for="fullname" class="col-md-4 col-form-label text-md-right">{{__('messages.student_name')}}</label>
@@ -42,7 +42,7 @@
         </div>
     </form>
     <br>
-    <form action="{{route('students.addmass')}}" method="post">
+    <form action="{{route('students.store')}}" method="post">
         @csrf
         <div class="form-group row">
             <label for="textarea" class="col-md-12 col-form-label text-md-center">Додати учнів за списком</label>
