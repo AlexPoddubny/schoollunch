@@ -44,6 +44,12 @@
             return $this->model::destroy($id);
         }
     
+        /**
+         * @param $index
+         * @param $table
+         * @param string $key
+         * @return mixed
+         */
         public function getWithRelated($index, $table, $key = 'id')
         {
             return $this->model::with($table)->where($key, $index)->get();
@@ -53,7 +59,12 @@
         {
             return $this->model::whereNotNull($key)->get();
         }
-        
+    
+        /**
+         * @param $table
+         * @param string $key
+         * @return mixed
+         */
         public function getNotNullWithRelated($table, $key = 'id')
         {
             return $this->model::with($table)->whereNotNull($key)->get();

@@ -2,7 +2,9 @@
     
     namespace App\Http\Controllers;
     
+    use App\Repositories\SchoolClassesRepository;
     use App\Repositories\SchoolsRepository;
+    use App\School;
     use Illuminate\Http\Request;
     use Illuminate\Support\Arr;
     
@@ -10,6 +12,7 @@
     {
         
         public $school_rep;
+        public $classes_rep;
         
         
         /**
@@ -17,12 +20,11 @@
          *
          * @return void
          */
-        public function __construct(SchoolsRepository $school_rep)
+        public function __construct(SchoolsRepository $school_rep, SchoolClassesRepository $classes_rep)
         {
-//        parent::__construct();
             $this->middleware('auth');
             $this->school_rep = $school_rep;
-            
+            $this->classes_rep = $classes_rep;
         }
         
         /**
@@ -32,13 +34,21 @@
          */
         public function index(Request $request)
         {
-            $this->vars = Arr::add($this->vars, 'title', config('app.name', 'Laravel'));
+            $this->vars = Arr::add($this->vars, 'title', '');
             $schools = $this->school_rep->getNotNull('admin_id');
-            dump($schools);
             $this->content = view('children')
                 ->with(['schools' => $schools])
                 ->render();
             return $this->renderOutput();
+        }
+    
+        public function getClasses(Request $request)
+        {
+            if ($request->ajax()){
+                return $schoolClasses = $this->classes_rep
+                    ->getWithRelated($request->only('id')['id'], 'student', 'school_id');
+            }
+            return null;
         }
         
         /**

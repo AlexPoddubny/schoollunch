@@ -42,5 +42,10 @@
             $school->save();
             return ['status' => 'Інформацію про школу оновлено'];
         }
+    
+        public function getSchoolsWithClasses()
+        {
+            return $this->model::with('schoolClass.student')->has('schoolClass.student')->get()->keyBy('id')->toArray();
+        }
         
     }

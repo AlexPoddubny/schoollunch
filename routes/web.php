@@ -17,6 +17,12 @@
     
     Auth::routes();
     
+    Route::post('getclasses', [
+            'uses' => 'HomeController@getClasses',
+            'as' => 'getclasses'
+        ]
+    );
+    
     Route::resource('home', 'HomeController');
     
 //    Route::get('/search','SearchController@search')->name('search');
