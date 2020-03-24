@@ -6,6 +6,8 @@ $(document).on('click', '.add-user', function (e) {
 });
 
 $('#schools').change(function () {
+    $('#classes').html('');
+    $('#classes_group').attr('hidden', true);
     var value = $('#schools').val();
     $.ajaxSetup({
         headers: {
@@ -26,8 +28,10 @@ $('#schools').change(function () {
                         html += '<option value="' + res[i]['id'] + '">' + res[i]['name'] + '</option>';
                     }
                 }
-                $('#classes').html(html);
-                $('#classes_group').removeAttr('hidden');
+                if (html != '') {
+                    $('#classes').html(html);
+                    $('#classes_group').removeAttr('hidden');
+                }
             }
         },
         error: function (res) {
