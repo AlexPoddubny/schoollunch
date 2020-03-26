@@ -3,8 +3,12 @@
     namespace App;
     
     use Illuminate\Database\Eloquent\Model;
-    
-    class Student extends Model
+    use Spatie\Searchable\Searchable;
+    use Spatie\Searchable\SearchResult;
+
+    class Student
+        extends Model
+        implements Searchable
     {
         
         public $timestamps = false;
@@ -23,5 +27,14 @@
         {
             return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id');
         }
-        
+    
+        public function getSearchResult(): SearchResult
+        {
+            $url = route('students.show', ['student' => $this->id]);
+            return new SearchResult(
+                $this,
+                $this->fullname,
+                $url
+            );
+        }
     }

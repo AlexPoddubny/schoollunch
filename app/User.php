@@ -59,7 +59,7 @@
             return $this->hasOne('App\SchoolClass', 'teacher_id');
         }
     
-        public function children()
+        public function child()
         {
             return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id');
         }
@@ -117,6 +117,15 @@
                 $this->roles()->sync($inputRoles);
             } else {
                 $this->roles()->detach();
+            }
+        }
+    
+        public function saveChild($student)
+        {
+            if (!empty($student)) {
+                $this->child()->sync($student);
+            } else {
+                $this->child()->detach();
             }
         }
     

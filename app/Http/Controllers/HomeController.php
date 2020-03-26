@@ -4,7 +4,7 @@
     
     use App\Repositories\SchoolClassesRepository;
     use App\Repositories\SchoolsRepository;
-    use App\School;
+    use App\Repositories\StudentsRepository;
     use Illuminate\Http\Request;
     use Illuminate\Support\Arr;
     
@@ -13,6 +13,7 @@
         
         public $school_rep;
         public $classes_rep;
+        public $stud_rep;
         
         
         /**
@@ -20,19 +21,25 @@
          *
          * @return void
          */
-        public function __construct(SchoolsRepository $school_rep, SchoolClassesRepository $classes_rep)
+        public function __construct(
+            SchoolsRepository $school_rep,
+            SchoolClassesRepository $classes_rep,
+            StudentsRepository $stud_rep
+        )
         {
             $this->middleware('auth');
             $this->school_rep = $school_rep;
             $this->classes_rep = $classes_rep;
+            $this->stud_rep = $stud_rep;
         }
-        
+    
         /**
          * Display a listing of the resource.
          *
          * @return \Illuminate\Http\Response
+         * @throws \Throwable
          */
-        public function index(Request $request)
+        public function index()
         {
             $this->vars = Arr::add($this->vars, 'title', '');
             $schools = $this->school_rep->getNotNull('admin_id');
@@ -69,7 +76,9 @@
          */
         public function store(Request $request)
         {
-            //
+            // сохраняем связь parent->student
+            // добавляем роль parent
+            
         }
         
         /**
