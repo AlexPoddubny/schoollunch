@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.0",
         "lavary/laravel-menu": "^1.7",
         "livewire/livewire": "^1.0",
-        "snapappointments/bootstrap-select": "^1.13"
+        "snapappointments/bootstrap-select": "^1.13",
+        "spatie/laravel-searchable": "^1.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
