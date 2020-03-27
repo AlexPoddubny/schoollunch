@@ -37,7 +37,8 @@
             }
             if ($type && isset($data[$type])){
                 $school->$type = $data[$type];
-                User::addRole($data[$type], $role_name); //change to attach()
+                $user = $this->user_rep->getWhere($data[$type])->first();
+                $user->addRole($role_name);
             }
             $school->save();
             return ['status' => 'Інформацію про школу оновлено'];

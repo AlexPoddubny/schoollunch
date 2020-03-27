@@ -36,7 +36,8 @@
             $schoolClass->name = $data['name'];
             if (isset($data['teacher_id'])){
                 $schoolClass->teacher_id = $data['teacher_id'];
-                User::addRole($data['teacher_id'], 'ClassTeacher'); //change to attach()
+                $user = $this->user_rep->getWhere($data['teacher_id'])->first();
+                $user->addRole('ClassTeacher');
             }
             if (isset($data['break_id'])){
                 $schoolClass->break_id = $data['break_id'];
