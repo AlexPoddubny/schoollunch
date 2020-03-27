@@ -4,16 +4,18 @@
     
     use App\Repositories\SchoolClassesRepository;
     use App\Repositories\SchoolsRepository;
-    use App\Repositories\StudentsRepository;
+    use App\Repositories\UsersRepository;
     use Illuminate\Http\Request;
-    use Illuminate\Support\Arr;
+    use Auth;
     
     class HomeController extends Controller
     {
         
         public $school_rep;
         public $classes_rep;
-        public $stud_rep;
+        public $user_rep;
+        protected $title = 'Мої школяри';
+        protected $user;
         
         
         /**
@@ -24,13 +26,13 @@
         public function __construct(
             SchoolsRepository $school_rep,
             SchoolClassesRepository $classes_rep,
-            StudentsRepository $stud_rep
+            UsersRepository $user_rep
         )
         {
             $this->middleware('auth');
             $this->school_rep = $school_rep;
             $this->classes_rep = $classes_rep;
-            $this->stud_rep = $stud_rep;
+            $this->user_rep = $user_rep;
         }
     
         /**
@@ -41,10 +43,13 @@
          */
         public function index()
         {
-            $this->vars = Arr::add($this->vars, 'title', '');
+            $user = Auth::user();
+            $children = $user->child()->with('schoolClass.school')->withPivot('confirmed_at')->get();
+            dump($children);
             $schools = $this->school_rep->getNotNull('admin_id');
             $this->content = view('children')
                 ->with(['schools' => $schools])
+                ->with(['children' => $children])
                 ->render();
             return $this->renderOutput();
         }
@@ -76,9 +81,11 @@
          */
         public function store(Request $request)
         {
-            // сохраняем связь parent->student
-            // добавляем роль parent
-            
+            $result = $this->user_rep->saveChild($request, Auth::user());
+            if(is_array($result) && !empty($result['error'])) {
+                return redirect('home')->with($result);
+            }
+            return redirect('home')->with($result);
         }
         
         /**

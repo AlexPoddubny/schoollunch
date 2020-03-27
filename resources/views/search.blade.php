@@ -5,8 +5,14 @@
         <ul>
             @foreach($searchResults as $result)
                 <li>
-                    <a href="{{$result->url}}">{{$result->title}}</a>
-                    <a href="{{route('home.store')}}" class="btn btn-primary" role="button">Зареєструвати</a>
+                    <form action="{{route('home.store')}}" method="post">
+                        @csrf
+                        <input type="text" hidden name="student" value="{{$result->url}}">
+                        {{$result->title}}
+                        <button type="submit" class="btn btn-primary">
+                            Зареєструвати
+                        </button>
+                    </form>
                 </li>
             @endforeach
         </ul>

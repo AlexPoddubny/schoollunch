@@ -123,9 +123,7 @@
         public function saveChild($student)
         {
             if (!empty($student)) {
-                $this->child()->sync($student);
-            } else {
-                $this->child()->detach();
+                $this->child()->attach($student);
             }
         }
     

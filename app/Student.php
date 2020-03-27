@@ -30,7 +30,7 @@
     
         public function getSearchResult(): SearchResult
         {
-            $url = route('students.show', ['student' => $this->id]);
+            $url = $this->id;
             return new SearchResult(
                 $this,
                 $this->fullname,

@@ -1,5 +1,38 @@
-<form method="POST" action="{{ route('home.index') }}">
-    @csrf
+@if(!empty($children))
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center">П.І.Б.</th>
+                    <th scope="col" style="text-align: center">Школа</th>
+                    <th scope="col" style="text-align: center">Клас</th>
+                    <th scope="col" style="text-align: center">Підтвердження</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($children as $child)
+                    <tr>
+                        <td>
+                            <a href="{{ route('students.show', ['student' => $child->id]) }}">{{$child->fullname}}</a>
+                        </td>
+                        <td style="text-align: center">
+                            {{$child->schoolClass->school->name}}
+                        </td>
+                        <td style="text-align: center">
+                            {{$child->schoolClass->name}}
+                        </td>
+                        <td style="text-align: center">
+                            {{$child->pivot->confirmed_at ?? 'Не підтверджено'}}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endif
+<div class="card">
+    <div class="card-header">Додавання школяра</div>
+    <br>
     <div class="form-group row">
         <label for="school_id" class="col-md-4 col-form-label text-md-right">{{ __('messages.select_school') }}</label>
         <div class="col-md-6">
@@ -9,10 +42,7 @@
                     <option value="{{$school->id}}">{{$school->name}}</option>
                 @endforeach
             </select>
-        </div>{{--
-        <button type="submit" class="btn btn-primary">
-            {{__('messages.select')}}
-        </button>--}}
+        </div>
     </div>
     <div id="classes_group" hidden>
         <div class="form-group row">
@@ -33,8 +63,7 @@
                 </div>
                 <a id="search" class="btn btn-primary" href="#" role="button">Знайти</a>
             </div>
-            <div class="form-group row" id="result">
-            </div>
+            <div class="form-group row" id="result"></div>
         </div>
     </div>
-</form>
+</div>
