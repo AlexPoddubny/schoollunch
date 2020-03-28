@@ -28,6 +28,11 @@
     Route::resource('home', 'HomeController');
     
 //    Route::get('/search','SearchController@search')->name('search');
+
+    Route::get('students/confirm/{student}/{parent}', [
+        'uses' => 'StudentsController@confirm',
+        'as' => 'students.confirm'
+    ]);
     
     Route::resource('students', 'StudentsController');
     

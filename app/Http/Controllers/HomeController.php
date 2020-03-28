@@ -44,8 +44,10 @@
         public function index()
         {
             $user = Auth::user();
-            $children = $user->child()->with('schoolClass.school')->withPivot('confirmed_at')->get();
-            dump($children);
+            $children = $user->child()
+                ->with('schoolClass.school')
+                ->get()
+                ->sortBy('fullname');
             $schools = $this->school_rep->getNotNull('admin_id');
             $this->content = view('children')
                 ->with(['schools' => $schools])

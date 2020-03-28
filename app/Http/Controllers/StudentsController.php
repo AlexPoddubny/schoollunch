@@ -19,6 +19,9 @@
         protected $students;
         protected $class_rep;
         protected $id;
+        protected $relations = [
+            'parent'
+        ];
         
         public function __construct(StudentsRepository $students, SchoolClassesRepository $class_rep)
         {
@@ -33,11 +36,23 @@
             if(!$schoolClass){
                 abort(403); //в дальнейшем переделать на Gate::denies
             }
-            $students = $schoolClass->student()->get()->sortBy('fullname');
+            $students = $schoolClass->student()
+                ->with($this->relations)
+                ->get()
+                ->sortBy('fullname');
             $this->content = view('students_index')
                 ->with(['students' => $students])
                 ->render();
             return $this->renderOutput();
+        }
+    
+        public function confirm($student_id, $parent_id)
+        {
+            $student = $this->students
+                ->getWhere($student_id)
+                ->first();
+            $student->parent()->updateExistingPivot($parent_id, ['confirmed_at' => now()]);
+            return redirect(route('students.index'));
         }
         
         /**

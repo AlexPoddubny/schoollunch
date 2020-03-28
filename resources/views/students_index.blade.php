@@ -4,7 +4,7 @@
             <tr>
                 <th scope="col" style="text-align: center">П.І.Б.</th>
                 <th scope="col" style="text-align: center">Батьки</th>
-                <th scope="col" style="text-align: center">Пільга</th>
+                <th scope="col" style="text-align: center">Пільгове харчування</th>
                 <th scope="col" style="text-align: center">Опції</th>
             </tr>
         </thead>
@@ -14,11 +14,24 @@
                     <td>
                         <a href="{{ route('students.show', ['student' => $student->id]) }}">{{$student->fullname}}</a>
                     </td>
-                    <td>
-                        Не визначено
+                    <td style="text-align: center">
+                        @if(count($student->parent) > 0)
+                            @foreach($student->parent as $parent)
+                                <p>
+                                    {{fullname($parent)}}
+                                    @if(!$parent->pivot->confirmed_at)
+                                        <a href="{{route('students.confirm', [
+                                            'student' => $student->id,
+                                            'parent' => $parent->id
+                                            ])}}"
+                                        >Підтвердити</a>
+                                    @endif
+                                </p>
+                            @endforeach
+                        @endif
                     </td>
-                    <td>
-                        Пільга
+                    <td style="text-align: center">
+                        {{$student->privilege ? 'Так' : 'Ні'}}
                     </td>
                     <td>Опції</td>
                 </tr>

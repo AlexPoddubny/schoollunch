@@ -61,7 +61,9 @@
     
         public function child()
         {
-            return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id');
+            return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id')
+                ->withTimestamps()
+                ->withPivot('confirmed_at');
         }
         
         public function can($permission, $require = false)

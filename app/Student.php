@@ -25,7 +25,9 @@
     
         public function parent()
         {
-            return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id');
+            return $this->belongsToMany('App\User', 'children_parents', 'child_id', 'parent_id')
+                ->withTimestamps()
+                ->withPivot('confirmed_at');
         }
     
         public function getSearchResult(): SearchResult
