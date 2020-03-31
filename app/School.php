@@ -14,22 +14,22 @@
         
         public function admin()
         {
-            return $this->belongsTo('App\User', 'admin_id');
+            return $this->belongsTo(User::class, 'admin_id');
         }
         
         public function cook()
         {
-            return $this->belongsTo('App\User', 'cook_id');
+            return $this->belongsTo(User::class, 'cook_id');
         }
         
         public function breakTime()
         {
-            return $this->hasMany('App\BreakTime')->orderBy('break_num');
+            return $this->hasMany(BreakTime::class)->orderBy('break_num');
         }
         
         public function schoolClass()
         {
-            return $this->hasMany('App\SchoolClass')->orderBy('name');
+            return $this->hasMany(SchoolClass::class)->orderBy('name');
         }
         
     }

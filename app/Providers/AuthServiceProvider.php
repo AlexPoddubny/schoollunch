@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         foreach ($perms as $perm) {
             $name = $perm->name;
             Gate::define($name, function ($user) use ($name) {
-                return $user->can($name);
+                return $user->canDo($name);
             });
         }
     }

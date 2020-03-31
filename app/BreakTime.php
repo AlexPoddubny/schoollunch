@@ -18,12 +18,12 @@
     
         public function school()
         {
-            return $this->belongsTo('App\School');
+            return $this->belongsTo(School::class);
         }
     
         public function schoolClass()
         {
-            return $this->hasMany('App\SchoolClass');
+            return $this->hasMany(SchoolClass::class);
         }
         
     }

@@ -20,12 +20,12 @@
         
         public function schoolClass()
         {
-            return $this->belongsTo('App\SchoolClass', 'class_id');
+            return $this->belongsTo(SchoolClass::class, 'class_id');
         }
     
         public function parent()
         {
-            return $this->belongsToMany('App\User', 'children_parents', 'child_id', 'parent_id')
+            return $this->belongsToMany(User::class, 'children_parents', 'child_id', 'parent_id')
                 ->withTimestamps()
                 ->withPivot('confirmed_at');
         }

@@ -18,27 +18,27 @@
     
         public function teacher()
         {
-            return $this->belongsTo('App\User', 'teacher_id');
+            return $this->belongsTo(User::class, 'teacher_id');
         }
     
         public function school()
         {
-            return $this->belongsTo('App\School');
+            return $this->belongsTo(School::class);
         }
     
         public function breakTime()
         {
-            return $this->belongsTo('App\BreakTime', 'break_id');
+            return $this->belongsTo(BreakTime::class, 'break_id');
         }
     
         public function category()
         {
-            return $this->belongsTo('App\Category');
+            return $this->belongsTo(Category::class);
         }
     
         public function student()
         {
-            return $this->hasMany('App\Student', 'class_id');
+            return $this->hasMany(Student::class, 'class_id');
         }
         
     }

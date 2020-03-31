@@ -3,25 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\PermissionsRepository;
-use App\Repositories\RolesRepository;
-use App\Role;
 use Illuminate\Http\Request;
 
-class RolesController extends AdminController
+class CoursesController extends Controller
 {
-    
-    protected $perm_rep;
-    protected $role_rep;
-    
-    public function __construct(PermissionsRepository $perm_rep, RolesRepository $role_rep)
-    {
-        parent::__construct();
-        $this->perm_rep = $perm_rep;
-        $this->role_rep = $role_rep;
-//        $this->template = 'admin.roles';
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -29,13 +14,7 @@ class RolesController extends AdminController
      */
     public function index()
     {
-        $this->title .= 'Ролі та дозволи';
-        $roles = $this->role_rep->getWithRelationCount('users');
-        dump($roles);
-        $this->content = view('admin.roles_content')
-            ->with(['roles' => $roles])
-            ->render();
-        return $this->renderOutput();
+        //
     }
 
     /**
@@ -56,13 +35,7 @@ class RolesController extends AdminController
      */
     public function store(Request $request)
     {
-        $result = $this->perm_rep->changePermissions($request);
-    
-        if(is_array($result) && !empty($result['error'])) {
-            return back()->with($result);
-        }
-    
-        return back()->with($result);
+        //
     }
 
     /**
@@ -73,13 +46,7 @@ class RolesController extends AdminController
      */
     public function show($id)
     {
-        $role = $this->role_rep->getWhere($id)->first();
-        $perms = $this->perm_rep->getAll();
-        $this->title .= 'Роль - ' . $role->description;
-        $this->content = view('admin.role_edit')
-            ->with(['role' => $role, 'perms' => $perms])
-            ->render();
-        return $this->renderOutput();
+        //
     }
 
     /**

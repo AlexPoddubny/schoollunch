@@ -121,7 +121,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="418" y="253" name="schools">
+    <table x="418" y="237" name="schools">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -144,7 +144,7 @@
         </key>
         <comment>Перечень школ</comment>
     </table>
-    <table x="809" y="91" name="classes">
+    <table x="770" y="74" name="classes">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -168,7 +168,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="615" y="15" name="students">
+    <table x="551" y="4" name="students">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -202,7 +202,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="385" y="13" name="parents_children">
+    <table x="332" y="6" name="parents_children">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -243,7 +243,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="1153" y="782" name="products">
+    <table x="1198" y="771" name="products">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -258,24 +258,25 @@
         </key>
         <comment>Продукты</comment>
     </table>
-    <table x="1160" y="556" name="courses">
+    <table x="1197" y="416" name="courses">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
+        <row name="name" null="1" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
+            <default>NULL</default></row>
         <row name="type" null="0" autoincrement="0">
-            <datatype>ENUM</datatype>
-            <default>NULL</default><comment>first/second/desert</comment>
+            <datatype>BIGINT</datatype>
+            <default>NULL</default><relation table="types" row="id" />
+            <comment>first/second/desert</comment>
         </row>
-        <row name="portion_size" null="0" autoincrement="0">
-            <datatype>DOUBLE</datatype>
-            <default>NULL</default></row>
-        <row name="portion_weight" null="0" autoincrement="0">
-            <datatype>DOUBLE</datatype>
-            <default>NULL</default></row>
-        <row name="calories" null="0" autoincrement="0">
-            <datatype>DOUBLE</datatype>
+        <row name="weight" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
             <default>NULL</default></row>
         <row name="recipe" null="0" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
+            <default>'NULL'</default></row>
+        <row name="description" null="0" autoincrement="0">
             <datatype>MEDIUMTEXT</datatype>
             <default>'NULL'</default></row>
         <row name="photo" null="0" autoincrement="0">
@@ -284,12 +285,15 @@
         <row name="costs" null="1" autoincrement="0">
             <datatype>DOUBLE</datatype>
             <default>NULL</default></row>
+        <row name="notes" null="0" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
+            <default>'NULL'</default></row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
         <comment>Блюда</comment>
     </table>
-    <table x="1409" y="682" name="courses_products">
+    <table x="1420" y="600" name="courses_products">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -297,11 +301,14 @@
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="courses" row="id" />
         </row>
-        <row name="component_id" null="0" autoincrement="0">
+        <row name="product_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="products" row="id" />
         </row>
-        <row name="component_qty" null="0" autoincrement="0">
+        <row name="brutto" null="1" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="netto" null="0" autoincrement="0">
             <datatype>DOUBLE</datatype>
             <default>NULL</default></row>
         <key type="PRIMARY" name="">
@@ -309,7 +316,7 @@
         </key>
         <comment>Продукты блюда</comment>
     </table>
-    <table x="632" y="353" name="breaks">
+    <table x="595" y="324" name="breaks">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -327,7 +334,7 @@
             <part>id</part>
         </key>
     </table>
-    <table x="1166" y="141" name="menu_daily">
+    <table x="1198" y="128" name="menu_daily">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -342,7 +349,10 @@
             <part>id</part>
         </key>
     </table>
-    <table x="1173" y="393" name="orders">
+    <table x="1195" y="238" name="lunches">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
         <row name="category_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="categories" row="id" />
@@ -351,35 +361,40 @@
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="breaks" row="id" />
         </row>
-        <row name="id" null="1" autoincrement="1">
-            <datatype>INTEGER</datatype>
-            <default>NULL</default></row>
         <row name="privilege" null="0" autoincrement="0">
             <datatype>bit</datatype>
             <default>NULL</default></row>
+        <row name="class_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="classes" row="id" />
+        </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
         <comment>Завтрак/обед (из нескольких блюд)</comment>
     </table>
-    <table x="1439" y="519" name="orders_items">
+    <table x="1432" y="282" name="lunches_courses">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
-        <row name="order_id" null="0" autoincrement="0">
+        <row name="lunch_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="orders" row="id" />
+            <default>NULL</default><relation table="lunches" row="id" />
         </row>
         <row name="course_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
             <default>NULL</default><relation table="courses" row="id" />
+        </row>
+        <row name="size_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="sizes" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
         <comment>Блюда, входящие в один завтрак/обед</comment>
     </table>
-    <table x="1392" y="293" name="menu_daily_items">
+    <table x="1431" y="141" name="lunches_menu_daily">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -389,13 +404,13 @@
         </row>
         <row name="order_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="orders" row="id" />
+            <default>NULL</default><relation table="lunches" row="id" />
         </row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>
     </table>
-    <table x="1006" y="280" name="categories">
+    <table x="1009" y="94" name="categories">
         <row name="id" null="1" autoincrement="1">
             <datatype>INTEGER</datatype>
             <default>NULL</default></row>
@@ -416,11 +431,80 @@
         </row>
         <row name="order_id" null="0" autoincrement="0">
             <datatype>INTEGER</datatype>
-            <default>NULL</default><relation table="orders" row="id" />
+            <default>NULL</default><relation table="lunches" row="id" />
         </row>
         <row name="text" null="0" autoincrement="0">
             <datatype>MEDIUMTEXT</datatype>
             <default>'NULL'</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="975" y="645" name="types">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="name" null="1" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
+            <default>NULL</default></row>
+        <row name="description" null="1" autoincrement="0">
+            <datatype>MEDIUMTEXT</datatype>
+            <default>NULL</default></row>
+        <row name="sort" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="949" y="404" name="nutrient_value">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="course_id" null="1" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default><relation table="courses" row="id" />
+        </row>
+        <row name="albumen" null="1" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="fat" null="1" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="carbonhydrate" null="1" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <row name="calories" null="1" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1207" y="662" name="sizes">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="size" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="factor" null="0" autoincrement="0">
+            <datatype>DOUBLE</datatype>
+            <default>NULL</default></row>
+        <key type="PRIMARY" name="">
+            <part>id</part>
+        </key>
+    </table>
+    <table x="1425" y="763" name="courses_sizes">
+        <row name="id" null="1" autoincrement="1">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="course_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
+        <row name="size_id" null="0" autoincrement="0">
+            <datatype>INTEGER</datatype>
+            <default>NULL</default></row>
         <key type="PRIMARY" name="">
             <part>id</part>
         </key>

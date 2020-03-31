@@ -11,7 +11,7 @@ class Category extends Model
     
     public function schoolClass()
     {
-        return $this->hasMany('App\SchoolClass');
+        return $this->hasMany(SchoolClass::class);
     }
     
 }

@@ -41,36 +41,36 @@
         
         public function roles()
         {
-            return $this->belongsToMany('App\Role', 'users_roles');
+            return $this->belongsToMany(Role::class, 'users_roles');
         }
         
         public function school()
         {
-            return $this->hasMany('App\School', 'admin_id');
+            return $this->hasMany(School::class, 'admin_id');
         }
         
         public function cook()
         {
-            return $this->hasMany('App\School', 'cook_id');
+            return $this->hasMany(School::class, 'cook_id');
         }
     
         public function schoolClass()
         {
-            return $this->hasOne('App\SchoolClass', 'teacher_id');
+            return $this->hasOne(SchoolClass::class, 'teacher_id');
         }
     
         public function child()
         {
-            return $this->belongsToMany('App\Student', 'children_parents', 'parent_id', 'child_id')
+            return $this->belongsToMany(Student::class, 'children_parents', 'parent_id', 'child_id')
                 ->withTimestamps()
                 ->withPivot('confirmed_at');
         }
         
-        public function can($permission, $require = false)
+        public function canDo($permission, $require = false)
         {
             if (is_array($permission)) {
                 foreach ($permission as $permName) {
-                    $perm = $this->can($permName);
+                    $perm = $this->canDo($permName);
                     if ($perm && !$require) {
                         return true;
                     } elseif (!$perm && $require) {
