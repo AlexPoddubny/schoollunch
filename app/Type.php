@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
+    
+    protected $fillable = [
+        'name',
+        'sort'
+    ];
+    
     public $timestamps = false;
     
     public function course()

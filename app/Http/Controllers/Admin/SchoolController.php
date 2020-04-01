@@ -67,10 +67,11 @@ class SchoolController
                 $this->content = view('selector')
                     ->with(['schools' => $schools])
                     ->render();
-                return $this->renderOutput();
+//                return $this->renderOutput();
             }
+        } else {
+            $this->content = 'Цей користувач не адмініструє жодної школи';
         }
-        $this->content = 'Цей користувач не адмініструє жодної школи';
         return $this->renderOutput();
     }
     

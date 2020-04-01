@@ -97,5 +97,9 @@
             );
             Route::resource('school', 'Admin\SchoolController');
             Route::resource('schoolclass', 'Admin\SchoolClassesController');
+            Route::resource('courses', 'Admin\CoursesController');
+            Route::resource('products', 'Admin\ProductsController');
+            Route::resource('sizes', 'Admin\SizesController');
+            Route::resource('types', 'Admin\TypesController');
         }
     );

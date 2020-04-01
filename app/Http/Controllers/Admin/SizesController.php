@@ -3,10 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\SizesRepository;
 use Illuminate\Http\Request;
 
-class SizesController extends Controller
+class SizesController extends AdminController
 {
+    
+    protected $size_rep;
+    
+    public function __construct(SizesRepository $size_rep)
+    {
+        $this->size_rep = $size_rep;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +31,9 @@ class SizesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($request)
     {
-        //
+    
     }
 
     /**
@@ -35,7 +44,11 @@ class SizesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = $this->size_rep->create($request);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('courses.index'));
     }
 
     /**

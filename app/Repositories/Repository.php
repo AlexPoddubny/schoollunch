@@ -29,6 +29,12 @@
             return $this->model::withCount($table)->get();
         }
     
+        public function create($request)
+        {
+            $data = $request->except('_token');
+            return $this->model::create($data);
+        }
+    
         public function new()
         {
             return new $this->model;

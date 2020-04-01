@@ -33,6 +33,7 @@
         {
             $data = $request->except('_token');
             $schoolClass = $this->getWhere($data['id'])->first();
+            //все ниже переделать в fill()
             $schoolClass->name = $data['name'];
             if (isset($data['teacher_id'])){
                 $schoolClass->teacher_id = $data['teacher_id'];
