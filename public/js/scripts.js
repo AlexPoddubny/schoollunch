@@ -79,3 +79,74 @@ $(document).on('click', '#search', function (e) {
         })
     }
 });
+
+/*$(document).on('keyup', '#course_query', function() {
+    var query = $('#course_query').val();
+    $.ajax({
+        url: '/admin/product/search',
+        data: {
+            query: query
+        },
+        type: 'POST',
+        success: function (res) {
+            $('#result').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+});*/
+
+/*
+$(document).on('click', '.add-product', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var title = $(this).html();
+    var html = $('#ingredients').html();
+    html += '<tr><td>' + '<input type="hidden" name="product[]" value="' + id + '">' + title + '</td>'
+        + '<td style="text-align: center"><input type="number" step="0.5" name="brutto[]" class="form-control"></td>'
+        + '<td style="text-align: center"><input type="number" step="0.5" name="netto[]" class="form-control"></td>'
+        + '<td></td></tr>';
+    $('#ingredients').html(html);
+})
+*/
+
+$(document).on('click', '.add-product', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    // console.log(id);
+    $.ajax({
+        url: 'addproduct',
+        data: {
+            id: id
+        },
+        type: 'POST',
+        success: function (res) {
+            // console.log(res);
+            $('#products').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    });
+});
+
+$(document).on('click', '.del-product', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    // console.log(id);
+    $.ajax({
+        url: 'delproduct',
+        data: {
+            id: id
+        },
+        type: 'POST',
+        success: function (res) {
+            // console.log(res);
+            $('#products').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    });
+});

@@ -28,11 +28,10 @@
     
         public function addMass(Request $request, SchoolClass $schoolClass)
         {
-            $data = explode("\r\n", $request->only('list')['list']);
+            $data = explode("\r\n", $request->input('list'));
             foreach ($data as $item){
                 $student = new Student();
                 $student['fullname'] = $item;
-//                dump($student);
                 $schoolClass->student()->save($student);
             }
             return ['status' => 'Учнів додано до класу'];

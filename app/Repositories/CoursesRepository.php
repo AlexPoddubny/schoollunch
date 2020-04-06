@@ -14,5 +14,15 @@
         {
             $this->model = $course;
         }
+    
+        public function saveCourse($request)
+        {
+            $data = $request->except('_token');
+            $model = new $this->model;
+            $model->fill($data);
+            $model->save();
+            $model->product()->sync($data['product']);
+            return ['status' => 'Страву додано'];
+        }
         
     }

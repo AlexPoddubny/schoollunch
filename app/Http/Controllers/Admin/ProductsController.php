@@ -3,10 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Product;
+use App\Repositories\ProductsRepository;
+use App\Student;
 use Illuminate\Http\Request;
+use Spatie\Searchable\Search;
 
 class ProductsController extends AdminController
 {
+    
+    protected $product_rep;
+    
+    public function __construct(ProductsRepository $product_rep)
+    {
+        $this->product_rep = $product_rep;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +47,20 @@ class ProductsController extends AdminController
      */
     public function store(Request $request)
     {
-        //
+        $result = $this->product_rep->create($request);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('courses.index'));
+    }
+    
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('query');
+        $searchResults = (new Search())
+            ->registerModel(Product::class, 'name')
+            ->perform($searchTerm);
+        return view('search.product', compact('searchResults', 'searchTerm'))->render();
     }
 
     /**

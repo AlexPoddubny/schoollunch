@@ -6,9 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    
+    protected $fillable = [
+        'name',
+        'type_id',
+        'albumens',
+        'fats',
+        'carbonhydrates',
+        'calories',
+        'recipe',
+        'description',
+        'photo',
+        'costs',
+    ];
+    
     public function product()
     {
-        return $this->belongsToMany(Product::class)
+        return $this->belongsToMany(Product::class, 'courses_products')
             ->withPivot(['brutto', 'netto']);
     }
     

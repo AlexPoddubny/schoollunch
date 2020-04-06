@@ -17,7 +17,7 @@
     
     Auth::routes();
     
-    Route::post('search', 'SearchController@search')->name('search.result');
+    Route::post('search', 'SearchController@search');//->name('search.result');
     
     Route::post('getclasses', [
             'uses' => 'HomeController@getClasses',
@@ -97,7 +97,10 @@
             );
             Route::resource('school', 'Admin\SchoolController');
             Route::resource('schoolclass', 'Admin\SchoolClassesController');
+            Route::post('courses/addproduct', 'Admin\CoursesController@addProduct');
+            Route::post('courses/delproduct', 'Admin\CoursesController@delProduct');
             Route::resource('courses', 'Admin\CoursesController');
+            Route::post('product/search', 'Admin\ProductsController@search');
             Route::resource('products', 'Admin\ProductsController');
             Route::resource('sizes', 'Admin\SizesController');
             Route::resource('types', 'Admin\TypesController');

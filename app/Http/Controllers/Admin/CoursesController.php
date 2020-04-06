@@ -31,42 +31,48 @@
             $this->sizes_rep = $sizes_rep;
             $this->types_rep = $types_rep;
         }
-        
+    
         /**
          * Display a listing of the resource.
          *
          * @return \Illuminate\Http\Response
+         * @throws \Throwable
          */
         public function index()
         {
-            $courses = $this->courses_rep->getPaginated(10);
+            $courses = $this->courses_rep->getAllWithRelated('type')->paginate(10);
+            $products = $this->products_rep->getAll()->sortBy('name');
             $types = $this->types_rep->getAll();
             $sizes = $this->sizes_rep->getAll();
             $this->content = view('admin.courses_index')
                 ->with([
                     'courses' => $courses,
+                    'products' => $products,
                     'types' => $types,
                     'sizes' => $sizes
                 ])
                 ->render();
             return $this->renderOutput();
         }
-        
+    
         /**
          * Show the form for creating a new resource.
          *
          * @return \Illuminate\Http\Response
+         * @throws \Throwable
          */
         public function create()
         {
-//            $course = new Course();
-            $products = $this->products_rep->getPaginated(10);
+            $this->title .= 'Додавання страви';
+            $products = $this->products_rep->getAll()->sortBy('name');
             $sizes = $this->sizes_rep->getAll();
             $types = $this->types_rep->getAll();
+//            if (!session()->exists('products')){
+                session(['products' => []]);
+//            }
             $this->content = view('admin.course_create')
                 ->with([
                     'products' => $products,
-//                    'course' => $course,
                     'sizes' => $sizes,
                     'types' => $types
                 ])
@@ -82,7 +88,11 @@
          */
         public function store(Request $request)
         {
-            //
+            $result = $this->courses_rep->saveCourse($request);
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+            return redirect(route('courses.index'));
         }
         
         /**
@@ -129,4 +139,36 @@
         {
             //
         }
+    
+        public function addProduct(Request $request)
+        {
+            $id = $request->input('id');
+            $products = session('products');
+            if (!in_array($id, $products)){
+                $products[] = $request->input('id');
+                session(['products' => $products]);
+            }
+            return $this->renderProducts();
+        }
+    
+        public function delProduct(Request $request)
+        {
+            $id = $request->input('id');
+            $products = session('products');
+            if (in_array($id, $products)){
+                unset($products[array_search($id, $products)]);
+                session(['products' => $products]);
+            }
+            return $this->renderProducts();
+        }
+    
+        protected function renderProducts()
+        {
+            return view('admin.products_list')
+                ->with([
+                    'items' => $this->products_rep->getArray(session('products'))
+                ])
+                ->render();
+        }
+        
     }

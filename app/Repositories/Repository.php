@@ -24,6 +24,11 @@
             return $this->model::where($key, $id)->get();
         }
     
+        public function getArray($arr)
+        {
+            return $this->model::find($arr);
+        }
+        
         public function getWithRelationCount($table)
         {
             return $this->model::withCount($table)->get();
@@ -78,7 +83,7 @@
         
         public function getAllWithRelated($table)
         {
-            return $this->model::with($table)->get();
+            return $this->model::with($table);
         }
         
     }

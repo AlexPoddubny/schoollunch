@@ -33,7 +33,7 @@ class SchoolsController extends AdminController
     {
         $this->title .= 'Підключення шкіл';
 //        $schools = School::all();
-        $schools = $this->school_rep->getAllWithRelated(['admin', 'cook']);
+        $schools = $this->school_rep->getAllWithRelated(['admin', 'cook'])->get();
         $this->content = view('admin.schools')
             ->with(['schools' => $schools])
             ->render();

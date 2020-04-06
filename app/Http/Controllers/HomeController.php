@@ -60,7 +60,7 @@
         {
             if ($request->ajax()){
                 return $schoolClasses = $this->classes_rep
-                    ->getWithRelated($request->only('id')['id'], 'student', 'school_id');
+                    ->getWithRelated($request->input('id'), 'student', 'school_id');
             }
             return null;
         }

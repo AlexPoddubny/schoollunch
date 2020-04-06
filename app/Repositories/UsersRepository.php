@@ -16,8 +16,7 @@
     
         public function saveChild($request, $user)
         {
-            $data = $request->only('student');
-            $user->saveChild($data['student']);
+            $user->saveChild($request->input('student'));
             $user->addRole('Parent');
             return ['status' => 'Дитину додано'];
         }

@@ -32,7 +32,7 @@
             $searchResults = (new Search())
                 ->registerModel(Student::class, 'fullname')
                 ->perform($searchTerm);
-            return view('search', compact('searchResults', 'searchTerm'))->render();
+            return view('search.student', compact('searchResults', 'searchTerm'))->render();
         }
         
     }

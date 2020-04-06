@@ -124,6 +124,26 @@ dl {
   margin-bottom: 1rem;
 }
 
+ul.hr {
+    /*margin: 0;*/
+    padding: 4px;
+
+}
+
+ul.hr li {
+    display: inline; /* Отображать как строчный элемент */
+    margin: 3px; /* Отступ слева */
+    border: 1px solid #000; /* Рамка вокруг текста */
+    border-radius: 3px;
+    padding: 3px; /* Поля вокруг текста */
+    white-space: nowrap; /* Запрещаем перенос текста */
+    line-height: 2;
+}
+
+.del-item {
+    cursor: pointer;
+}
+
 ol ol,
 ul ul,
 ol ul,
