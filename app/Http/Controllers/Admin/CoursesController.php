@@ -40,16 +40,18 @@
          */
         public function index()
         {
-            $courses = $this->courses_rep->getAllWithRelated('type')->paginate(10);
+            $courses = $this->courses_rep->getAllWithRelated('type')->orderBy('rc')->paginate(10);
+            $links = $courses->appends(['sort' => 'rc'])->links();
             $products = $this->products_rep->getAll()->sortBy('name');
-            $types = $this->types_rep->getAll();
-            $sizes = $this->sizes_rep->getAll();
+            $types = $this->types_rep->getAll()->sortBy('sort');
+            $sizes = $this->sizes_rep->getAll()->sortBy('size');
             $this->content = view('admin.courses_index')
                 ->with([
                     'courses' => $courses,
                     'products' => $products,
                     'types' => $types,
-                    'sizes' => $sizes
+                    'sizes' => $sizes,
+                    'links' => $links
                 ])
                 ->render();
             return $this->renderOutput();
@@ -65,15 +67,11 @@
         {
             $this->title .= 'Додавання страви';
             $products = $this->products_rep->getAll()->sortBy('name');
-            $sizes = $this->sizes_rep->getAll();
             $types = $this->types_rep->getAll();
-//            if (!session()->exists('products')){
-                session(['products' => []]);
-//            }
+            session(['products' => []]);
             $this->content = view('admin.course_create')
                 ->with([
                     'products' => $products,
-                    'sizes' => $sizes,
                     'types' => $types
                 ])
                 ->render();

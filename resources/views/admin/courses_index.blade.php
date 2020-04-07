@@ -4,7 +4,7 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col" style="text-align: center">№ страви</th>
+                <th scope="col" style="text-align: center">№ страви у збірнику</th>
                 <th scope="col" style="text-align: center">Тип страви</th>
                 <th scope="col" style="text-align: center">Назва страви</th>
                 <th scope="col" style="text-align: center">Опції</th>
@@ -13,7 +13,7 @@
             <tbody>
             @foreach($courses as $course)
                 <tr>
-                    <td scope="col" style="text-align: center">{{$course->id}}</td>
+                    <td scope="col" style="text-align: center">{{$course->rc}}</td>
                     <td scope="col" style="text-align: center">{{$course->type->name}}</td>
                     <td scope="col" style="text-align: center">{{$course->name}}</td>
                     <td scope="col" style="text-align: center">Команди</td>
@@ -21,6 +21,7 @@
             @endforeach
             </tbody>
         </table>
+        {!!$links!!}
         <a class="btn btn-primary" href="{{route('courses.create')}}" role="button">Додати страву</a>
     </div>
 </div>
@@ -103,7 +104,7 @@
 <div class="card">
     <div class="card-header">Вага страв</div>
     <div class="form-group row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <ul class="hr">
                 @foreach($sizes as $size)
                     <li>{{$size->size}} грамів</li>
@@ -117,13 +118,13 @@
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="size">Вага страви</label>
-                    <input type="number" step="25" min="25" class="form-control @error('size') is-invalid @enderror" name="size"  required autocomplete="size">
+                    <input type="number" id="size" step="25" min="25" class="form-control @error('size') is-invalid @enderror" name="size"  required autocomplete="size">
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
-                    <label for="factor" class="control-label">Коефіциєнт (відносно 100 гр)</label>
-                    <input type="number" step="0.25" min="0.25" class="form-control" name="factor" value="{{old('factor')}}" required autocomplete="factor">
+                    <label for="factor" class="control-label">Коефіциєнт (відносно 1 кг)</label>
+                    <input type="number" id="factor" step="0.025" min="0" class="form-control" name="factor" value="{{old('factor')}}" required autocomplete="factor">
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">

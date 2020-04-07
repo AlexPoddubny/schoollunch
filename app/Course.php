@@ -8,6 +8,7 @@ class Course extends Model
 {
     
     protected $fillable = [
+        'rc',
         'name',
         'type_id',
         'albumens',

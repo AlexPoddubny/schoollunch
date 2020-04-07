@@ -150,3 +150,7 @@ $(document).on('click', '.del-product', function (e) {
         }
     });
 });
+
+$(document).on('keyup change blur', '#size', function () {
+    $('#factor').val(parseInt($(this).val()) / 1000);
+})

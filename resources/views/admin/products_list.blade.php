@@ -16,10 +16,10 @@
                     <input type="hidden" name="product[{{$n}}][product_id]" value="{{$item->id}}">{{$item->name}}
                 </td>
                 <td style="text-align: center">
-                    <input type="number" step="0.01" name="product[{{$n}}][brutto]" class="form-control">
+                    <input type="number" step="0.1" name="product[{{$n}}][brutto]" class="form-control">
                 </td>
                 <td style="text-align: center">
-                    <input type="number" step="0.01" name="product[{{$n}}][netto]" class="form-control">
+                    <input type="number" step="0.1" name="product[{{$n}}][netto]" class="form-control">
                 </td>
                 <td style="text-align: center">
                     <span class="glyphicon glyphicon-remove text-danger del-product"
