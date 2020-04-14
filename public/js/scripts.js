@@ -153,4 +153,51 @@ $(document).on('click', '.del-product', function (e) {
 
 $(document).on('keyup change blur', '#size', function () {
     $('#factor').val(parseInt($(this).val()) / 1000);
-})
+});
+
+$(document).on('change', '#type', function () {
+    var type = $(this).val();
+    // console.log(type);
+    $.ajax({
+        url: 'getcourses',
+        data: {
+            type: type
+        },
+        type: 'POST',
+        success: function (res) {
+            $('#courses_list').html(res);
+            // console.log(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+});
+
+$(document).on('click', '#addcourse', function (e) {
+    e.preventDefault();
+    /*var id = $('#courses_list').val();
+    var name = $('#courses_list option:selected').text();
+    var size = $('#size').val();
+    var type = $('#type').val();*/
+    // console.log(id);
+    $.ajax({
+        url: 'addcourse',
+        data: {
+            id: $('#courses_list').val(),
+            name: $('#courses_list option:selected').text(),
+            size_id: $('#size').val(),
+            type_id: $('#type').val(),
+            type: $('#type option:selected').text(),
+            size: $('#size option:selected').text(),
+        },
+        type: 'POST',
+        success: function (res) {
+            console.log(res);
+            $('#courses').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    });
+});

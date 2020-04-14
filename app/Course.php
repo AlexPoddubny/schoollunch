@@ -32,9 +32,9 @@ class Course extends Model
         return $this->belongsTo(Type::class);
     }
     
-    /*public function nutrientValue()
+    public function size()
     {
-        return $this->belongsTo(NutrientValue::class);
-    }*/
+        return $this->belongsToMany(CourseSize::class);
+    }
     
 }

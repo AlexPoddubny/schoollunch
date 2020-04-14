@@ -14,4 +14,9 @@ class Size extends Model
         'factor'
     ];
     
+    public function course()
+    {
+        return $this->belongsToMany(CourseSize::class);
+    }
+    
 }

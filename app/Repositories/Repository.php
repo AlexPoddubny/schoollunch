@@ -29,6 +29,11 @@
             return $this->model::find($arr);
         }
         
+        public function getArrayWithRelated($arr, $table)
+        {
+            return $this->model::with($table)->find($arr);
+        }
+        
         public function getWithRelationCount($table)
         {
             return $this->model::withCount($table)->get();

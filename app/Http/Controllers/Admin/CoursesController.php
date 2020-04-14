@@ -26,6 +26,7 @@
             TypesRepository $types_rep
         )
         {
+            parent::__construct();
             $this->courses_rep = $courses_rep;
             $this->products_rep = $products_rep;
             $this->sizes_rep = $sizes_rep;
@@ -143,7 +144,7 @@
             $id = $request->input('id');
             $products = session('products');
             if (!in_array($id, $products)){
-                $products[] = $request->input('id');
+                $products[] = $id;
                 session(['products' => $products]);
             }
             return $this->renderProducts();

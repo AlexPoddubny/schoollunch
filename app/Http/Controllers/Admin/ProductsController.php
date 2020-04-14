@@ -16,6 +16,7 @@ class ProductsController extends AdminController
     
     public function __construct(ProductsRepository $product_rep)
     {
+        parent::__construct();
         $this->product_rep = $product_rep;
     }
     

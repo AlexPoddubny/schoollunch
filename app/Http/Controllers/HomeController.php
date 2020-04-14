@@ -29,6 +29,7 @@
             UsersRepository $user_rep
         )
         {
+            parent::__construct();
             $this->middleware('auth');
             $this->school_rep = $school_rep;
             $this->classes_rep = $classes_rep;
@@ -43,8 +44,8 @@
          */
         public function index()
         {
-            $user = Auth::user();
-            $children = $user->child()
+//            $user = Auth::user();
+            $children = $this->user->child()
                 ->with('schoolClass.school')
                 ->get()
                 ->sortBy('fullname');

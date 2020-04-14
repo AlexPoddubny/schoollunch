@@ -45,15 +45,20 @@ class Controller extends BaseController
     
     public function getMenu()
     {
-        return \Menu::make('mainMenu', function ($menu){
+        $attr = ['class' => 'nav-link active'];
+        return \Menu::make('mainMenu', function ($menu) use ($attr){
 //            if(Gate::allows('View_Class')) {
-                $menu->add('Мої школяри', ['route' => 'home.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+                $menu->add('Мої школяри', ['route' => 'home.index', 'class' => 'nav-item'])->link->attr($attr);
 //            }
             if(Gate::allows('View_Class')) {
-                $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+                $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr($attr);
             }
+//            if(Gate::allows('View_Cook')) {
+//                $menu->add('Комплексні обіди', ['route' => 'lunches.index', 'class' => 'nav-item'])->link->attr($attr);
+                $menu->add('Щоденне меню', ['route' => 'menus.index', 'class' => 'nav-item'])->link->attr($attr);
+//            }
             if(Gate::allows(['View_Admin', 'View_School_Admin'])) {
-                $menu->add('Адмініструвати', ['url' => 'admin', 'class' => 'nav-item'])->link->attr(['class' => 'nav-link active']);
+                $menu->add('Адмініструвати', ['url' => 'admin', 'class' => 'nav-item'])->link->attr($attr);
             }
         });
     }

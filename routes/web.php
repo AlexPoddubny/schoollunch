@@ -36,6 +36,8 @@
     
     Route::resource('students', 'StudentsController');
     
+    Route::resource('menus', 'menusController');
+    
     Route::group([
             'prefix' => 'admin',
             'middleware' => 'auth'
@@ -104,5 +106,9 @@
             Route::resource('products', 'Admin\ProductsController');
             Route::resource('sizes', 'Admin\SizesController');
             Route::resource('types', 'Admin\TypesController');
-        }
+            Route::post('lunches/addcourse', 'Admin\LunchesController@addCourse');
+            Route::post('lunches/getcourses', 'Admin\LunchesController@getCourses');
+            Route::resource('lunches', 'Admin\LunchesController');
+        
+    }
     );
