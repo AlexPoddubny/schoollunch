@@ -28,8 +28,8 @@
                 unset($courses[$n]['type_id']);
                 unset($courses[$n]['size']);
             }
-//            dd($model->id);
-            $model->sizeCourse($model->id)->sync($courses);
+//            dd($courses);
+            $model->sizeCourse()->sync($courses);
             return ['status' => 'Комплекс додано'];
         }
     

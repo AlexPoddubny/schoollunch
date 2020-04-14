@@ -32,9 +32,4 @@ class Course extends Model
         return $this->belongsTo(Type::class);
     }
     
-    public function size()
-    {
-        return $this->belongsToMany(CourseSize::class);
-    }
-    
 }

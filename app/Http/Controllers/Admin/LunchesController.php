@@ -42,9 +42,15 @@ class LunchesController extends AdminController
      */
     public function index()
     {
-        $this->title = 'Комплексні обіди'; //додати школу
-        //пізніше додати завантаження списку комплексів з types та sizes
-        $this->content = view('admin.lunches')->render();
+        $this->title .= 'Комплексні обіди';
+        $lunches = $this->lunches_rep->getAllWithRelated(['sizeCourse.type', 'category'])->get();
+        $sizes = $this->sizes_rep->getAll()->keyBy('id');
+        $this->content = view('admin.lunches')
+            ->with([
+                'lunches' => $lunches,
+                'sizes' => $sizes
+            ])
+            ->render();
         return $this->renderOutput();
     }
 
