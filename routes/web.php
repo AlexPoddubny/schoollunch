@@ -36,7 +36,8 @@
     
     Route::resource('students', 'StudentsController');
     
-    Route::resource('menus', 'menusController');
+    Route::post('getlunches', 'MenuController@getLunches');
+    Route::resource('menu', 'MenuController');
     
     Route::group([
             'prefix' => 'admin',

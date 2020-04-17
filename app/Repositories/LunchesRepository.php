@@ -18,6 +18,9 @@
         public function saveLunch($request)
         {
             $data = $request->except('_token');
+            if (isset($data['privileged'])){
+                $data['privileged'] = $request->boolean('privileged');
+            }
             $model = new $this->model;
             $model->fill($data);
             $model->save();

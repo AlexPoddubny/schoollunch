@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Relations\SizeCourseRelation;
 use Illuminate\Database\Eloquent\Model;
 
 class Lunch extends Model

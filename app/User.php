@@ -51,7 +51,7 @@
         
         public function cook()
         {
-            return $this->hasMany(School::class, 'cook_id');
+            return $this->hasOne(School::class, 'cook_id');
         }
     
         public function schoolClass()

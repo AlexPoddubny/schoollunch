@@ -54,8 +54,7 @@ class Controller extends BaseController
                 $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr($attr);
             }
 //            if(Gate::allows('View_Cook')) {
-//                $menu->add('Комплексні обіди', ['route' => 'lunches.index', 'class' => 'nav-item'])->link->attr($attr);
-                $menu->add('Щоденне меню', ['route' => 'menus.index', 'class' => 'nav-item'])->link->attr($attr);
+                $menu->add('Щоденне меню', ['route' => 'menu.index', 'class' => 'nav-item'])->link->attr($attr);
 //            }
             if(Gate::allows(['View_Admin', 'View_School_Admin'])) {
                 $menu->add('Адмініструвати', ['url' => 'admin', 'class' => 'nav-item'])->link->attr($attr);

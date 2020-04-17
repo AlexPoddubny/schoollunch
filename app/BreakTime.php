@@ -25,5 +25,10 @@
         {
             return $this->hasMany(SchoolClass::class);
         }
+    
+        public function menu()
+        {
+            return $this->hasMany(Menu::class, 'break_id');
+        }
         
     }

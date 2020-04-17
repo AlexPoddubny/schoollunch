@@ -117,6 +117,7 @@ class LunchesController extends AdminController
      */
     public function store(Request $request)
     {
+//        dd($request);
         $result = $this->lunches_rep->saveLunch($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);

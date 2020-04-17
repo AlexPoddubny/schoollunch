@@ -176,11 +176,6 @@ $(document).on('change', '#type', function () {
 
 $(document).on('click', '#addcourse', function (e) {
     e.preventDefault();
-    /*var id = $('#courses_list').val();
-    var name = $('#courses_list option:selected').text();
-    var size = $('#size').val();
-    var type = $('#type').val();*/
-    // console.log(id);
     $.ajax({
         url: 'addcourse',
         data: {
@@ -193,11 +188,29 @@ $(document).on('click', '#addcourse', function (e) {
         },
         type: 'POST',
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             $('#courses').html(res);
         },
         error: function (res) {
             console.log(res);
         }
     });
+});
+
+$(document).on('change', '.menu-select', function (e) {
+    $.ajax({
+        url: '/getlunches',
+        data: {
+            category: $('#category_id').val(),
+            privileged: $('#privileged').is(":checked")
+        },
+        type: 'POST',
+        success: function (res) {
+            console.log(res);
+            $('#lunch_select').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
 });

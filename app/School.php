@@ -31,5 +31,10 @@
         {
             return $this->hasMany(SchoolClass::class)->orderBy('name');
         }
+    
+        public function menu()
+        {
+            return $this->hasMany(Menu::class);
+        }
         
     }
