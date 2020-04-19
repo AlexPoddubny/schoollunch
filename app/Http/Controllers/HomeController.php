@@ -5,6 +5,7 @@
     use App\Repositories\SchoolClassesRepository;
     use App\Repositories\SchoolsRepository;
     use App\Repositories\UsersRepository;
+    use App\Size;
     use Illuminate\Http\Request;
     use Auth;
     
@@ -44,15 +45,22 @@
          */
         public function index()
         {
-//            $user = Auth::user();
             $children = $this->user->child()
-                ->with('schoolClass.school')
+                ->with(['schoolClass.school', 'schoolClass.breakTime.menu' => function($query){
+                    $query->where('date', date('Y-m-d'))
+                        ->with('lunch.sizeCourse');
+                }])
                 ->get()
-                ->sortBy('fullname');
+                ->sortBy('fullname')
+                ->groupBy('schoolClass.id');
+            dd($children);
             $schools = $this->school_rep->getNotNull('admin_id');
             $this->content = view('children')
-                ->with(['schools' => $schools])
-                ->with(['children' => $children])
+                ->with([
+                    'schools' => $schools,
+                    'children' => $children,
+                    'sizes' => Size::all()->keyBy('id')
+                ])
                 ->render();
             return $this->renderOutput();
         }
