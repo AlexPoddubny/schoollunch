@@ -214,3 +214,22 @@ $(document).on('change', '.menu-select', function (e) {
         }
     })
 });
+/*
+$(document).on('change', '.class-select', function (e) {
+    $.ajax({
+        url: '/loadclasses',
+        data: {
+            break_id: $('#break_id').val(),
+            category: $('#category_id').val()
+        },
+        type: 'POST',
+        success: function (res) {
+            console.log(res);
+            $('#classes_list').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+});
+*/

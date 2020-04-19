@@ -15,7 +15,7 @@
                     <tr>
                         <td>{{$perm->description}}</td>
                         @foreach($roles as $role)
-                            <td  style="text-align: center">
+                            <td style="text-align: center">
                                 <input name="{{$role->id}}[]"
                                        type="checkbox"
                                        class="form-check-input"

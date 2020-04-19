@@ -40,10 +40,10 @@
         {
             return $this->hasMany(Student::class, 'class_id');
         }
-    
+    /*
         public function menu()
         {
-            return $this->hasMany(Menu::class, 'class_id');
-        }
+            return $this->belongsToMany(Menu::class, 'menu_schoolclaasses', 'menu_id');
+        }*/
         
     }

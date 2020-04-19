@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Lunch;
+use App\Menu;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\MenuRepository;
 use App\Repositories\SchoolsRepository;
+use App\School;
+use App\SchoolClass;
+use App\Size;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -36,9 +41,23 @@ class MenuController extends Controller
      */
     public function index()
     {
+//        $day = date('Y-m-d');
         $school = $this->user->cook;
         $this->title = $school->name . ' Меню столової';
-        $this->content = view('menu')->render();
+        $menu = Menu::with('lunch.sizeCourse.type', 'breakTime')
+            ->where('school_id', $school->id)
+//            ->where('date', $day)
+            ->get()
+            ->sortBy('breakTime.break_num')
+            ->groupBy('date')
+            ->sortKeys();
+        dump($menu);
+        $this->content = view('menu')
+            ->with([
+                'menus' => $menu,
+                'sizes' => Size::all()->keyBy('id')
+            ])
+            ->render();
         return $this->renderOutput();
     }
 
@@ -50,14 +69,12 @@ class MenuController extends Controller
     public function create()
     {
         $school = $this->user->cook;
-        $breaks = $school->breakTime;
-        $categories = $this->categories_rep->getAll();
         $this->title = 'Додати пункт до меню';
         $this->content = view('menu_add')
             ->with([
                 'school' => $school,
-                'breaks' => $breaks,
-                'categories' => $categories
+                'breaks' => $school->breakTime,
+                'categories' => Category::all()
             ])
             ->render();
         return $this->renderOutput();
@@ -74,6 +91,18 @@ class MenuController extends Controller
             ])
             ->render();
     }
+    /*
+    public function loadClasses(Request $request)
+    {
+        return $this->content = view('classes_list')
+            ->with([
+                'classes' => SchoolClass::where('school_id', $this->user->cook->id)
+                    ->where('break_id', $request->input('break_id'))
+                    ->where('category_id', $request->input('category'))
+                    ->get()
+            ])
+            ->render();
+    }*/
 
     /**
      * Store a newly created resource in storage.

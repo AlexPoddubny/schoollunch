@@ -37,6 +37,7 @@
     Route::resource('students', 'StudentsController');
     
     Route::post('getlunches', 'MenuController@getLunches');
+    Route::post('loadclasses', 'MenuController@loadClasses');
     Route::resource('menu', 'MenuController');
     
     Route::group([

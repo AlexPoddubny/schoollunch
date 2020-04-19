@@ -76,7 +76,7 @@ class LunchesController extends AdminController
     {
         return $this->content = view('admin.courses_select')
             ->with([
-                'courses' => $this->courses_rep->getWhere($request->only('type'), 'type_id')
+                'courses' => $this->courses_rep->getWhere($request->input('type'), 'type_id')
             ])
             ->render();
     }
