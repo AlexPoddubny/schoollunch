@@ -44,7 +44,7 @@ class MenuController extends Controller
 //        $day = date('Y-m-d');
         $school = $this->user->cook;
         $this->title = $school->name . ' Меню столової';
-        $menu = Menu::with('lunch.sizeCourse.type', 'breakTime')
+        $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
             ->where('school_id', $school->id)
 //            ->where('date', $day)
             ->get()

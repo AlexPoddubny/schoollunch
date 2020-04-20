@@ -1,4 +1,22 @@
 @if(!empty($children))
+    <div>
+        Сьогодні, {{date('Y-m-d')}} у ваш{{(count($children) == 1 ? 'ої дитини наступний обід' : 'их дітей наступні обіди')}}:
+    </div>
+    @foreach($children as $child)
+        <div>
+            {{$child->fullname}}, {{$child->schoolClass->name}} клас, {{$child->schoolClass->school->name}}, на перерві {{$child->schoolClass->breakTime->break_num}} о {{$child->schoolClass->breakTime->break_time}}:
+            @foreach($child->schoolClass->breakTime->menu as $menu)
+                <ul>
+                    @foreach($menu->lunch->sizeCourse as $course)
+                        <li>
+                            {{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)
+                        </li>
+                    @endforeach
+                </ul>
+            @endforeach
+        </div>
+    @endforeach
+    {{--
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -12,6 +30,7 @@
             <tbody>
                 @foreach($children as $child)
                     <tr>
+
                         <td>
                             <a href="{{ route('students.show', ['student' => $child->id]) }}">{{$child->fullname}}</a>
                         </td>
@@ -24,11 +43,13 @@
                         <td style="text-align: center">
                             {{$child->pivot->confirmed_at ?? 'Не підтверджено'}}
                         </td>
+
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+    --}}
 @endif
 <div class="card">
     <div class="card-header">Додавання школяра</div>

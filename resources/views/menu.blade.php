@@ -1,3 +1,4 @@
+
 @foreach($menus as $date => $menu)
     <div class="card">
         <div class="card-header">{{$date}}</div>
@@ -7,6 +8,7 @@
                     <tr>
                         <th scope="col" style="text-align: center">Перерва</th>
                         <th scope="col" style="text-align: center">№ комплексу</th>
+                        <th scope="col" style="text-align: center">Категорія</th>
                         <th scope="col" style="text-align: center">Склад</th>
                     </tr>
                 </thead>
@@ -15,6 +17,7 @@
                         <tr>
                             <td>{{$item->breakTime->break_num}}. {{$item->breakTime->break_time}}</td>
                             <td>Комплекс №{{$item->lunch->number}}{{($item->lunch->privileged) ? '(Пільговий)' : ''}}</td>
+                            <td>{{$item->lunch->category->name}}</td>
                             <td>
                                 <ul>
                                     @foreach($item->lunch->sizeCourse as $course)
