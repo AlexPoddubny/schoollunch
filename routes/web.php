@@ -15,7 +15,7 @@
         return view('welcome');
     });
     
-    Auth::routes();
+    Auth::routes(['verify' => true]);
     
     Route::post('search', 'SearchController@search');//->name('search.result');
     

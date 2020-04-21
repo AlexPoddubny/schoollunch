@@ -1,4 +1,4 @@
-@if(!empty($children))
+@if(count($children) > 0)
     <div>
         Сьогодні, {{date('Y-m-d')}} у ваш{{(count($children) == 1 ? 'ої дитини наступний обід' : 'их дітей наступні обіди')}}:
     </div>
