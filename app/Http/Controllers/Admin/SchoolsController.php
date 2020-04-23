@@ -31,6 +31,9 @@ class SchoolsController extends AdminController
      */
     public function index()
     {
+        if (Gate::denies('View_School_Admin')){
+            abort(403);
+        }
         $this->title .= 'Підключення шкіл';
 //        $schools = School::all();
         $schools = $this->school_rep->getAllWithRelated(['admin', 'cook'])->get();
@@ -84,8 +87,8 @@ class SchoolsController extends AdminController
     
     public function add(Request $request)
     {
-        $data = $request->only('schoolname');
-        School::create(['name' => $data['schoolname']]);
+        $schoolname = $request->input('schoolname');
+        School::create(['name' => $schoolname]);
         return redirect(route('adminIndex'));
     }
     
@@ -98,7 +101,6 @@ class SchoolsController extends AdminController
      */
     public function show($id)
     {
-//        $school = $this->school_rep->getWhere($id);
         $school = $this->school_rep->getWhere($id)->first();
         $this->content = view('admin.school_view')
             ->with(['school' => $school])

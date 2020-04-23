@@ -45,18 +45,18 @@ class Controller extends BaseController
     
     public function getMenu()
     {
-        $attr = ['class' => 'nav-link active'];
-        return \Menu::make('mainMenu', function ($menu) use ($attr){
+        return \Menu::make('mainMenu', function ($menu){
+            $attr = ['class' => 'nav-link active'];
 //            if(Gate::allows('View_Class')) {
                 $menu->add('Мої школяри', ['route' => 'home.index', 'class' => 'nav-item'])->link->attr($attr);
 //            }
-            if(Gate::allows('View_Class')) {
+            if(Gate::allows('View_Class_Menu')) {
                 $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr($attr);
             }
-//            if(Gate::allows('View_Cook')) {
+            if(Gate::allows('View_Cook_Menu')) {
                 $menu->add('Щоденне меню', ['route' => 'menu.index', 'class' => 'nav-item'])->link->attr($attr);
-//            }
-            if(Gate::allows(['View_Admin', 'View_School_Admin'])) {
+            }
+            if(Gate::allows(['View_Admin_Menu'])) {
                 $menu->add('Адмініструвати', ['url' => 'admin', 'class' => 'nav-item'])->link->attr($attr);
             }
         });

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Repositories\RolesRepository;
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
+use Gate;
 
 class UsersController extends AdminController
 {
@@ -28,6 +28,9 @@ class UsersController extends AdminController
      */
     public function index()
     {
+        if (Gate::denies('View_Admin')){
+            abort(403);
+        }
         $this->title .= 'Користувачі';
         $users = $this->user_rep->getPaginated(5);
         $this->content = view('admin.users_content')
@@ -70,10 +73,15 @@ class UsersController extends AdminController
     public function show($id)
     {
         $user = $this->user_rep->getWhere($id)->first();
-        $roles = $this->role_rep->getAll();
+        if (!$user){
+            abort(404);
+        }
         $this->title .= 'Користувач - ' . fullname($user);
         $this->content = view('admin.user_edit')
-            ->with(['user' => $user, 'roles' => $roles])
+            ->with([
+                'user' => $user,
+                'roles' => $this->role_rep->getAll()
+            ])
             ->render();
         return $this->renderOutput();
     }

@@ -45,21 +45,16 @@
          */
         public function index()
         {
-            $children = $this->user->child()
-                ->with(['schoolClass.school', 'schoolClass.breakTime.menu' => function($query){
-                    $query->where('date', date('Y-m-d'))
-//                        ->where('break_id', $this->user->child->schoolClass->breakTime->id)
-                        ->with('lunch.sizeCourse');
-                }])
-                ->get()
-                ->sortBy('fullname');
-//                ->groupBy('schoolClass.id');
-            dump($children);
-            $schools = $this->school_rep->getNotNull('admin_id');
             $this->content = view('children')
                 ->with([
-                    'schools' => $schools,
-                    'children' => $children,
+                    'schools' => $this->school_rep->getNotNull('admin_id'),
+                    'children' => $this->user->child()
+                        ->with(['schoolClass.school', 'schoolClass.breakTime.menu' => function($query){
+                            $query->where('date', date('Y-m-d'))
+                                ->with('lunch.sizeCourse');
+                        }])
+                        ->get()
+                        ->sortBy('fullname'),
                     'sizes' => Size::all()->keyBy('id')
                 ])
                 ->render();

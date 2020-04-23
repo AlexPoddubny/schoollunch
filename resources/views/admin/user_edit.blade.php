@@ -1,3 +1,4 @@
+@if($user)
 <form method="POST" action="{{ route('users.store') }}">
     @csrf
     <input name="id" type="hidden" value="{{$user->id}}">
@@ -133,3 +134,6 @@
         </div>
     </div>
 </form>
+@else
+    <a href="{{url()->previous()}}" role="button" class="btn btn-primary">Повернутись назад</a>
+@endif

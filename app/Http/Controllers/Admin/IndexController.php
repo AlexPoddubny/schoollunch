@@ -13,7 +13,11 @@ class IndexController extends AdminController
     
     public function index()
     {
-        return redirect(route('schools.index'));
+        if (Gate::denies(['View_Admin_Menu'])){
+            return redirect(route('home.index'));
+        }
+        $this->content = view('admin.index')->render();
+        return $this->renderOutput();
     }
     
 }
