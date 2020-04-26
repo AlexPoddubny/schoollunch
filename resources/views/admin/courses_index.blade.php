@@ -32,7 +32,11 @@
         <div class="col-md-12">
             <ul class="hr">
                 @foreach($products as $product)
-                    <li>{{$product->name}}</li>
+                    <li>
+                        {{$product->name}}
+                        <span class="glyphicon glyphicon-pencil edit-product" data-id="{{$product->id}}"></span>
+                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$product->id}}"></span>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -48,10 +52,10 @@
             </div>
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
-                    <label for="button" class="control-label"> </label>
+                    <label for="button" class="control-label">&nbsp;</label>
                     <div class="form-group">
                         <button type="submit" id="newproduct" class="btn btn-primary">
-                            Додати продукт
+                            Зберегти
                         </button>
                     </div>
                 </div>
@@ -65,7 +69,11 @@
         <div class="col-md-12">
             <ul class="hr">
                 @foreach($types as $type)
-                    <li>{{$type->sort}}. {{$type->name}}</li>
+                    <li>
+                        {{$type->sort}}. {{$type->name}}
+                        <span class="glyphicon glyphicon-pencil edit-product" data-id="{{$type->id}}"></span>
+                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$type->id}}"></span>
+                    </li>
                     @php $n = $type->sort @endphp
                 @endforeach
             </ul>

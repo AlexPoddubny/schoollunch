@@ -50,7 +50,8 @@ class SchoolController
     public function index()
     {
         if ($this->user->hasRole('Admin')){
-            $schools = $this->school_rep->getNotNull('admin_id');
+//            $schools = $this->school_rep->getNotNull('admin_id');
+            $schools = $this->school_rep->getAll();
         } elseif ($this->user->hasRole('SchoolAdmin')){
             $schools = $this->school_rep->getWhere($this->user->id, 'admin_id');
         } else {

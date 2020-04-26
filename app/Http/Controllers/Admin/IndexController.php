@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\School;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Gate;
 
 class IndexController extends AdminController
@@ -16,8 +12,15 @@ class IndexController extends AdminController
         if (Gate::denies(['View_Admin_Menu'])){
             return redirect(route('home.index'));
         }
-        $this->content = view('admin.index')->render();
-        return $this->renderOutput();
+        if ($this->user->hasRole('Admin')){
+            return redirect(route('schools.index'));
+        }
+        if ($this->user->hasRole('SchoolAdmin')){
+            return redirect(route('school.index'));
+        }
+        if ($this->user->hasRole('Cook')){
+            return redirect(route('courses.index'));
+        }
     }
     
 }

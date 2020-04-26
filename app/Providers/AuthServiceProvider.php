@@ -35,22 +35,41 @@ class AuthServiceProvider extends ServiceProvider
             });
         }
         */
+        // перегляд адмінки
         Gate::define('View_Admin', function ($user){
             return $user->canDo('View_Admin');
         });
+        // користувач може бачити посилання на адміністрування на домашній сторінці
         Gate::define('View_Admin_Menu', function ($user){
-            return $user->hasRole(['Admin', 'School_Admin', 'Cook']);
+            return $user->hasRole(['Admin', 'SchoolAdmin', 'Cook']);
         });
+        // користувач може бачити посилання на редагування шкільного меню на домашній сторінці
         Gate::define('View_Cook_Menu', function ($user){
-            return $user->hasRole(['Cook']);
+            return $user->hasRole('Cook');
         });
-        Gate::define('View_School_Admin', function ($user, School $school = null){
-            return $user->hasRole('Admin')
-                || $school && ($user->canDo('View_School_Admin') && $user->school->id == $school->id);
+        // користувач може бачити посилання на адміністрування школи на адмінпанелі
+        Gate::define('View_School_Admin', function ($user){
+            return /*$user->hasRole('SchoolAdmin') || */$user->canDo('View_School_Admin');
         });
-        Gate::define('View_Cook', function ($user, School $school = null){
-            return $user->hasRole('Admin')
-                || $school && ($user->canDo('View_Cook') && $user->cook->id == $school->id);
+        // користувач може бачити посилання на адміністрування комбінату харчування на адмінпанелі та домашній сторінці
+        Gate::define('View_Cook', function ($user){
+            return $user->canDo('View_Cook');
+        });
+        // адміністрування списку шкіл
+        Gate::define('School_Register', function ($user){
+            return $user->canDo('School_Register');
+        });
+        // призначення адміністратора та завпроду школи
+        Gate::define('School_Admin_Assign', function ($user){
+            return $user->canDo('School_Admin_Assign');
+        });
+        Gate::define('School_Cook_Assign', function ($user){
+            return $user->canDo('School_Cook_Assign');
+        });
+        
+        // редагування даних та створення акаунту користувача
+        Gate::define('User_Register', function ($user){
+            return $user->canDo('User_Register');
         });
         
     }

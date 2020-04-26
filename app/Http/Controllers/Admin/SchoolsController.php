@@ -31,11 +31,10 @@ class SchoolsController extends AdminController
      */
     public function index()
     {
-        if (Gate::denies('View_School_Admin')){
+        if (Gate::denies('School_Register')){
             abort(403);
         }
         $this->title .= 'Підключення шкіл';
-//        $schools = School::all();
         $schools = $this->school_rep->getAllWithRelated(['admin', 'cook'])->get();
         $this->content = view('admin.schools')
             ->with(['schools' => $schools])
@@ -45,6 +44,9 @@ class SchoolsController extends AdminController
     
     public function import()
     {
+        if (Gate::denies('School_Register')){
+            abort(403);
+        }
         foreach (ImportSchools::import() as $item){
             School::create(['name' => $item]);
         }
@@ -53,6 +55,9 @@ class SchoolsController extends AdminController
     
     public function generate(Request $request)
     {
+        if (Gate::denies('School_Register')){
+            abort(403);
+        }
         $data = $request->except('_token');
         for ($i = $data['firstnum']; $i <= $data['lastnum']; $i++){
             School::create(['name' => $data['schoolname'] . ' ' . $i]);
@@ -78,6 +83,9 @@ class SchoolsController extends AdminController
      */
     public function store(Request $request)
     {
+        if (Gate::denies('School_Register')){
+            abort(403);
+        }
         $result = $this->school_rep->saveSchool($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -87,6 +95,9 @@ class SchoolsController extends AdminController
     
     public function add(Request $request)
     {
+        if (Gate::denies('School_Register')){
+            abort(403);
+        }
         $schoolname = $request->input('schoolname');
         School::create(['name' => $schoolname]);
         return redirect(route('adminIndex'));
@@ -102,6 +113,7 @@ class SchoolsController extends AdminController
     public function show($id)
     {
         $school = $this->school_rep->getWhere($id)->first();
+        $this->title .= $school->name;
         $this->content = view('admin.school_view')
             ->with(['school' => $school])
             ->render();
@@ -117,6 +129,9 @@ class SchoolsController extends AdminController
      */
     public function edit($id, $type)
     {
+        if (Gate::denies('School_' . ucfirst($type) . '_Assign')){
+            abort(403);
+        }
         $school = School::with($type)->where('id', $id)->first();
         $this->title .= $school->name;
         if ($school->$type == null){
@@ -148,6 +163,9 @@ class SchoolsController extends AdminController
      */
     public function destroy($id)
     {
+        if (Gate::denies('School_Register')){
+            abort(403);
+        }
         School::destroy($id);
         return redirect(route('adminIndex'));
     }

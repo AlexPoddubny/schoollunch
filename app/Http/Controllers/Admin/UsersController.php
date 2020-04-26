@@ -57,7 +57,11 @@ class UsersController extends AdminController
      */
     public function store(Request $request)
     {
-        $result = $this->role_rep->changeRoles($request);
+        if (Gate::denies('User_Register')){
+            abort(403);
+        }
+        $result = $this->user_rep->saveUser($request);
+//        $result = $this->role_rep->changeRoles($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
