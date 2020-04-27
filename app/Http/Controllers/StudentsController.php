@@ -34,7 +34,7 @@
         {
             $schoolClass = $this->user->schoolClass;
             if(!$schoolClass){
-                abort(403); //в дальнейшем переделать на Gate::denies
+                abort(403);
             }
             $students = $schoolClass->student()
                 ->with($this->relations)
@@ -48,6 +48,9 @@
     
         public function confirm($student_id, $parent_id)
         {
+            if (Gate::denies('Parent_Confirm')){
+                abort(403);
+            }
             $student = $this->students
                 ->getWhere($student_id)
                 ->first();

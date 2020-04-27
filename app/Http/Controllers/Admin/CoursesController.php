@@ -9,6 +9,7 @@
     use App\Repositories\SizesRepository;
     use App\Repositories\TypesRepository;
     use Illuminate\Http\Request;
+    use Gate;
     
     class CoursesController
         extends AdminController
@@ -41,17 +42,17 @@
          */
         public function index()
         {
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
             $courses = $this->courses_rep->getAllWithRelated('type')->orderBy('rc')->paginate(10);
             $links = $courses->appends(['sort' => 'rc'])->links();
-            $products = $this->products_rep->getAll()->sortBy('name');
-            $types = $this->types_rep->getAll()->sortBy('sort');
-            $sizes = $this->sizes_rep->getAll()->sortBy('size');
             $this->content = view('admin.courses_index')
                 ->with([
                     'courses' => $courses,
-                    'products' => $products,
-                    'types' => $types,
-                    'sizes' => $sizes,
+                    'products' => $this->products_rep->getAll()->sortBy('name'),
+                    'types' => $this->types_rep->getAll()->sortBy('sort'),
+                    'sizes' => $this->sizes_rep->getAll()->sortBy('size'),
                     'links' => $links
                 ])
                 ->render();
@@ -66,6 +67,9 @@
          */
         public function create()
         {
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
             $this->title .= 'Додавання страви';
             $products = $this->products_rep->getAll()->sortBy('name');
             $types = $this->types_rep->getAll();
@@ -87,6 +91,9 @@
          */
         public function store(Request $request)
         {
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
             $result = $this->courses_rep->saveCourse($request);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);

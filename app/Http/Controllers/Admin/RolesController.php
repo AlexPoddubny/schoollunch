@@ -7,6 +7,7 @@ use App\Repositories\PermissionsRepository;
 use App\Repositories\RolesRepository;
 use App\Role;
 use Illuminate\Http\Request;
+use Gate;
 
 class RolesController extends AdminController
 {
@@ -19,7 +20,6 @@ class RolesController extends AdminController
         parent::__construct();
         $this->perm_rep = $perm_rep;
         $this->role_rep = $role_rep;
-//        $this->template = 'admin.roles';
     }
     
     /**
@@ -29,6 +29,9 @@ class RolesController extends AdminController
      */
     public function index()
     {
+        if (Gate::denies('Roles_Edit')){
+            abort(403);
+        }
         $this->title .= 'Ролі та дозволи';
         $roles = $this->role_rep->getWithRelationCount('users');
         $this->content = view('admin.roles_content')
@@ -55,8 +58,10 @@ class RolesController extends AdminController
      */
     public function store(Request $request)
     {
+        if (Gate::denies('Roles_Edit')){
+            abort(403);
+        }
         $result = $this->perm_rep->changePermissions($request);
-    
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
@@ -72,6 +77,9 @@ class RolesController extends AdminController
      */
     public function show($id)
     {
+        if (Gate::denies('Roles_Edit')){
+            abort(403);
+        }
         $role = $this->role_rep->getWhere($id)->first();
         $perms = $this->perm_rep->getAll();
         $this->title .= 'Роль - ' . $role->description;

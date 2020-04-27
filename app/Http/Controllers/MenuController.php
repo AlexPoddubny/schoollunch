@@ -8,16 +8,14 @@ use App\Menu;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\MenuRepository;
 use App\Repositories\SchoolsRepository;
-use App\School;
-use App\SchoolClass;
 use App\Size;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Gate;
 
 class MenuController extends Controller
 {
-    
-    public $schoolClasses;
+
+//    public $schoolClasses;
     protected $school_rep;
     protected $categories_rep;
     protected $menu_rep;
@@ -41,12 +39,10 @@ class MenuController extends Controller
      */
     public function index()
     {
-//        $day = date('Y-m-d');
         $school = $this->user->cook;
         $this->title = $school->name . ' Меню столової';
         $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
             ->where('school_id', $school->id)
-//            ->where('date', $day)
             ->get()
             ->sortBy('breakTime.break_num')
             ->groupBy('date')
@@ -68,6 +64,9 @@ class MenuController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('Menu_Create')){
+            abort(403);
+        }
         $school = $this->user->cook;
         $this->title = 'Додати пункт до меню';
         $this->content = view('menu_add')
@@ -112,6 +111,9 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::denies('Menu_Create')){
+            abort(403);
+        }
         $result = $this->menu_rep->saveMenu($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);

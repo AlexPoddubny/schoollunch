@@ -42,6 +42,9 @@ class LunchesController extends AdminController
      */
     public function index()
     {
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
         $this->title .= 'Комплексні обіди';
         $lunches = $this->lunches_rep->getAllWithRelated(['sizeCourse.type', 'category'])->get();
         $sizes = $this->sizes_rep->getAll()->keyBy('id');
@@ -61,6 +64,9 @@ class LunchesController extends AdminController
      */
     public function create()
     {
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
         session(['courses' => []]);
         $this->content = view('admin.lunch_create')
             ->with([
@@ -83,6 +89,9 @@ class LunchesController extends AdminController
     
     public function addCourse(Request $request)
     {
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
         $id = $request->input('id');
         $courses = session('courses');
         if (!in_array($id, $courses)){
@@ -96,7 +105,6 @@ class LunchesController extends AdminController
             ];
             session(['courses' => $courses]);
         }
-//        return session('courses');
         return $this->renderCourses();
     }
     
@@ -117,7 +125,9 @@ class LunchesController extends AdminController
      */
     public function store(Request $request)
     {
-//        dd($request);
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
         $result = $this->lunches_rep->saveLunch($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);

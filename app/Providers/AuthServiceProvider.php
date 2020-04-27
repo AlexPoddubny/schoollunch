@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        /*
+        
         $perms = Permission::all();
         foreach ($perms as $perm) {
             $name = $perm->name;
@@ -34,11 +34,13 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->canDo($name);
             });
         }
-        */
+        
+        /*
         // перегляд адмінки
         Gate::define('View_Admin', function ($user){
             return $user->canDo('View_Admin');
         });
+        */
         // користувач може бачити посилання на адміністрування на домашній сторінці
         Gate::define('View_Admin_Menu', function ($user){
             return $user->hasRole(['Admin', 'SchoolAdmin', 'Cook']);
@@ -47,10 +49,16 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('View_Cook_Menu', function ($user){
             return $user->hasRole('Cook');
         });
+        Gate::define('View_Class_Menu', function ($user){
+            return $user->hasRole('ClassTeacher');
+        });
+        
         // користувач може бачити посилання на адміністрування школи на адмінпанелі
         Gate::define('View_School_Admin', function ($user){
-            return /*$user->hasRole('SchoolAdmin') || */$user->canDo('View_School_Admin');
+            return $user->canDo('View_School_Admin');
         });
+        
+        /*
         // користувач може бачити посилання на адміністрування комбінату харчування на адмінпанелі та домашній сторінці
         Gate::define('View_Cook', function ($user){
             return $user->canDo('View_Cook');
@@ -66,11 +74,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('School_Cook_Assign', function ($user){
             return $user->canDo('School_Cook_Assign');
         });
-        
         // редагування даних та створення акаунту користувача
         Gate::define('User_Register', function ($user){
             return $user->canDo('User_Register');
         });
-        
+        // редагування ролей
+        Gate::define('Roles_Edit', function ($user){
+            return $user->canDo('Roles_Edit');
+        });
+        */
     }
 }

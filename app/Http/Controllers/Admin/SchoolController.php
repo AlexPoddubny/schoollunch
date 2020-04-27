@@ -9,6 +9,7 @@ use App\Repositories\SchoolsRepository;
 use App\Repositories\UsersRepository;
 use App\SchoolClass;
 use Illuminate\Http\Request;
+use Gate;
 
 class SchoolController
     extends AdminController
@@ -79,7 +80,7 @@ class SchoolController
     public function select(Request $request)
     {
         return redirect(route('school.show', [
-            'school' => $request->only('school')['school']
+            'school' => $request->input('school')
         ]));
     }
 
@@ -122,6 +123,9 @@ class SchoolController
     
     public function addBreak(Request $request)
     {
+        if (Gate::denies('School_Edit')){
+            abort(403);
+        }
         $data = $request->except('_token');
         $break = new BreakTime([
             'break_num' => $data['break_num'],
@@ -136,6 +140,9 @@ class SchoolController
     
     public function addClass(Request $request)
     {
+        if (Gate::denies('School_Edit')){
+            abort(403);
+        }
         $data = $request->except('_token');
         $schoolClass = new schoolClass([
             'name' => $data['classname'],
