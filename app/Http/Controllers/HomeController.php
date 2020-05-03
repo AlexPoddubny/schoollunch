@@ -51,9 +51,11 @@
                 ->with([
                     'schools' => $this->school_rep->getNotNull('admin_id'),
                     'children' => $this->user->child()
-                        ->with(['schoolClass.school', 'schoolClass.breakTime.menu' => function($query){
-                            $query->where('date', date('Y-m-d'))
-                                ->with('lunch.sizeCourse');
+                        ->with([
+                            'schoolClass.school',
+                            'schoolClass.breakTime.menu' => function($query){
+                                $query->where('date', date('Y-m-d'))
+                                    ->with('lunch.sizeCourse');
                         }])
                         ->get()
                         ->sortBy('fullname'),
