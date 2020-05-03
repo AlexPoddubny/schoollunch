@@ -94,6 +94,15 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
+            $this->validate($request, [
+                'rs' => ['required', 'numeric', 'min:1'],
+                'name' => ['required', 'max:100'],
+                'type_id' => ['required'],
+                'albumens' => ['required'],
+                'fats' => ['required'],
+                'carbonhydrates' => ['required'],
+                'calories' => ['required']
+            ]);
             $result = $this->courses_rep->saveCourse($request);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);

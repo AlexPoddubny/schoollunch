@@ -7,7 +7,7 @@
             <label for="number" class="col-md-4 col-form-label text-md-right">Номер комплексу</label>
 
             <div class="col-md-6">
-                <input id="number" type="number" min="1" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
+                <input id="number" type="number" min="1" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') ?? $number }}" required autocomplete="number" autofocus>
 
                 @error('number')
                 <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label for="type">Оберіть тип страви</label>
                 <select name="type" id="type" class="form-control">
-                    <option value="" selected disabled>Оберіть страву</option>
+                    <option value="" selected disabled>Оберіть тип страви</option>
                     @foreach($types as $type)
                         <option value="{{$type->id}}">{{$type->name}}</option>
                     @endforeach

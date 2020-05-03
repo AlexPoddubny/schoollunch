@@ -5,6 +5,7 @@
     
 
     use App\Lunch;
+    use Arr;
 
     class LunchesRepository
         extends Repository
@@ -26,15 +27,15 @@
             $model->save();
             $courses = session('courses');
             foreach ($courses as $n => $course){
-                //надо это отфильтровать
-                unset($courses[$n]['name']);
-                unset($courses[$n]['type']);
-                unset($courses[$n]['type_id']);
-                unset($courses[$n]['size']);
+                $courses[$n] = Arr::only($courses[$n], ['course_id', 'size_id']);
             }
-//            dd($courses);
             $model->sizeCourse()->sync($courses);
             return ['status' => 'Комплекс додано'];
+        }
+    
+        public function getLastNum()
+        {
+            return $this->model::get('number')->sortByDesc('number')->first()->number;
         }
     
     }

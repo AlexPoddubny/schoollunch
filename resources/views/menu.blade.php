@@ -1,4 +1,3 @@
-
 @foreach($menus as $date => $menu)
     <div class="card">
         <div class="card-header">{{$date}}</div>

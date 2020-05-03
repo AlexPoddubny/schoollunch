@@ -7,7 +7,7 @@
             <input id="rc" type="number" class="form-control @error('rc') is-invalid @enderror" name="rc" value="{{old('rc')}}" required autocomplete="rc" autofocus>
 
             @error('rc')
-            <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -20,7 +20,7 @@
             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name')}}" required autocomplete="name" autofocus>
 
             @error('name')
-            <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -30,14 +30,14 @@
         <label for="type" class="col-md-4 col-form-label text-md-right">Тип страви</label>
 
         <div class="col-md-6">
-            <select name="type_id" class="form-control">
+            <select name="type_id" class="form-control @error('type_id') is-invalid @enderror">
                 @foreach($types as $type)
                     <option value="{{$type->id}}">{{$type->name}}</option>
                 @endforeach
             </select>
 
             @error('type_id')
-            <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -49,7 +49,6 @@
     </div>
     <div class="form-group row">
         <div class="col-md-12 table-responsive" id="products">
-
         </div>
     </div>
     <div class="form-group row">
@@ -71,25 +70,45 @@
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="albumens">Білки</label>
-                <input name="albumens" step="0.1" class="form-control" type="number">
+                <input name="albumens" step="0.1" class="form-control @error('albumens') is-invalid @enderror" type="number">
+                @error('albumens')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="fats" class="control-label">Жири</label>
-                <input class="form-control input-group" step="0.1" name="fats" type="number">
+                <input class="form-control input-group @error('fats') is-invalid @enderror" step="0.1" name="fats" type="number">
+                @error('fats')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
         </div>
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="carbonhydrates" class="control-label">Вуглеводи</label>
-                <input name="carbonhydrates" type="number" step="0.1" class="form-control input-group"/>
+                <input name="carbonhydrates" type="number" step="0.1" class="form-control input-group @error('carbonhydrates') is-invalid @enderror"/>
+                @error('carbonhydrates')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
         </div>
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="calories" class="control-label">Калорії</label>
-                <input name="calories" type="number" step="0.1" class="form-control input-group"/>
+                <input name="calories" type="number" step="0.1" class="form-control input-group @error('calories') is-invalid @enderror"/>
+                @error('calories')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
         </div>
     </div>

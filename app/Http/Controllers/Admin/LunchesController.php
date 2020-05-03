@@ -74,6 +74,7 @@ class LunchesController extends AdminController
                 'categories' => $this->categories_rep->getAll(),
                 'types' => $this->types_rep->getAll()->sortBy('sort'),
                 'sizes' => $this->sizes_rep->getAll()->sortBy('size'),
+                'number' => $this->lunches_rep->getLastNum() + 1 ?? 1
             ])
             ->render();
         return $this->renderOutput();

@@ -9,7 +9,7 @@
                 <ul>
                     @foreach($menu->lunch->sizeCourse as $course)
                         <li>
-                            {{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)
+                            <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">{{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)</a>
                         </li>
                     @endforeach
                 </ul>
