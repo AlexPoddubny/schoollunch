@@ -9,6 +9,7 @@ use App\Repositories\SizesRepository;
 use App\Repositories\TypesRepository;
 use Illuminate\Http\Request;
 use Arr;
+use Gate;
 
 class LunchesController extends AdminController
 {
@@ -128,11 +129,15 @@ class LunchesController extends AdminController
         if (Gate::denies('Course_Create')){
             abort(403);
         }
+        $this->validate($request, [
+            'number' => ['required'],
+            'category_id' => ['required']
+        ]);
         $result = $this->lunches_rep->saveLunch($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-        return redirect(route('lunches.index'));
+        return redirect(route('lunches.index'))->with($result);
     }
 
     /**

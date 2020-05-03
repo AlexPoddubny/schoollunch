@@ -21,6 +21,9 @@
         public function add(Request $request, SchoolClass $schoolClass)
         {
             $data = $request->except('_token');
+            if (isset($data['privilege'])){
+                $data['privilege'] = $request->boolean('privilege');
+            }
             $student = new Student($data);
             $schoolClass->student()->save($student);
             return ['status' => 'Учня додано у клас'];

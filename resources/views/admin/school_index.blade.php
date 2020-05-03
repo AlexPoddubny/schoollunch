@@ -25,19 +25,34 @@
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="break_num">Номер перерви</label>
-                    <input name="break_num" value="{{isset($n) ? $n + 2 : 1}}" class="form-control" type="number">
+                    <input name="break_num" value="{{isset($n) ? $n + 2 : 1}}" class="form-control @error('break_num') is-invalid @enderror" type="number">
+                    @error('break_num')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="begin" class="control-label">Початок</label>
-                    <input class="form-control input-group" name="begin" type="time" value="8:45"/>
+                    <input class="form-control input-group @error('begin') is-invalid @enderror" name="begin" type="time" min="08:45" value="{{old('begin')}}">
+                    @error('begin')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="end" class="control-label">Закінчення</label>
-                    <input name="end" type="time" value="9:00" class="form-control input-group"/>
+                    <input name="end" type="time" class="form-control input-group @error('end') is-invalid @enderror" min="08:00" value="{{old('end')}}"/>
+                    @error('end')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
@@ -61,7 +76,12 @@
         <div class="form-group row">
             <label for="classname" class="col-md-4 col-form-label text-md-right">{{__('messages.class_name')}}</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" name="classname">
+                <input type="text" class="form-control @error('classname') is-invalid @enderror" name="classname" value="{{old('classname')}}">
+                @error('classname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">
                 {{__('messages.add_class')}}

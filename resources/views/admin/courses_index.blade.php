@@ -34,8 +34,8 @@
                 @foreach($products as $product)
                     <li>
                         {{$product->name}}
-                        <span class="glyphicon glyphicon-pencil edit-product" data-id="{{$product->id}}"></span>
-                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$product->id}}"></span>
+                        {{--<span class="glyphicon glyphicon-pencil edit-product" data-id="{{$product->id}}"></span>
+                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$product->id}}"></span>--}}
                     </li>
                 @endforeach
             </ul>
@@ -47,7 +47,12 @@
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="name" class="control-label">Додати продукт</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name')}}" required autocomplete="name">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name')}}" required autocomplete="name" id="product">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
@@ -71,8 +76,8 @@
                 @foreach($types as $type)
                     <li>
                         {{$type->sort}}. {{$type->name}}
-                        <span class="glyphicon glyphicon-pencil edit-product" data-id="{{$type->id}}"></span>
-                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$type->id}}"></span>
+                        {{--<span class="glyphicon glyphicon-pencil edit-product" data-id="{{$type->id}}"></span>
+                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$type->id}}"></span>--}}
                     </li>
                     @php $n = $type->sort @endphp
                 @endforeach

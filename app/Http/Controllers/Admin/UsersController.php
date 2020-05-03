@@ -12,6 +12,14 @@ class UsersController extends AdminController
     
     protected $user_rep;
     protected $role_rep;
+    protected $rules = [
+        'phone' => ['required', 'digits:10'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'firstname' => ['required', 'string', 'min:4', 'max:100'],
+        'middlename' => ['required', 'string', 'max:100'],
+        'lastname' => ['required', 'string', 'max:100'],
+        'sex' => ['required'],
+    ];
     
     public function __construct(UsersRepository $user_rep, RolesRepository $role_rep)
     {
@@ -60,6 +68,7 @@ class UsersController extends AdminController
         if (Gate::denies('User_Register')){
             abort(403);
         }
+        $this->validate($request, $this->rules);
         $result = $this->user_rep->saveUser($request);
 //        $result = $this->role_rep->changeRoles($request);
         if(is_array($result) && !empty($result['error'])) {

@@ -6,8 +6,10 @@
     use App\Repositories\SchoolsRepository;
     use App\Repositories\UsersRepository;
     use App\Size;
+    use App\Student;
     use Illuminate\Http\Request;
     use Auth;
+    use Arr;
     
     class HomeController extends Controller
     {
@@ -138,5 +140,19 @@
         public function destroy($id)
         {
             //
+        }
+    
+        public function search(Request $request)
+        {
+            $searchTerm = $request->except('_token');
+            $students = Student::where('fullname', 'like', '%' . $searchTerm['query'] . '%')
+                ->where('class_id', $searchTerm['schoolClass'])
+                ->get();
+            return $search = view('search.student')
+                ->with([
+                    'students' => $students,
+                    'name' => $request->input('name')
+                ])
+                ->render();
         }
     }

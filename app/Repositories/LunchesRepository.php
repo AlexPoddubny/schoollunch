@@ -26,6 +26,7 @@
             $model->save();
             $courses = session('courses');
             foreach ($courses as $n => $course){
+                //надо это отфильтровать
                 unset($courses[$n]['name']);
                 unset($courses[$n]['type']);
                 unset($courses[$n]['type_id']);

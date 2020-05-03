@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Repositories\SchoolsRepository;
 use App\Repositories\UsersRepository;
+use App\Rules\NumRule;
 use App\School;
 use Illuminate\Http\Request;
 use ImportSchools;
@@ -50,7 +51,7 @@ class SchoolsController extends AdminController
         foreach (ImportSchools::import() as $item){
             School::create(['name' => $item]);
         }
-        return redirect(route('adminIndex'));
+        return redirect(route('schools.index'));
     }
     
     public function generate(Request $request)
@@ -58,11 +59,16 @@ class SchoolsController extends AdminController
         if (Gate::denies('School_Register')){
             abort(403);
         }
+        $this->validate($request, [
+            'firstnum' => ['required', 'integer', 'min:1'],
+            'lastnum' => ['required', 'integer', new NumRule($request->get('firstnum'))],
+            'schoolsname' => ['required', 'string', 'min:5', 'max:100']
+        ]);
         $data = $request->except('_token');
         for ($i = $data['firstnum']; $i <= $data['lastnum']; $i++){
-            School::create(['name' => $data['schoolname'] . ' ' . $i]);
+            School::create(['name' => $data['schoolsname'] . ' ' . $i]);
         }
-        return redirect(route('adminIndex'));
+        return redirect(route('schools.index'));
     }
     
     /**
@@ -86,6 +92,9 @@ class SchoolsController extends AdminController
         if (Gate::denies('School_Register')){
             abort(403);
         }
+        $this->validate($request, [
+            'schoolname' => ['required', 'string', 'max:100']
+        ]);
         $result = $this->school_rep->saveSchool($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -98,6 +107,9 @@ class SchoolsController extends AdminController
         if (Gate::denies('School_Register')){
             abort(403);
         }
+        $this->validate($request, [
+            'schoolname' => ['required', 'string', 'max:100']
+        ]);
         $schoolname = $request->input('schoolname');
         School::create(['name' => $schoolname]);
         return redirect(route('adminIndex'));
@@ -137,8 +149,14 @@ class SchoolsController extends AdminController
         if ($school->$type == null){
             $this->title .= ' - Не призначено';
         }
-        $this->content = view('admin.school_' . $type . '_edit')
-            ->with(['school' => $school])
+        $user = $school->$type;
+        dump($user);
+        $this->content = view('admin.school_edit')
+            ->with([
+                'school' => $school,
+                'user' => $user,
+                'type' => $type
+            ])
             ->render();
         return $this->renderOutput();
     }
@@ -167,6 +185,6 @@ class SchoolsController extends AdminController
             abort(403);
         }
         School::destroy($id);
-        return redirect(route('adminIndex'));
+        return redirect(route('schools.index'));
     }
 }

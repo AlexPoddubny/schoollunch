@@ -1,14 +1,14 @@
-@if(isset($searchResults))
-    @if($searchResults->isEmpty())
-        <p>Учня {{$searchTerm}} не знайдено</p>
+@if(isset($students))
+    @if($students->isEmpty())
+        <p>Учня {{$name}} не знайдено</p>
     @else
         <ul>
-            @foreach($searchResults as $result)
+            @foreach($students as $student)
                 <li>
                     <form action="{{route('home.store')}}" method="post">
                         @csrf
-                        <input type="text" hidden name="student" value="{{$result->url}}">
-                        {{$result->title}}
+                        <input type="text" hidden name="student" value="{{$student->id}}">
+                        {{$student->fullname}}
                         <button type="submit" class="btn btn-primary">
                             Зареєструвати
                         </button>

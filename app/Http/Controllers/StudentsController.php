@@ -2,7 +2,6 @@
     
     namespace App\Http\Controllers;
     
-    use App\BreakTime;
     use App\Repositories\SchoolClassesRepository;
     use App\Repositories\StudentsRepository;
     use App\Student;
@@ -32,8 +31,7 @@
     
         public function index()
         {
-            $schoolClass = $this->user->schoolClass;
-            if(!$schoolClass){
+            if(!($schoolClass = $this->user->schoolClass)){
                 abort(403);
             }
             $students = $schoolClass->student()
@@ -41,7 +39,9 @@
                 ->get()
                 ->sortBy('fullname');
             $this->content = view('students_index')
-                ->with(['students' => $students])
+                ->with([
+                    'students' => $students
+                ])
                 ->render();
             return $this->renderOutput();
         }
@@ -77,8 +77,14 @@
         public function store(Request $request)
         {
             if (isset($request['fullname'])){
+                $this->validate($request, [
+                    'fullname' => ['required', 'max:100']
+                ]);
                 $result = $this->students->add($request, $this->user->schoolClass);
             } elseif (isset($request['list'])){
+                $this->validate($request,[
+                    'list' => ['required']
+                ]);
                 $result = $this->students->addMass($request, $this->user->schoolClass);
             } else {
                 return back();

@@ -51,7 +51,6 @@ class SchoolController
     public function index()
     {
         if ($this->user->hasRole('Admin')){
-//            $schools = $this->school_rep->getNotNull('admin_id');
             $schools = $this->school_rep->getAll();
         } elseif ($this->user->hasRole('SchoolAdmin')){
             $schools = $this->school_rep->getWhere($this->user->id, 'admin_id');
@@ -67,7 +66,9 @@ class SchoolController
             } else {
                 // fill the selector
                 $this->content = view('selector')
-                    ->with(['schools' => $schools])
+                    ->with([
+                        'schools' => $schools
+                    ])
                     ->render();
 //                return $this->renderOutput();
             }
@@ -116,7 +117,9 @@ class SchoolController
         $school = $this->school_rep->getWithRelated($id, $this->related)->first();
         $this->title .= $school->name;
         $this->content = view('admin.school_index')
-            ->with(['school' => $school])
+            ->with([
+                'school' => $school
+            ])
             ->render();
         return $this->renderOutput();
     }
@@ -126,6 +129,11 @@ class SchoolController
         if (Gate::denies('School_Edit')){
             abort(403);
         }
+        $this->validate($request, [
+            'break_num' => ['required', 'integer', 'min:1'],
+            'begin' => ['required', 'date_format:H:i'],
+            'end' => ['required', 'date_format:H:i'] //разобраться с after:begin
+        ]);
         $data = $request->except('_token');
         $break = new BreakTime([
             'break_num' => $data['break_num'],
@@ -143,6 +151,9 @@ class SchoolController
         if (Gate::denies('School_Edit')){
             abort(403);
         }
+        $this->validate($request, [
+            'classname' => ['required', 'regex:/(^\d{1,2}[-][А-Я]$)/u']
+        ]);
         $data = $request->except('_token');
         $schoolClass = new schoolClass([
             'name' => $data['classname'],

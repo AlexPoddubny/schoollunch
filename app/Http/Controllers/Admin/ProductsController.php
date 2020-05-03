@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Product;
 use App\Repositories\ProductsRepository;
-use App\Student;
 use Illuminate\Http\Request;
 use Spatie\Searchable\Search;
 use Gate;
@@ -52,6 +50,9 @@ class ProductsController extends AdminController
         if (Gate::denies('Course_Create')){
             abort(403);
         }
+        $this->validate($request, [
+            'name' => ['required', 'max:100']
+        ]);
         $result = $this->product_rep->create($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -76,7 +77,7 @@ class ProductsController extends AdminController
      */
     public function show($id)
     {
-        //
+        return $product = $this->product_rep->getWhere($id)->first();
     }
 
     /**

@@ -65,12 +65,14 @@ $(document).on('click', '#search', function (e) {
     e.preventDefault();
     if (query.length >= 3){
         $.ajax({
-            url: '/search',
+            url: '/home/search',
             data: {
-                query: query
+                query: query,
+                schoolClass: $('#classes').val()
             },
             type: 'POST',
             success: function (res) {
+                console.log(res);
                 $('#result').html(res);
             },
             error: function (res) {
@@ -208,6 +210,21 @@ $(document).on('change', '.menu-select', function (e) {
         success: function (res) {
             console.log(res);
             $('#lunch_select').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+});
+
+$(document).on('click', '.edit-product', function () {
+    var id = $(this).data('id');
+    console.log(id);
+    $.ajax({
+        url: 'products/' + id,
+        type: 'GET',
+        success: function (res) {
+            console.log(res);
         },
         error: function (res) {
             console.log(res);

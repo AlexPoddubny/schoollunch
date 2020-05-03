@@ -15,6 +15,7 @@
         
         protected $fillable = [
             'fullname',
+            'privilege',
             'class_id'
         ];
         

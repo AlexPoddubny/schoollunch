@@ -17,15 +17,17 @@
                     </td>
                     <!-- School Admin Assign -->
                     <td style="text-align: center">
-                        @if($school->admin_id != null)
-                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}" target="_blank">{{fullname($school->admin)}}</a>
+                        @if($school->admin_id)
+                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">{{fullname($school->admin)}}</a>
+                            <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
                         @else
                             <a class="btn btn-primary" href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}" role="button">{{__('messages.assign')}}</a>
                         @endif
                     </td>
                     <!-- School Cook Assign -->
                     <td style="text-align: center">
-                        @if($school->cook_id != null)
+                        @if($school->cook_id)
                             <a href="{{ route('users.show', ['user' => $school->cook->id]) }} "target="_blank">{{fullname($school->cook)}}</a>
                         @else
                             <a class="btn btn-primary" href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}" role="button">{{__('messages.assign')}}</a>
@@ -52,7 +54,12 @@
     <div class="form-group row">
         <label for="schoolname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name')}}</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" name="schoolname">
+            <input type="text" class="form-control @error('schoolname') is-invalid @enderror" name="schoolname">
+            @error('schoolname')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary">
             {{__('messages.add_school')}}
@@ -68,19 +75,34 @@
             <div class="form-group row">
                 <label for="firstnum" class="col-md-4 col-form-label text-md-right">{{__('messages.first_school_number')}}</label>
                 <div class="col-md-4">
-                    <input type="number" class="form-control" name="firstnum" value="1">
+                    <input type="number" class="form-control @error('lastnum') is-invalid @enderror" name="firstnum" value="{{old('firstnum') ?? 1}}" min="1">
+                    @error('firstnum')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <label for="lastnum" class="col-md-4 col-form-label text-md-right">{{__('messages.last_school_number')}}</label>
                 <div class="col-md-4">
-                    <input type="number" class="form-control" name="lastnum">
+                    <input type="number" class="form-control @error('lastnum') is-invalid @enderror" name="lastnum" min="1" value="{{old('lastnum')}}">
+                    @error('lastnum')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
-                <label for="schoolname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name_template')}}</label>
+                <label for="schoolsname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name_template')}}</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" name="schoolname">
+                    <input type="text" class="form-control @error('schoolsname') is-invalid @enderror" name="schoolsname" value="{{old('schoolsname')}}">
+                    @error('schoolsname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row mb-0">

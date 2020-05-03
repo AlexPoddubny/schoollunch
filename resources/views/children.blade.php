@@ -80,6 +80,7 @@
             <div class="form-group row">
                 <label for="search" class="col-md-4 col-form-label text-md-right">Знайдіть учня</label>
                 <div class="col-md-6">
+{{--                    <input type="hidden" name="schoolClass" id="schoolClass">--}}
                     <input type="text" class="form-control" name="query" id="query">
                 </div>
                 <a id="search" class="btn btn-primary" href="#" role="button">Знайти</a>

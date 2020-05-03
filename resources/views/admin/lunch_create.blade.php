@@ -7,7 +7,7 @@
             <label for="number" class="col-md-4 col-form-label text-md-right">Номер комплексу</label>
 
             <div class="col-md-6">
-                <input id="number" type="number" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
+                <input id="number" type="number" min="1" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
 
                 @error('number')
                 <span class="invalid-feedback" role="alert">
@@ -20,7 +20,7 @@
             <label for="category" class="col-md-4 col-form-label text-md-right">Категорія комплексу</label>
 
             <div class="col-md-6">
-                <select name="category_id" class="form-control">
+                <select name="category_id" class="form-control @error('number') is-invalid @enderror">
                     <option selected disabled>Оберіть категорію</option>
                     @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>

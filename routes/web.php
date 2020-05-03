@@ -25,6 +25,7 @@
         ]
     );
     
+    Route::post('/home/search', 'HomeController@search');
     Route::resource('home', 'HomeController');
     
 //    Route::get('/search','SearchController@search')->name('search');
@@ -39,6 +40,7 @@
     Route::post('getlunches', 'MenuController@getLunches');
     Route::post('loadclasses', 'MenuController@loadClasses');
     Route::resource('menu', 'MenuController');
+    Route::resource('courses', 'CoursesController');
     
     Route::group([
             'prefix' => 'admin',

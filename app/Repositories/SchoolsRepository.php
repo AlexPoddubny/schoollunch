@@ -26,18 +26,19 @@
             $data = $request->except('_token');
             $school = $this->getWhere($data['id'])->first();
             $school->name = $data['name'];
-            $type = false;
-            if (isset($data['admin_id'])){
-                $type = 'admin_id';
-                $role_name = 'SchoolAdmin';
+            $type = $data['type'];
+            switch ($type){
+                case 'admin':
+                    $role_name = 'SchoolAdmin';
+                    break;
+                case 'cook':
+                    $role_name = 'Cook';
+                    break;
             }
-            if (isset($data['cook_id'])){
-                $type = 'cook_id';
-                $role_name = 'Cook';
-            }
-            if ($type && isset($data[$type])){
-                $school->$type = $data[$type];
-                $user = $this->user_rep->getWhere($data[$type])->first();
+            $type .= '_id';
+            $school->$type = $data['user_id'];
+            $user = $this->user_rep->getWhere($data['user_id'])->first();
+            if ($user && !$user->hasRole($role_name)) {
                 $user->addRole($role_name);
             }
             $school->save();
