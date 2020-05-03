@@ -40,7 +40,7 @@
     Route::post('getlunches', 'MenuController@getLunches');
     Route::post('loadclasses', 'MenuController@loadClasses');
     Route::resource('menu', 'MenuController');
-    Route::get('courses/{id}/{size}', [
+    Route::get('courses/{id}/{size?}', [
         'uses' => 'CoursesController@show',
         'as' => 'course.show'
     ]);

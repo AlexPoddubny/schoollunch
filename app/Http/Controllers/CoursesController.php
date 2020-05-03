@@ -55,12 +55,12 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $size)
+    public function show($id, $size = 6)
     {
         if (!($course = Course::with('product')->find($id))){
             abort(403);
         }
-        dump($course);
+//        dump($course);
         $this->content = view('course')
             ->with([
                 'course' => $course,

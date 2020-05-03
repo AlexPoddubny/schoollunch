@@ -16,7 +16,11 @@
                     <td scope="col" style="text-align: center">{{$course->rc}}</td>
                     <td scope="col" style="text-align: center">{{$course->type->name}}</td>
                     <td scope="col" style="text-align: center">{{$course->name}}</td>
-                    <td scope="col" style="text-align: center">Команди</td>
+                    <td scope="col" style="text-align: center">
+                        <a href="{{route('course.show', ['id' => $course->id])}}">
+                            <span class="glyphicon glyphicon-eye-open edit-product"></span>
+                        </a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
