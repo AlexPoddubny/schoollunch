@@ -4,7 +4,7 @@
     </div>
     @foreach($children as $child)
         <div>
-            {{$child->fullname}}, {{$child->schoolClass->name}} клас, {{$child->schoolClass->school->name}}, на перерві {{$child->schoolClass->breakTime->break_num}} о {{$child->schoolClass->breakTime->break_time}}:
+            {{$child->fullname}}, {{$child->schoolClass->name}} клас, <a href="{{route('menu', ['id' => $child->schoolClass->school->id])}}">{{$child->schoolClass->school->name}}</a>, на перерві {{$child->schoolClass->breakTime->break_num}} о {{$child->schoolClass->breakTime->break_time}}:
             @foreach($child->schoolClass->breakTime->menu as $menu)
                 <ul>
                     @foreach($menu->lunch->sizeCourse as $course)

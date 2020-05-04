@@ -35,8 +35,8 @@
     </div>
     <br>
 @endforeach
-    {{-- Додати перевірку на повара--}}
+@can('Menu_Create')
     <a href="{{route('menu.create')}}" role="button" class="btn btn-primary">
         Додати позицію у меню
     </a>
-</div>
+@endcan

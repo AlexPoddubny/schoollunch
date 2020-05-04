@@ -39,6 +39,10 @@
     
     Route::post('getlunches', 'MenuController@getLunches');
     Route::post('loadclasses', 'MenuController@loadClasses');
+    Route::get('menu/{id?}', [
+        'uses' => 'MenuController@index',
+        'as' => 'menu'
+    ]);
     Route::resource('menu', 'MenuController');
     Route::get('courses/{id}/{size?}', [
         'uses' => 'CoursesController@show',

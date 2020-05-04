@@ -8,6 +8,7 @@ use App\Menu;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\MenuRepository;
 use App\Repositories\SchoolsRepository;
+use App\School;
 use App\Size;
 use Illuminate\Http\Request;
 use Gate;
@@ -35,14 +36,21 @@ class MenuController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param null $school_id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function index()
+    public function index($id = null)
     {
-        $school = $this->user->cook;
+        if ($id){
+            $school = School::find($id);
+        } else {
+            $school = $this->user->cook;
+        }
         $this->title = $school->name . ' Меню столової';
         $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
             ->where('school_id', $school->id)
+            ->whereBetween('date', [date('Y-m-d'), date('Y-m-d', strtotime("next friday"))])
             ->get()
             ->sortBy('breakTime.break_num')
             ->groupBy('date')
@@ -67,6 +75,7 @@ class MenuController extends Controller
         if (Gate::denies('Menu_Create')){
             abort(403);
         }
+        // додати можливість створення пункту меню Адміністратором
         $school = $this->user->cook;
         $this->title = 'Додати пункт до меню';
         $this->content = view('menu_add')
