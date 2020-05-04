@@ -55,7 +55,7 @@ class MenuController extends Controller
             ->sortBy('breakTime.break_num')
             ->groupBy('date')
             ->sortKeys();
-        dump($menu);
+//        dump($menu);
         $this->content = view('menu')
             ->with([
                 'menus' => $menu,
@@ -77,6 +77,7 @@ class MenuController extends Controller
         }
         // додати можливість створення пункту меню Адміністратором
         $school = $this->user->cook;
+//        dd($school);
         $this->title = 'Додати пункт до меню';
         $this->content = view('menu_add')
             ->with([

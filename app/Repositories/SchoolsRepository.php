@@ -24,7 +24,8 @@
         public function saveSchool($request)
         {
             $data = $request->except('_token');
-            $school = $this->getWhere($data['id'])->first();
+            $school = School::find($data['id']);
+//            $school = $this->getWhere($data['id'])->first();
             $school->name = $data['name'];
             $type = $data['type'];
             switch ($type){
@@ -37,7 +38,8 @@
             }
             $type .= '_id';
             $school->$type = $data['user_id'];
-            $user = $this->user_rep->getWhere($data['user_id'])->first();
+            $user = User::find($data['user_id']);
+//            $user = $this->user_rep->getWhere($data['user_id'])->first();
             if ($user && !$user->hasRole($role_name)) {
                 $user->addRole($role_name);
             }

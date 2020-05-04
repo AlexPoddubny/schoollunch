@@ -5,6 +5,7 @@
     
     
     use App\Permission;
+    use App\Role;
     use Gate;
 
     class PermissionsRepository
@@ -25,7 +26,8 @@
 //                abort(403);
             }
             $data = $request->except('_token');
-            $role = $this->role_rep->getWhere($request->only('id'))->first();
+            $role = Role::find($request->only('id'));
+//            $role = $this->role_rep->getWhere($request->only('id'))->first();
             $role->savePermissions($data['perms'] ?? []);
             return ['status' => 'Права оновлено'];
         }

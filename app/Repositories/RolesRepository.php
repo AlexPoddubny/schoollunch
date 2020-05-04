@@ -27,7 +27,8 @@
                 abort(403);
             }*/
             $data = $request->except('_token');
-            $user = $this->user_rep->getWhere($request->input('id'))->first();
+            $user = User::find($request->input('id'));
+//            $user = $this->user_rep->getWhere($request->input('id'))->first();
             $user->saveRoles($data['roles'] ?? []);
             return ['status' => 'Ролі оновлено'];
         }

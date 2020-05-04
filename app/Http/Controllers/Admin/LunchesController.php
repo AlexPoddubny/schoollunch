@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
+use App\Course;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\CoursesRepository;
 use App\Repositories\LunchesRepository;
 use App\Repositories\SizesRepository;
 use App\Repositories\TypesRepository;
+use App\Size;
+use App\Type;
 use Illuminate\Http\Request;
 use Arr;
 use Gate;
@@ -48,7 +52,7 @@ class LunchesController extends AdminController
         }
         $this->title .= 'Комплексні обіди';
         $lunches = $this->lunches_rep->getAllWithRelated(['sizeCourse.type', 'category'])->get();
-        $sizes = $this->sizes_rep->getAll()->keyBy('id');
+        $sizes = Size::all()->keyBy('id');
         $this->content = view('admin.lunches')
             ->with([
                 'lunches' => $lunches,
@@ -71,9 +75,9 @@ class LunchesController extends AdminController
         session(['courses' => []]);
         $this->content = view('admin.lunch_create')
             ->with([
-                'categories' => $this->categories_rep->getAll(),
-                'types' => $this->types_rep->getAll()->sortBy('sort'),
-                'sizes' => $this->sizes_rep->getAll()->sortBy('size'),
+                'categories' => Category::all(),
+                'types' => Type::all()->sortBy('sort'),
+                'sizes' => Size::all()->sortBy('size'),
                 'number' => $this->lunches_rep->getLastNum() + 1 ?? 1
             ])
             ->render();
@@ -84,7 +88,8 @@ class LunchesController extends AdminController
     {
         return $this->content = view('admin.courses_select')
             ->with([
-                'courses' => $this->courses_rep->getWhere($request->input('type'), 'type_id')
+                'courses' => Course::where('type_id', $request->input('type'))->get()
+//                'courses' => $this->courses_rep->getWhere($request->input('type'), 'type_id')
             ])
             ->render();
     }

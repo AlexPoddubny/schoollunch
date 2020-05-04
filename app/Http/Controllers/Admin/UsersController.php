@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Repositories\RolesRepository;
 use App\Repositories\UsersRepository;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 use Gate;
 
@@ -85,7 +87,7 @@ class UsersController extends AdminController
      */
     public function show($id)
     {
-        $user = $this->user_rep->getWhere($id)->first();
+        $user = User::find($id);
         if (!$user){
             abort(404);
         }
@@ -93,7 +95,7 @@ class UsersController extends AdminController
         $this->content = view('admin.user_edit')
             ->with([
                 'user' => $user,
-                'roles' => $this->role_rep->getAll()
+                'roles' => Role::all()
             ])
             ->render();
         return $this->renderOutput();

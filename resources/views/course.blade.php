@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">{{$course->rc}}. {{$course->name}} ({{$size->size}} гр.)</div>
+    <div class="card-header"><strong>{{$course->rc}}. {{$course->name}} ({{$size->size}} гр.)</strong></div>
     <h5>Інгредієнти:</h5>
     <div class="table-responsive">
         <table class="table table-hover">

@@ -22,7 +22,8 @@
                 $roles = $data['roles'];
                 unset($data['roles']);
             }
-            $user = $this->getWhere($request->input('id'))->first();
+            $user = User::find($request->input('id'));
+//            $user = $this->getWhere($request->input('id'))->first();
             $user->fill($data);
             $user->save();
             $user->saveRoles($roles);

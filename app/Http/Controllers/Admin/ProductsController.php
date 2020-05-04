@@ -53,13 +53,13 @@ class ProductsController extends AdminController
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
-        $result = $this->product_rep->create($request);
+        $result = Product::create($request->except('_token'));
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
         return redirect(route('courses.index'));
     }
-    
+    /*
     public function search(Request $request)
     {
         $searchTerm = $request->input('query');
@@ -67,7 +67,7 @@ class ProductsController extends AdminController
             ->registerModel(Product::class, 'name')
             ->perform($searchTerm);
         return view('search.product', compact('searchResults', 'searchTerm'))->render();
-    }
+    }*/
 
     /**
      * Display the specified resource.
@@ -77,7 +77,7 @@ class ProductsController extends AdminController
      */
     public function show($id)
     {
-        return $product = $this->product_rep->getWhere($id)->first();
+        return $product = Product::find($id);
     }
 
     /**

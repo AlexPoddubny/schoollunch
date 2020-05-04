@@ -4,10 +4,13 @@
     
     use App\Course;
     use App\Http\Controllers\Controller;
+    use App\Product;
     use App\Repositories\CoursesRepository;
     use App\Repositories\ProductsRepository;
     use App\Repositories\SizesRepository;
     use App\Repositories\TypesRepository;
+    use App\Size;
+    use App\Type;
     use Illuminate\Http\Request;
     use Gate;
     
@@ -50,9 +53,10 @@
             $this->content = view('admin.courses_index')
                 ->with([
                     'courses' => $courses,
-                    'products' => $this->products_rep->getAll()->sortBy('name'),
-                    'types' => $this->types_rep->getAll()->sortBy('sort'),
-                    'sizes' => $this->sizes_rep->getAll()->sortBy('size'),
+                    'products' => Product::all()->sortBy('name'),
+//                    'products' => $this->products_rep->getAll()->sortBy('name'),
+                    'types' => Type::all()->sortBy('sort'),
+                    'sizes' => Size::all()->sortBy('size'),
                     'links' => $links
                 ])
                 ->render();
@@ -71,8 +75,8 @@
                 abort(403);
             }
             $this->title .= 'Додавання страви';
-            $products = $this->products_rep->getAll()->sortBy('name');
-            $types = $this->types_rep->getAll();
+            $products = Product::all()->sortBy('name');
+            $types = Type::all();
             session(['products' => []]);
             $this->content = view('admin.course_create')
                 ->with([
@@ -181,7 +185,7 @@
         {
             return view('admin.products_list')
                 ->with([
-                    'items' => $this->products_rep->getArray(session('products'))
+                    'items' => Product::find(session('products'))
                 ])
                 ->render();
         }

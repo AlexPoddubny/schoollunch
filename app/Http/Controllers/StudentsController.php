@@ -51,9 +51,9 @@
             if (Gate::denies('Parent_Confirm')){
                 abort(403);
             }
-            $student = $this->students
-                ->getWhere($student_id)
-                ->first();
+            $student = Student::find($student_id); //$this->students
+//                ->getWhere($student_id)
+//                ->first();
             $student->parent()->updateExistingPivot($parent_id, ['confirmed_at' => now()]);
             return redirect(route('students.index'));
         }

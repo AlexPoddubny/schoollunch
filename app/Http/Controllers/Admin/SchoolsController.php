@@ -124,7 +124,7 @@ class SchoolsController extends AdminController
      */
     public function show($id)
     {
-        $school = $this->school_rep->getWhere($id)->first();
+        $school = School::find($id);
         $this->title .= $school->name;
         $this->content = view('admin.school_view')
             ->with(['school' => $school])
@@ -150,7 +150,7 @@ class SchoolsController extends AdminController
             $this->title .= ' - Не призначено';
         }
         $user = $school->$type;
-        dump($user);
+//        dump($user);
         $this->content = view('admin.school_edit')
             ->with([
                 'school' => $school,

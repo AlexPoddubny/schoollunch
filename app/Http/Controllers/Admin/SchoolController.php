@@ -7,6 +7,7 @@ use App\Repositories\BreakTimesRepository;
 use App\Repositories\SchoolClassesRepository;
 use App\Repositories\SchoolsRepository;
 use App\Repositories\UsersRepository;
+use App\School;
 use App\SchoolClass;
 use Illuminate\Http\Request;
 use Gate;
@@ -51,9 +52,10 @@ class SchoolController
     public function index()
     {
         if ($this->user->hasRole('Admin')){
-            $schools = $this->school_rep->getAll();
+            $schools = School::all();
         } elseif ($this->user->hasRole('SchoolAdmin')){
-            $schools = $this->school_rep->getWhere($this->user->id, 'admin_id');
+            $schools = School::where('admin_id', $this->user->id);
+//            $schools = $this->school_rep->getWhere($this->user->id, 'admin_id');
         } else {
             abort(403);
         }
@@ -139,7 +141,8 @@ class SchoolController
             'break_num' => $data['break_num'],
             'break_time' => $data['begin'] . ' - ' . $data['end']
         ]);
-        $school = $this->school_rep->getWhere($data['school_id'])->first();
+        $school = School::find($data['school_id']);
+//        $school = $this->school_rep->getWhere($data['school_id'])->first();
         $school->breakTime()->save($break);
         return redirect(route('school.show', [
             'school' => $data['school_id']
@@ -158,7 +161,8 @@ class SchoolController
         $schoolClass = new schoolClass([
             'name' => $data['classname'],
         ]);
-        $school = $this->school_rep->getWhere($data['school_id'])->first();
+        $school = School::find($data['school_id']);
+//        $school = $this->school_rep->getWhere($data['school_id'])->first();
         $school->schoolClass()->save($schoolClass);
         return redirect(route('school.show', [
             'school' => $data['school_id']

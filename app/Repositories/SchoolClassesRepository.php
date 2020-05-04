@@ -26,10 +26,11 @@
         public function saveClass($request)
         {
             $data = $request->except('_token');
-            $schoolClass = $this->getWhere($data['id'])->first();
+            $schoolClass = SchoolClass::find($data['id']);
             $schoolClass->fill($data);
             if (isset($data['teacher_id'])){
-                $user = $this->user_rep->getWhere($data['teacher_id'])->first();
+                $user = User::find($data['teacher_id']);
+//                $user = $this->user_rep->getWhere($data['teacher_id'])->first();
                 if ($user && !$user->hasRole('ClassTeacher')){
                     $user->addRole('ClassTeacher');
                 }

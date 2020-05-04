@@ -2,6 +2,7 @@
     
     namespace App\Http\Controllers\Admin;
     
+    use App\Category;
     use App\Repositories\BreakTimesRepository;
     use App\Repositories\CategoriesRepository;
     use App\Repositories\SchoolClassesRepository;
@@ -100,7 +101,7 @@
                 ->with([
                     'schoolClass' => $schoolClass,
                     'students' => $schoolClass->student()->get(),
-                    'categories' => $this->cat_rep->getAll()
+                    'categories' => Category::all()
                 ])
                 ->render();
             return $this->renderOutput();

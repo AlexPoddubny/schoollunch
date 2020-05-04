@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Permission;
 use App\Repositories\PermissionsRepository;
 use App\Repositories\RolesRepository;
 use App\Role;
@@ -80,11 +81,14 @@ class RolesController extends AdminController
         if (Gate::denies('Roles_Edit')){
             abort(403);
         }
-        $role = $this->role_rep->getWhere($id)->first();
-        $perms = $this->perm_rep->getAll();
+        $role = Role::find($id);
+        $perms = Permission::all();
         $this->title .= 'Роль - ' . $role->description;
         $this->content = view('admin.role_edit')
-            ->with(['role' => $role, 'perms' => $perms])
+            ->with([
+                'role' => $role,
+                'perms' => $perms
+            ])
             ->render();
         return $this->renderOutput();
     }

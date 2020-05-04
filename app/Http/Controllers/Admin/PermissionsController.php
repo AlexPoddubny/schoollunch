@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Permission;
 use App\Repositories\PermissionsRepository;
 use App\Repositories\RolesRepository;
 use Illuminate\Http\Request;
@@ -30,9 +31,12 @@ class PermissionsController extends AdminController
     {
         $this->title .= 'Ролі та дозволи';
         $roles = $this->role_rep->getWithRelationCount('permissions');
-        $perms = $this->perm_rep->getAll();
+        $perms = Permission::all();
         $this->content = view('admin.permissions_content')
-            ->with(['roles' => $roles, 'perms' => $perms])
+            ->with([
+                'roles' => $roles,
+                'perms' => $perms
+            ])
             ->render();
         return $this->renderOutput();
     }

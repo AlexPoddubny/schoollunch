@@ -5,6 +5,7 @@
     use App\Repositories\SchoolClassesRepository;
     use App\Repositories\SchoolsRepository;
     use App\Repositories\UsersRepository;
+    use App\School;
     use App\Size;
     use App\Student;
     use Illuminate\Http\Request;
@@ -49,13 +50,13 @@
         {
             $this->content = view('children')
                 ->with([
-                    'schools' => $this->school_rep->getNotNull('admin_id'),
+                    'schools' => School::has('admin')->get(),
                     'children' => $this->user->child()
                         ->with([
                             'schoolClass.school',
                             'schoolClass.breakTime.menu' => function($query){
                                 $query->where('date', date('Y-m-d'))
-                                    ->with('lunch.sizeCourse');
+                                    ->with('lunch.sizeCourse'); //=>function($query){$query->where('category_id'==)}
                         }])
                         ->get()
                         ->sortBy('fullname'),
