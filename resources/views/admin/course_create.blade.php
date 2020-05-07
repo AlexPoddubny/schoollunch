@@ -1,4 +1,4 @@
-<form action="{{route('courses.store')}}" method="post">
+<form action="{{route('courses.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group row">
         <label for="rc" class="col-md-4 col-form-label text-md-right">Номер страви</label>
@@ -70,7 +70,7 @@
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="albumens">Білки</label>
-                <input name="albumens" step="0.1" class="form-control @error('albumens') is-invalid @enderror" type="number">
+                <input name="albumens" step="0.1" class="form-control @error('albumens') is-invalid @enderror" type="number" value="{{old('albumens')}}">
                 @error('albumens')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -81,7 +81,7 @@
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="fats" class="control-label">Жири</label>
-                <input class="form-control input-group @error('fats') is-invalid @enderror" step="0.1" name="fats" type="number">
+                <input class="form-control input-group @error('fats') is-invalid @enderror" step="0.1" name="fats" type="number" value="{{old('fats')}}">
                 @error('fats')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="carbonhydrates" class="control-label">Вуглеводи</label>
-                <input name="carbonhydrates" type="number" step="0.1" class="form-control input-group @error('carbonhydrates') is-invalid @enderror"/>
+                <input name="carbonhydrates" type="number" step="0.1" class="form-control input-group @error('carbonhydrates') is-invalid @enderror" value="{{old('carbonhydrates')}}"/>
                 @error('carbonhydrates')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -103,8 +103,25 @@
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="calories" class="control-label">Калорії</label>
-                <input name="calories" type="number" step="0.1" class="form-control input-group @error('calories') is-invalid @enderror"/>
+                <input name="calories" type="number" step="0.1" class="form-control input-group @error('calories') is-invalid @enderror" value="{{old('calories')}}"/>
                 @error('calories')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="image">Example file input</label>
+        <input type="file" class="form-control-file" name="image">
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="recipe" class="col-md-12 col-form-label text-md-left">Технологія приготування</label>
+                <textarea name="recipe" class="col-md-12 form-control input-group @error('recipe') is-invalid @enderror" rows="10" value="{{old('recipe')}}"></textarea>
+                @error('recipe')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -115,16 +132,13 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-sm-12 col-xs-12">
             <div class="form-group">
-                <label for="recipe" class="col-md-12 col-form-label text-md-left">Технологія приготування</label>
-                <textarea name="recipe" class="col-md-12 form-control input-group" rows="10"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-sm-12 col-xs-12">
-            <div class="form-group">
                 <label for="description" class="col-md-12 col-form-label text-md-left">Органолептичні характеристики якості готової страви:</label>
-                <textarea name="description" class="col-md-12 form-control input-group" rows="10"></textarea>
+                <textarea name="description" class="col-md-12 form-control input-group @error('description') is-invalid @enderror" rows="10" value="{{old('description')}}"></textarea>
+                @error('decription')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
                 <br>
                 <button type="submit" class="btn btn-primary btn-block">
                     Зберегти страву

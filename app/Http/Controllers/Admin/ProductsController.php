@@ -53,7 +53,7 @@ class ProductsController extends AdminController
         $this->validate($request, [
             'name' => ['required', 'max:100']
         ]);
-        $result = Product::create($request->except('_token'));
+        $result = $this->product_rep->create($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
@@ -77,7 +77,7 @@ class ProductsController extends AdminController
      */
     public function show($id)
     {
-        return $product = Product::find($id);
+        //
     }
 
     /**
@@ -88,7 +88,14 @@ class ProductsController extends AdminController
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $this->title .= 'Редагування продукту: ' . $product->name;
+        $this->content = view('admin.product_edit')
+            ->with([
+                'product' => $product
+            ])
+            ->render();
+        return $this->renderOutput();
     }
 
     /**
@@ -100,7 +107,8 @@ class ProductsController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        $result = Product::find($id)->update($request->except('_token', '_method'));
+        return redirect(route('courses.index'))->with($result);
     }
 
     /**
@@ -111,6 +119,12 @@ class ProductsController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $product = Product::find($id);
+        $product->course()->detach();
+        $result = $product->delete();
+        return redirect(route('courses.index'))->with($result);
     }
 }

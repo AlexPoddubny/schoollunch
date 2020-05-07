@@ -50,6 +50,7 @@
             }
             $courses = $this->courses_rep->getAllWithRelated('type')->orderBy('rc')->paginate(10);
             $links = $courses->appends(['sort' => 'rc'])->links();
+            $this->title .= 'Страви та продукти';
             $this->content = view('admin.courses_index')
                 ->with([
                     'courses' => $courses,
@@ -98,15 +99,18 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
-            $this->validate($request, [
+            /*$this->validate($request, [
                 'rs' => ['required', 'numeric', 'min:1'],
                 'name' => ['required', 'max:100'],
                 'type_id' => ['required'],
                 'albumens' => ['required'],
                 'fats' => ['required'],
                 'carbonhydrates' => ['required'],
-                'calories' => ['required']
-            ]);
+                'calories' => ['required'],
+                'recipe' => ['required'],
+                'description' => ['required'],
+                'product' => ['array']
+            ]);*/
             $result = $this->courses_rep->saveCourse($request);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);

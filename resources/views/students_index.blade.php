@@ -34,7 +34,15 @@
                     <td style="text-align: center">
                         {{$student->privilege ? 'Так' : 'Ні'}}
                     </td>
-                    <td>Опції</td>
+                    <td>
+                        <form id="delete{{$student->id}}" action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
+                            @csrf
+                            {{ method_field('DELETE') }}
+                            <a href="javascript:{}" onclick="document.getElementById('delete{{$student->id}}').submit();">
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            </a>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

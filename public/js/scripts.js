@@ -219,9 +219,9 @@ $(document).on('change', '.menu-select', function (e) {
 
 $(document).on('click', '.edit-product', function () {
     var id = $(this).data('id');
-    console.log(id);
+    // console.log(id);
     $.ajax({
-        url: 'products/' + id,
+        url: 'products/' + id + '/edit',
         type: 'GET',
         success: function (res) {
             console.log(res);

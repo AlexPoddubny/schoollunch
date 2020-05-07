@@ -37,7 +37,7 @@
             <ul class="hr">
                 @foreach($products as $product)
                     <li>
-                        {{$product->name}}
+                        <a href="{{route('products.edit', ['product' => $product->id])}}">{{$product->name}}</a>
                         {{--<span class="glyphicon glyphicon-pencil edit-product" data-id="{{$product->id}}"></span>
                         <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$product->id}}"></span>--}}
                     </li>

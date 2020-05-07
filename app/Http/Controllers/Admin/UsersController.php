@@ -67,6 +67,7 @@ class UsersController extends AdminController
      */
     public function store(Request $request)
     {
+        // перенести у update
         if (Gate::denies('User_Register')){
             abort(403);
         }
