@@ -5,6 +5,7 @@
     
     
     use App\Course;
+    use Arr;
 
     class CoursesRepository
         extends Repository
@@ -15,17 +16,25 @@
             $this->model = $course;
         }
     
-        public function saveCourse($request)
+        public function saveCourse($request, $id = null)
         {
             $data = $request->except('_token');
-            $model = new $this->model;
+            if ($id){
+                $model = $this->model::find($id);
+            } else {
+                $model = new $this->model;
+            }
             if ($request->hasFile('image')){
                 $data['photo'] = $this->upload($request);
             }
             $model->fill($data);
             $model->save();
-            $model->product()->sync($data['product']);
-            return ['status' => 'Страву додано'];
+            $products = session('products');
+            foreach ($products as $n => $product){
+                $products[$n] = Arr::except($products[$n], 'name');
+            }
+            $model->product()->sync($products);
+            return ['status' => 'Страву збережено'];
         }
     
         public function upload($request)

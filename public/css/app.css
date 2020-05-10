@@ -1,5 +1,37 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+ul.hr {
+  /*margin: 0;*/
+  padding: 4px;
+}
+
+ul.hr li {
+  display: inline;
+  /* Отображать как строчный элемент */
+  margin: 3px;
+  /* Отступ слева */
+  border: 1px solid #000;
+  /* Рамка вокруг текста */
+  border-radius: 3px;
+  padding: 3px;
+  /* Поля вокруг текста */
+  white-space: nowrap;
+  /* Запрещаем перенос текста */
+  line-height: 2;
+}
+
+.del-item {
+  cursor: pointer;
+}
+
+.entry:not(:first-of-type) {
+  margin-top: 10px;
+}
+
+.glyphicon {
+  font-size: 12px;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -122,26 +154,6 @@ ul,
 dl {
   margin-top: 0;
   margin-bottom: 1rem;
-}
-
-ul.hr {
-    /*margin: 0;*/
-    padding: 4px;
-
-}
-
-ul.hr li {
-    display: inline; /* Отображать как строчный элемент */
-    margin: 3px; /* Отступ слева */
-    border: 1px solid #000; /* Рамка вокруг текста */
-    border-radius: 3px;
-    padding: 3px; /* Поля вокруг текста */
-    white-space: nowrap; /* Запрещаем перенос текста */
-    line-height: 2;
-}
-
-.del-item {
-    cursor: pointer;
 }
 
 ol ol,
@@ -10902,12 +10914,5 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
-
-  .entry:not(:first-of-type) {
-    margin-top: 10px;
-  }
-
-  .glyphicon {
-    font-size: 12px;
-  }
 }
+

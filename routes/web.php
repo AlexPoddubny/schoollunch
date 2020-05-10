@@ -111,15 +111,16 @@
             );
             Route::resource('school', 'Admin\SchoolController');
             Route::resource('schoolclass', 'Admin\SchoolClassesController');
-            Route::post('courses/addproduct', 'Admin\CoursesController@addProduct');
-            Route::post('courses/delproduct', 'Admin\CoursesController@delProduct');
+            Route::post('courses/addproduct', 'Admin\CoursesController@addProduct')->name('addproduct');
+            Route::post('courses/delproduct', 'Admin\CoursesController@delProduct')->name('delproduct');
             Route::resource('courses', 'Admin\CoursesController');
             Route::post('product/search', 'Admin\ProductsController@search');
             Route::resource('products', 'Admin\ProductsController');
             Route::resource('sizes', 'Admin\SizesController');
             Route::resource('types', 'Admin\TypesController');
-            Route::post('lunches/addcourse', 'Admin\LunchesController@addCourse');
-            Route::post('lunches/getcourses', 'Admin\LunchesController@getCourses');
+            Route::post('lunches/delcourse', 'Admin\LunchesController@delCourse')->name('delcourse');
+            Route::post('lunches/addcourse', 'Admin\LunchesController@addCourse')->name('addcourse');
+            Route::post('lunches/getcourses', 'Admin\LunchesController@getCourses')->name('getcourses');
             Route::resource('lunches', 'Admin\LunchesController');
         
     }

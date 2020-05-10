@@ -137,7 +137,30 @@
          */
         public function edit($id)
         {
-            //
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
+            $course = Course::findOrFail($id);
+            $this->title = 'Редагування страви: ' . $course->rc . ': ' . $course->name;
+            $products = [];
+            foreach ($course->product as $product){
+                $products[$product->id] = [
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'brutto' => $product->pivot->brutto,
+                    'netto' => $product->pivot->netto,
+                ];
+            }
+            session(['products' => $products]);
+            $this->content = view('admin.course_edit')
+                ->with([
+                    'course' => $course,
+                    'ingredients' => $this->renderProducts(),
+                    'types' => Type::all(),
+                    'products' => Product::all()->sortBy('name')
+                ])
+                ->render();
+            return $this->renderOutput();
         }
         
         /**
@@ -149,7 +172,15 @@
          */
         public function update(Request $request, $id)
         {
-            //
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
+//            dd($request, session('products'));
+            $result = $this->courses_rep->saveCourse($request, $id);
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+            return redirect(route('courses.index'));
         }
         
         /**
@@ -165,10 +196,18 @@
     
         public function addProduct(Request $request)
         {
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
             $id = $request->input('id');
             $products = session('products');
-            if (!in_array($id, $products)){
-                $products[] = $id;
+            if (!isset($products[$id])){
+                $products[$id] = [
+                    'product_id' => $id,
+                    'name' => $request->input('name'),
+                    'brutto' => $request->input('brutto'),
+                    'netto' => $request->input('netto'),
+                ];
                 session(['products' => $products]);
             }
             return $this->renderProducts();
@@ -176,12 +215,10 @@
     
         public function delProduct(Request $request)
         {
-            $id = $request->input('id');
-            $products = session('products');
-            if (in_array($id, $products)){
-                unset($products[array_search($id, $products)]);
-                session(['products' => $products]);
+            if (Gate::denies('Course_Create')){
+                abort(403);
             }
+            $this->courses_rep->deleteItem($request, Product::class);
             return $this->renderProducts();
         }
     
@@ -189,7 +226,7 @@
         {
             return view('admin.products_list')
                 ->with([
-                    'items' => Product::find(session('products'))
+                    'items' => session('products')
                 ])
                 ->render();
         }

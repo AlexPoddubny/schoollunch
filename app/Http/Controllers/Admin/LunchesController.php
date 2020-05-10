@@ -115,6 +115,15 @@ class LunchesController extends AdminController
         return $this->renderCourses();
     }
     
+    public function delCourse(Request $request)
+    {
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $this->lunches_rep->deleteItem($request, Course::class);
+        return $this->renderCourses();
+    }
+    
     public function renderCourses()
     {
         return $this->content = view('admin.courses_list')
