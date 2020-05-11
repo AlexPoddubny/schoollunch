@@ -235,6 +235,24 @@ class LunchesController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $lunch = Lunch::findOrFail($id);
+        if ($lunch->has('menu')){
+            return response(500);
+        }
+        $lunch->sizeCourse()->detach();
+        $result = $lunch->delete();
+        if(is_array($result) && !empty($result['error'])) {
+            return response(500);
+        }
+        return response(200);
     }
+    
+    protected function detachAllMenus($lunch)
+    {
+        $lunch->menu()->update(['lunch_id' => null]);
+    }
+    
 }

@@ -30,6 +30,7 @@
     
         public function lunch()
         {
+//            return $this->hasMany(Lunch::class);
             return $this->belongsTo(Lunch::class);
         }
         

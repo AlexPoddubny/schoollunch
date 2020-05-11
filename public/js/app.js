@@ -49811,13 +49811,11 @@ $(document).on('click', '.add-product', function (e) {
 })
 */
 //****************************
-//   Add products to course
+//   Add product to course
 //****************************
 
 $(document).on('click', '#add-product', function (e) {
-  e.preventDefault(); // var id = $(this).data('id');
-  // console.log(id);
-
+  e.preventDefault();
   $.ajax({
     url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('addproduct'),
     data: {
@@ -49836,7 +49834,7 @@ $(document).on('click', '#add-product', function (e) {
     }
   });
 }); //****************************
-// Delete products from course
+// Delete product from course
 //****************************
 
 $(document).on('click', '.del-product', function (e) {
@@ -49863,13 +49861,30 @@ $(document).on('click', '.del-product', function (e) {
 
 $(document).on('click', '.course-destroy', function (e) {
   e.preventDefault();
-  var id = $(this).data('id');
-  console.log(id);
+  var id = $(this).data('id'); // console.log(id);
+
   $.ajax({
     url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('courses.destroy', [id]),
     type: 'DELETE',
     success: function success(res) {
       window.location = Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('courses.index');
+    },
+    error: function error(res) {
+      console.log(res);
+    }
+  });
+}); //****************************
+//      Delete lunch
+//****************************
+
+$(document).on('click', '.lunch-destroy', function (e) {
+  e.preventDefault();
+  var id = $(this).data('id');
+  $.ajax({
+    url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('lunches.destroy', [id]),
+    type: 'DELETE',
+    success: function success(res) {
+      window.location = Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('lunches.index');
     },
     error: function error(res) {
       console.log(res);

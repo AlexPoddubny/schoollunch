@@ -115,13 +115,11 @@ $(document).on('click', '.add-product', function (e) {
 */
 
 //****************************
-//   Add products to course
+//   Add product to course
 //****************************
 
 $(document).on('click', '#add-product', function (e) {
     e.preventDefault();
-    // var id = $(this).data('id');
-    // console.log(id);
     $.ajax({
         url: route('addproduct'),
         data: {
@@ -142,7 +140,7 @@ $(document).on('click', '#add-product', function (e) {
 });
 
 //****************************
-// Delete products from course
+// Delete product from course
 //****************************
 
 $(document).on('click', '.del-product', function (e) {
@@ -170,12 +168,30 @@ $(document).on('click', '.del-product', function (e) {
 $(document).on('click', '.course-destroy', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    console.log(id);
+    // console.log(id);
     $.ajax({
         url: route('courses.destroy', [id]),
         type: 'DELETE',
         success: function (res) {
             window.location = route('courses.index');
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+})
+
+//****************************
+//      Delete lunch
+//****************************
+$(document).on('click', '.lunch-destroy', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.ajax({
+        url: route('lunches.destroy', [id]),
+        type: 'DELETE',
+        success: function (res) {
+            window.location = route('lunches.index');
         },
         error: function (res) {
             console.log(res);
