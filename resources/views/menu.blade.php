@@ -21,7 +21,7 @@
                                 <ul>
                                     @foreach($item->lunch->sizeCourse as $course)
                                         <li>
-                                            {{$course->name}} ({{$sizes[$course->pivot->size_id]->size}})
+                                            <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">{{$course->name}} ({{$sizes[$course->pivot->size_id]->size}})</a>
                                         </li>
                                     @endforeach
                                 </ul>

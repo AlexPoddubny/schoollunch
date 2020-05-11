@@ -90,5 +90,16 @@
         {
             return $this->model::with($table);
         }
+    
+        public function deleteItem($request, $type)
+        {
+            $type = strtolower(after($type, '\\')) . 's';
+            $id = $request->input('id');
+            $items = session($type);
+            if (isset($items[$id])){
+                unset($items[$id]);
+                session([$type => $items]);
+            }
+        }
         
     }

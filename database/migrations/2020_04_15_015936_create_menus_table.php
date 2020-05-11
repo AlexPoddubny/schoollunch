@@ -18,7 +18,7 @@ class CreateMenusTable extends Migration
             $table->date('date');
             $table->unsignedBigInteger('school_id');
             $table->unsignedBigInteger('break_id');
-            $table->unsignedBigInteger('lunch_id');
+            $table->unsignedBigInteger('lunch_id')->nullable();
             $table->boolean('privileged')->default(false);
             $table->foreign('school_id')->references('id')->on('schools');
             $table->foreign('break_id')->references('id')->on('breaks');

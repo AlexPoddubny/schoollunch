@@ -39,5 +39,12 @@
             }
             return ['status' => 'Учнів додано до класу'];
         }
+    
+        /*public function deleteStudent($id, SchoolClass $schoolClass)
+        {
+            $student = Student::find($id);
+            $schoolClass->detach($student);
+            return ['status' => 'Учня видалено з класу'];
+        }*/
         
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Course;
+use App\Lunch;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\CoursesRepository;
 use App\Repositories\LunchesRepository;
@@ -101,7 +102,7 @@ class LunchesController extends AdminController
         }
         $id = $request->input('id');
         $courses = session('courses');
-        if (!in_array($id, $courses)){
+        if (!isset($courses[$id])){
             $courses[$id] = [
                 'course_id' => $id,
                 'type_id' => $request->input('type_id'),
@@ -112,6 +113,15 @@ class LunchesController extends AdminController
             ];
             session(['courses' => $courses]);
         }
+        return $this->renderCourses();
+    }
+    
+    public function delCourse(Request $request)
+    {
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $this->lunches_rep->deleteItem($request, Course::class);
         return $this->renderCourses();
     }
     
@@ -165,7 +175,37 @@ class LunchesController extends AdminController
      */
     public function edit($id)
     {
-        //
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $lunch = Lunch::findOrFail($id);
+        $this->title = 'Редагування обіду №' . $lunch->number;
+        $sizes = Size::all()->keyBy('id');
+        $types = Type::all()->keyBy('id');
+//        dump($sizes, $types);
+        $courses = [];
+        foreach ($lunch->sizeCourse as $course){
+            $courses[$course->id] = [
+                'course_id' => $course->id,
+                'type_id' => $course->type_id,
+                'size_id' => $course->pivot->size_id,
+                'type' => $types[$course->type_id]->name,
+                'size' => $sizes[$course->pivot->size_id]->size,
+                'name' => $course->name
+            ];
+        }
+//        dd($courses);
+        session(['courses' => $courses]);
+        $this->content = view('admin.lunch_edit')
+            ->with([
+                'lunch' => $lunch,
+                'types' => $types,
+                'sizes' => $sizes,
+                'ingredients' => $this->renderCourses(),
+                'categories' => Category::all()
+            ])
+            ->render();
+        return $this->renderOutput();
     }
 
     /**
@@ -177,7 +217,14 @@ class LunchesController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $result = $this->lunches_rep->saveLunch($request, $id);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('lunches.index'))->with($result);
     }
 
     /**
@@ -188,6 +235,24 @@ class LunchesController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $lunch = Lunch::findOrFail($id);
+        if ($lunch->has('menu')){
+            return response(500);
+        }
+        $lunch->sizeCourse()->detach();
+        $result = $lunch->delete();
+        if(is_array($result) && !empty($result['error'])) {
+            return response(500);
+        }
+        return response(200);
     }
+    
+    protected function detachAllMenus($lunch)
+    {
+        $lunch->menu()->update(['lunch_id' => null]);
+    }
+    
 }

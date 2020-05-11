@@ -1,5 +1,8 @@
 <div class="card">
     <div class="card-header"><strong>{{$course->rc}}. {{$course->name}} ({{$size->size}} гр.)</strong></div>
+    @isset($course->photo)
+        <img src="{{asset('/images/' . $course->photo)}}" alt="" width="800">
+    @endisset
     <h5>Інгредієнти:</h5>
     <div class="table-responsive">
         <table class="table table-hover">

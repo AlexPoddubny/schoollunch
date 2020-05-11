@@ -1,10 +1,11 @@
-<form action="{{route('lunches.store')}}" method="post">
+<form action="{{route('lunches.update', ['lunch' => $lunch->id])}}" method="post">
     @csrf
+    {{ method_field('PUT') }}
     <div class="form-group row">
         <label for="number" class="col-md-4 col-form-label text-md-right">Номер комплексу</label>
 
         <div class="col-md-6">
-            <input id="number" type="number" min="1" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') ?? $number }}" required autocomplete="number" autofocus>
+            <input id="number" type="number" min="1" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') ?? $lunch->number }}" required autocomplete="number" autofocus>
 
             @error('number')
             <span class="invalid-feedback" role="alert">
@@ -18,9 +19,9 @@
 
         <div class="col-md-6">
             <select name="category_id" class="form-control @error('number') is-invalid @enderror">
-                <option selected disabled>Оберіть категорію</option>
+                <option disabled>Оберіть категорію</option>
                 @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{$category->id}}" {{$category->id == $lunch->category_id ? 'selected' : ''}}>{{$category->name}}</option>
                 @endforeach
             </select>
 
@@ -42,7 +43,9 @@
             </div>
         </div>
     </div>
-    <div id="courses"></div>
+    <div id="courses">
+        {!! $ingredients !!}
+    </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
             Зберегти комплекс

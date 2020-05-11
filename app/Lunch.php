@@ -29,4 +29,10 @@ class Lunch extends Model
             ->withPivot('size_id');
     }
     
+    public function menu()
+    {
+//        return $this->belongsTo(Menu::class);
+        return $this->hasMany(Menu::class);
+    }
+    
 }

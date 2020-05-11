@@ -9,6 +9,7 @@
     use App\Size;
     use App\Student;
     use Illuminate\Http\Request;
+    use Gate;
     use Auth;
     use Arr;
     
@@ -50,7 +51,7 @@
         {
             $this->content = view('children')
                 ->with([
-                    'schools' => School::has('admin')->get(),
+                    'schools' => School::has('admin')->get()->sortBy('id'),
                     'children' => $this->user->child()
                         ->with([
                             'schoolClass.school',

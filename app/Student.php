@@ -8,7 +8,7 @@
 
     class Student
         extends Model
-        implements Searchable
+//        implements Searchable
     {
         
         public $timestamps = false;
@@ -30,7 +30,7 @@
                 ->withTimestamps()
                 ->withPivot('confirmed_at');
         }
-    
+    /*
         public function getSearchResult(): SearchResult
         {
             $url = $this->id;
@@ -39,5 +39,5 @@
                 $this->fullname,
                 $url
             );
-        }
+        }*/
     }

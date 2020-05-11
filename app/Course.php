@@ -32,4 +32,10 @@ class Course extends Model
         return $this->belongsTo(Type::class);
     }
     
+    public function lunch()
+    {
+        return $this->belongsToMany(Lunch::class, 'courses_lunches')
+            ->withPivot('size_id');
+    }
+    
 }

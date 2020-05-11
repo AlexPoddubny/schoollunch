@@ -30,12 +30,8 @@
     
         public function lunch()
         {
+//            return $this->hasMany(Lunch::class);
             return $this->belongsTo(Lunch::class);
         }
-    /*
-        public function schoolClass()
-        {
-            return $this->belongsToMany(SchoolClass::class, 'menu_schoolclasses', 'school_class_id');
-        }*/
         
     }

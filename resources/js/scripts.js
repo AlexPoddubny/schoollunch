@@ -1,3 +1,4 @@
+import route from "./route";
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -41,7 +42,7 @@ $('#schools').change(function () {
     hideElements();
     var value = $('#schools').val();
     $.ajax({
-        url: '/getclasses',
+        url: route('getclasses'),
         data: {
             id: value
         },
@@ -113,12 +114,40 @@ $(document).on('click', '.add-product', function (e) {
 })
 */
 
-$(document).on('click', '.add-product', function (e) {
+//****************************
+//   Add product to course
+//****************************
+
+$(document).on('click', '#add-product', function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: route('addproduct'),
+        data: {
+            id: $('#product_id').val(),
+            name: $('#product_id option:selected').text(),
+            brutto: $('#brutto').val(),
+            netto: $('#netto').val(),
+        },
+        type: 'POST',
+        success: function (res) {
+            // console.log(res);
+            $('#products').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    });
+});
+
+//****************************
+// Delete product from course
+//****************************
+
+$(document).on('click', '.del-product', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    // console.log(id);
     $.ajax({
-        url: 'addproduct',
+        url: route('delproduct'),//'delproduct',
         data: {
             id: id
         },
@@ -133,25 +162,42 @@ $(document).on('click', '.add-product', function (e) {
     });
 });
 
-$(document).on('click', '.del-product', function (e) {
+//****************************
+//      Delete course
+//****************************
+$(document).on('click', '.course-destroy', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
     // console.log(id);
     $.ajax({
-        url: 'delproduct',
-        data: {
-            id: id
-        },
-        type: 'POST',
+        url: route('courses.destroy', [id]),
+        type: 'DELETE',
         success: function (res) {
-            // console.log(res);
-            $('#products').html(res);
+            window.location = route('courses.index');
         },
         error: function (res) {
             console.log(res);
         }
-    });
-});
+    })
+})
+
+//****************************
+//      Delete lunch
+//****************************
+$(document).on('click', '.lunch-destroy', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.ajax({
+        url: route('lunches.destroy', [id]),
+        type: 'DELETE',
+        success: function (res) {
+            window.location = route('lunches.index');
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+})
 
 $(document).on('keyup change blur', '#size', function () {
     $('#factor').val(parseInt($(this).val()) / 1000);
@@ -161,7 +207,7 @@ $(document).on('change', '#type', function () {
     var type = $(this).val();
     // console.log(type);
     $.ajax({
-        url: 'getcourses',
+        url: route('getcourses'),
         data: {
             type: type
         },
@@ -179,7 +225,7 @@ $(document).on('change', '#type', function () {
 $(document).on('click', '#addcourse', function (e) {
     e.preventDefault();
     $.ajax({
-        url: 'addcourse',
+        url: route('addcourse'),
         data: {
             id: $('#courses_list').val(),
             name: $('#courses_list option:selected').text(),
@@ -199,6 +245,23 @@ $(document).on('click', '#addcourse', function (e) {
     });
 });
 
+$(document).on('click', '.del-course', function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: route('delcourse'),
+        data: {
+            id: $(this).data('id')
+        },
+        type: 'POST',
+        success: function (res) {
+            $('#courses').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+})
+
 $(document).on('change', '.menu-select', function (e) {
     $.ajax({
         url: '/getlunches',
@@ -208,7 +271,7 @@ $(document).on('change', '.menu-select', function (e) {
         },
         type: 'POST',
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             $('#lunch_select').html(res);
         },
         error: function (res) {
@@ -217,11 +280,13 @@ $(document).on('change', '.menu-select', function (e) {
     })
 });
 
+/*
+
 $(document).on('click', '.edit-product', function () {
     var id = $(this).data('id');
-    console.log(id);
+    // console.log(id);
     $.ajax({
-        url: 'products/' + id,
+        url: route('products.edit', [id]),//'products/' + id + '/edit',
         type: 'GET',
         success: function (res) {
             console.log(res);
@@ -231,6 +296,7 @@ $(document).on('click', '.edit-product', function () {
         }
     })
 });
+*/
 /*
 $(document).on('change', '.class-select', function (e) {
     $.ajax({

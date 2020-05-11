@@ -7,7 +7,7 @@
                 <th scope="col" style="text-align: center">№ страви у збірнику</th>
                 <th scope="col" style="text-align: center">Тип страви</th>
                 <th scope="col" style="text-align: center">Назва страви</th>
-                <th scope="col" style="text-align: center">Опції</th>
+                <th scope="col" style="text-align: center">Дії</th>
             </tr>
             </thead>
             <tbody>
@@ -18,7 +18,15 @@
                     <td scope="col" style="text-align: center">{{$course->name}}</td>
                     <td scope="col" style="text-align: center">
                         <a href="{{route('course.show', ['id' => $course->id])}}">
-                            <span class="glyphicon glyphicon-eye-open edit-product"></span>
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a href="{{route('courses.edit', ['course' => $course->id])}}">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-remove text-danger course-destroy"
+                                data-id="{{$course->id}}">
+                            </span>
                         </a>
                     </td>
                 </tr>
@@ -37,9 +45,7 @@
             <ul class="hr">
                 @foreach($products as $product)
                     <li>
-                        {{$product->name}}
-                        {{--<span class="glyphicon glyphicon-pencil edit-product" data-id="{{$product->id}}"></span>
-                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$product->id}}"></span>--}}
+                        <a href="{{route('products.edit', ['product' => $product->id])}}">{{$product->name}}</a>
                     </li>
                 @endforeach
             </ul>
@@ -80,8 +86,6 @@
                 @foreach($types as $type)
                     <li>
                         {{$type->sort}}. {{$type->name}}
-                        {{--<span class="glyphicon glyphicon-pencil edit-product" data-id="{{$type->id}}"></span>
-                        <span class="glyphicon glyphicon-remove text-danger del-product" data-id="{{$type->id}}"></span>--}}
                     </li>
                     @php $n = $type->sort @endphp
                 @endforeach

@@ -6,6 +6,7 @@
     use App\Repositories\StudentsRepository;
     use App\Student;
     use Illuminate\Http\Request;
+    use Gate;
     
     class StudentsController extends Controller
     {
@@ -22,7 +23,10 @@
             'parent'
         ];
         
-        public function __construct(StudentsRepository $students, SchoolClassesRepository $class_rep)
+        public function __construct(
+            StudentsRepository $students,
+            SchoolClassesRepository $class_rep
+        )
         {
             parent::__construct();
             $this->students = $students;
@@ -34,13 +38,12 @@
             if(!($schoolClass = $this->user->schoolClass)){
                 abort(403);
             }
-            $students = $schoolClass->student()
-                ->with($this->relations)
-                ->get()
-                ->sortBy('fullname');
             $this->content = view('students_index')
                 ->with([
-                    'students' => $students
+                    'students' => $schoolClass->student()
+                        ->with($this->relations)
+                        ->get()
+                        ->sortBy('fullname')
                 ])
                 ->render();
             return $this->renderOutput();
@@ -51,9 +54,7 @@
             if (Gate::denies('Parent_Confirm')){
                 abort(403);
             }
-            $student = Student::find($student_id); //$this->students
-//                ->getWhere($student_id)
-//                ->first();
+            $student = Student::find($student_id);
             $student->parent()->updateExistingPivot($parent_id, ['confirmed_at' => now()]);
             return redirect(route('students.index'));
         }
@@ -67,12 +68,13 @@
         {
             //
         }
-        
+    
         /**
          * Store a newly created resource in storage.
          *
          * @param \Illuminate\Http\Request $request
          * @return \Illuminate\Http\Response
+         * @throws \Illuminate\Validation\ValidationException
          */
         public function store(Request $request)
         {
@@ -137,6 +139,12 @@
          */
         public function destroy($id)
         {
-            //
+            if (Gate::denies('Fill_Class')){
+                abort(403);
+            }
+            $student = Student::find($id);
+            $student->parent()->detach();
+            $result = $student->delete();
+            return back()->with($result);
         }
     }

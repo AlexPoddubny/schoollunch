@@ -34,3 +34,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+import route from './route';
+require('./scripts');
+// console.log(route('students.index'));
