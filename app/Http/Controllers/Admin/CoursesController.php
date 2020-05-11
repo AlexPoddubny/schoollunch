@@ -174,7 +174,6 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
-//            dd($request, session('products'));
             $result = $this->courses_rep->saveCourse($request, $id);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
@@ -190,10 +189,16 @@
          */
         public function destroy($id)
         {
+            if (Gate::denies('Course_Create')){
+                abort(403);
+            }
             $course = Course::findOrFail($id);
             $course->lunch()->detach();
             $course->product()->detach();
             $result = $course->delete();
+            if(is_array($result) && !empty($result['error'])) {
+                return response(500);
+            }
             return response(200);
         }
     

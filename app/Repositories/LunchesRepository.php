@@ -16,13 +16,17 @@
             $this->model = $lunch;
         }
     
-        public function saveLunch($request)
+        public function saveLunch($request, $id = null)
         {
             $data = $request->except('_token');
             if (isset($data['privileged'])){
                 $data['privileged'] = $request->boolean('privileged');
             }
-            $model = new $this->model;
+            if ($id) {
+                $model = $this->model::find($id);
+            } else {
+                $model = new $this->model;
+            }
             $model->fill($data);
             $model->save();
             $courses = session('courses');
@@ -30,7 +34,7 @@
                 $courses[$n] = Arr::only($courses[$n], ['course_id', 'size_id']);
             }
             $model->sizeCourse()->sync($courses);
-            return ['status' => 'Комплекс додано'];
+            return ['status' => 'Комплекс збережено'];
         }
     
         public function getLastNum()

@@ -23,10 +23,12 @@
                     {{$item['size']}} гр.
                 </td>
                 <td style="text-align: center">
-                    <span class="glyphicon glyphicon-remove text-danger del-course"
-                          data-id="{{$n}}"
-                          aria-hidden="true">
-                    </span>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-remove text-danger del-course"
+                            data-id="{{$n}}"
+                            aria-hidden="true">
+                        </span>
+                    </a>
                 </td>
             </tr>
         @endforeach

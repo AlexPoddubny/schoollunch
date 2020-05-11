@@ -12,10 +12,10 @@ class CoursesController extends Controller
     
     protected $courses;
     
-    public function __construct(CoursesRepository $courses)
+    public function __construct(/*CoursesRepository $courses*/)
     {
         parent::__construct();
-        $this->courses = $courses;
+//        $this->courses = $courses;
     }
     
     /**
@@ -60,7 +60,6 @@ class CoursesController extends Controller
         if (!($course = Course::with('product')->find($id))){
             abort(403);
         }
-//        dump($course);
         $this->content = view('course')
             ->with([
                 'course' => $course,
