@@ -23,6 +23,7 @@
                         <a href="{{route('courses.edit', ['course' => $course->id])}}">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
+                        <span class="glyphicon glyphicon-remove text-danger course-destroy" data-id="{{$course->id}}"></span>
                     </td>
                 </tr>
             @endforeach

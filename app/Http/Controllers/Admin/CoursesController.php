@@ -55,7 +55,6 @@
                 ->with([
                     'courses' => $courses,
                     'products' => Product::all()->sortBy('name'),
-//                    'products' => $this->products_rep->getAll()->sortBy('name'),
                     'types' => Type::all()->sortBy('sort'),
                     'sizes' => Size::all()->sortBy('size'),
                     'links' => $links
@@ -115,7 +114,7 @@
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }
-            return redirect(route('courses.index'));
+            return redirect(route('courses.index'))->with($result);
         }
         
         /**
@@ -180,7 +179,7 @@
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }
-            return redirect(route('courses.index'));
+            return redirect(route('courses.index'))->with($result);
         }
         
         /**
@@ -191,7 +190,11 @@
          */
         public function destroy($id)
         {
-            //
+            $course = Course::findOrFail($id);
+            $course->lunch()->detach();
+            $course->product()->detach();
+            $result = $course->delete();
+            return response(200);
         }
     
         public function addProduct(Request $request)

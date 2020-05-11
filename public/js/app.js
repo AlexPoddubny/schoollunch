@@ -49828,7 +49828,7 @@ $(document).on('click', '#add-product', function (e) {
     },
     type: 'POST',
     success: function success(res) {
-      console.log(res);
+      // console.log(res);
       $('#products').html(res);
     },
     error: function error(res) {
@@ -49857,6 +49857,24 @@ $(document).on('click', '.del-product', function (e) {
       console.log(res);
     }
   });
+}); //****************************
+//      Delete course
+//****************************
+
+$(document).on('click', '.course-destroy', function (e) {
+  e.preventDefault();
+  var id = $(this).data('id');
+  console.log(id);
+  $.ajax({
+    url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('courses.destroy', [id]),
+    type: 'DELETE',
+    success: function success(res) {
+      window.location = Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('courses.index');
+    },
+    error: function error(res) {
+      console.log(res);
+    }
+  });
 });
 $(document).on('keyup change blur', '#size', function () {
   $('#factor').val(parseInt($(this).val()) / 1000);
@@ -49865,7 +49883,7 @@ $(document).on('change', '#type', function () {
   var type = $(this).val(); // console.log(type);
 
   $.ajax({
-    url: 'getcourses',
+    url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('getcourses'),
     data: {
       type: type
     },
@@ -49933,20 +49951,24 @@ $(document).on('change', '.menu-select', function (e) {
     }
   });
 });
-$(document).on('click', '.edit-product', function () {
-  var id = $(this).data('id'); // console.log(id);
+/*
 
-  $.ajax({
-    url: 'products/' + id + '/edit',
-    type: 'GET',
-    success: function success(res) {
-      console.log(res);
-    },
-    error: function error(res) {
-      console.log(res);
-    }
-  });
+$(document).on('click', '.edit-product', function () {
+    var id = $(this).data('id');
+    // console.log(id);
+    $.ajax({
+        url: route('products.edit', [id]),//'products/' + id + '/edit',
+        type: 'GET',
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
 });
+*/
+
 /*
 $(document).on('change', '.class-select', function (e) {
     $.ajax({
