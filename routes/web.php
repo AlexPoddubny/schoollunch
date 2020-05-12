@@ -44,10 +44,12 @@
         'as' => 'menu.view'
     ]);
     Route::resource('menu', 'MenuController');
+    Route::get('courses/index', 'CoursesController@index')->name('course.index');
     Route::get('courses/{id}/{size?}', [
         'uses' => 'CoursesController@show',
         'as' => 'course.show'
     ]);
+    
     Route::resource('courses', 'CoursesController');
     
     Route::group([

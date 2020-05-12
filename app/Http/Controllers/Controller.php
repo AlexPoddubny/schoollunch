@@ -48,6 +48,7 @@ class Controller extends BaseController
         return \Menu::make('mainMenu', function ($menu){
             $attr = ['class' => 'nav-link active'];
             $menu->add('Мої школяри', ['route' => 'home.index', 'class' => 'nav-item'])->link->attr($attr);
+            $menu->add('Наші страви', ['route' => 'course.index', 'class' => 'nav-item'])->link->attr($attr);
             if(Gate::allows('View_Class_Menu')) {
                 $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr($attr);
             }
