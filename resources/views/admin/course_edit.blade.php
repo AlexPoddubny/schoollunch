@@ -122,7 +122,7 @@
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="carbonhydrates" class="control-label">Вуглеводи</label>
-                <input name="carbonhydrates" type="number" step="0.1" class="form-control input-group @error('carbonhydrates') is-invalid @enderror" value="{{old('carbonhydrates' ?? $course->carbonhydrates)}}"/>
+                <input name="carbonhydrates" type="number" step="0.1" class="form-control input-group @error('carbonhydrates') is-invalid @enderror" value="{{old('carbonhydrates') ?? $course->carbonhydrates}}"/>
                 @error('carbonhydrates')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
