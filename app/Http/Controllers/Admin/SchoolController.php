@@ -69,10 +69,10 @@ class SchoolController
                 // fill the selector
                 $this->content = view('selector')
                     ->with([
-                        'schools' => $schools
+                        'schools' => $schools,
+                        'route' => 'school.select'
                     ])
                     ->render();
-//                return $this->renderOutput();
             }
         } else {
             $this->content = 'Цей користувач не адмініструє жодної школи';

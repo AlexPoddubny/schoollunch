@@ -24,9 +24,6 @@ class Controller extends BaseController
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
-            if (!$this->user){
-                abort(403);
-            };
             return $next($request);
         });
     }
@@ -47,6 +44,7 @@ class Controller extends BaseController
     {
         return \Menu::make('mainMenu', function ($menu){
             $attr = ['class' => 'nav-link active'];
+            $menu->add('<span class="glyphicon glyphicon-home"></span>', ['url' => '.', 'class' => 'nav-item'])->link->attr($attr);
             $menu->add('Мої школяри', ['route' => 'home.index', 'class' => 'nav-item'])->link->attr($attr);
             $menu->add('Наші страви', ['route' => 'course.index', 'class' => 'nav-item'])->link->attr($attr);
             if(Gate::allows('View_Class_Menu')) {

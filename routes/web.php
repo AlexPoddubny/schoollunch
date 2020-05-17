@@ -11,9 +11,12 @@
 |
 */
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    /*Route::get('/', function () {
+        return view('welcome_old');
+    });*/
+    
+    Route::post('/select', 'WelcomeController@select')->name('select');
+    Route::resource('/', 'WelcomeController');
     
     Auth::routes(['verify' => true]);
     

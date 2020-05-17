@@ -51,6 +51,7 @@
         {
             $this->content = view('children')
                 ->with([
+                    'user' => $this->user,
                     'schools' => School::has('admin')->get()->sortBy('id'),
                     'children' => $this->user->child()
                         ->with([

@@ -1,4 +1,4 @@
-<form action="{{route('school.select')}}" method="post">
+<form action="{{route($route)}}" method="post">
     @csrf
     <div class="form-group row">
         <label for="school" class="col-md-4 col-form-label text-md-right">{{__('messages.select_school')}}</label>

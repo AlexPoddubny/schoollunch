@@ -47,7 +47,7 @@ class MenuController extends Controller
         } else {
             $school = $this->user->cook;
         }
-        $this->title = $school->name . ' Меню столової';
+        $this->title = $school->name . ': Меню столової';
         $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
             ->where('school_id', $school->id)
             ->whereBetween('date', [date('Y-m-d'), date('Y-m-d', strtotime("next friday"))])
@@ -55,7 +55,8 @@ class MenuController extends Controller
             ->sortBy('breakTime.break_num')
             ->groupBy('date')
             ->sortKeys();
-//        dump($menu);
+        dump($menu);
+//        dd($menu);
         $this->content = view('menu')
             ->with([
                 'menus' => $menu,

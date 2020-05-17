@@ -1,3 +1,4 @@
+<p>Доброго дня, {{$user->firstname}} {{$user->middlename}}!</p>
 @if(count($children) > 0)
     <div>
         Сьогодні, {{date('Y-m-d')}} у ваш{{(count($children) == 1 ? 'ої дитини наступний обід' : 'их дітей наступні обіди')}}:
@@ -16,7 +17,7 @@
             @endforeach
         </div>
     @endforeach
-    {{--
+
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -49,7 +50,6 @@
             </tbody>
         </table>
     </div>
-    --}}
 @endif
 <div class="card">
     <div class="card-header">Додавання школяра</div>

@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{!! $navigation !!}</div>
+                @auth
+                    <div class="card-header">{!! $navigation !!}</div>
+                @endauth
 
                 <div class="card-body">
                     @if (session('status'))

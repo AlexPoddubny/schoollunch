@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
-use App\Repositories\CoursesRepository;
-use App\Size;
+use App\School;
 use Illuminate\Http\Request;
 
-class CoursesController extends Controller
+class WelcomeController extends Controller
 {
-    
     public function __construct()
     {
-        parent::__construct();
+        //
     }
     
     /**
@@ -22,15 +19,27 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $this->content = view('courses')
+        $this->title = 'Ласкаво просимо!';
+        $schools_list = view('selector')
             ->with([
-                'allcourses' => Course::with('product', 'type')
-                    ->get()
-                    ->sortBy('type.sort')
-                    ->groupBy('type.name')
+                'schools' => School::all(),
+                'route' => 'select'
+            ])
+            ->render();
+        $this->content = view('welcome')
+            ->with([
+                'schools' => $schools_list,
             ])
             ->render();
         return $this->renderOutput();
+    }
+    
+    public function select(Request $request)
+    {
+//        dd($request);
+        return redirect(route('menu.view', [
+            'id' => $request->input('school')
+        ]));
     }
 
     /**
@@ -60,18 +69,9 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $size = 6)
+    public function show($id)
     {
-        if (!($course = Course::with('product')->find($id))){
-            abort(403);
-        }
-        $this->content = view('course')
-            ->with([
-                'course' => $course,
-                'size' => Size::find($size)
-            ])
-            ->render();
-        return $this->renderOutput();
+        //
     }
 
     /**
