@@ -12,7 +12,7 @@
             @foreach($users as $user)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', ['user' => $user->id]) }}">{{fullname($user)}}</a>
+                        <a href="{{ route('users.edit', ['user' => $user->id]) }}">{{fullname($user)}}</a>
                     </td>
                     <td>
                         {{$user->email}}

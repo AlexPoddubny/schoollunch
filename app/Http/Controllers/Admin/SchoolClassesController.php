@@ -16,7 +16,6 @@
     {
         
         protected $class_rep;
-        protected $cat_rep;
         
         protected $related = [
             'school.breakTime',
@@ -25,14 +24,10 @@
 //        'student'
         ];
         
-        public function __construct(
-            SchoolClassesRepository $class_rep,
-            CategoriesRepository $cat_rep
-        )
+        public function __construct(SchoolClassesRepository $class_rep)
         {
             parent::__construct();
             $this->class_rep = $class_rep;
-            $this->cat_rep = $cat_rep;
         }
         
         /**
@@ -63,14 +58,7 @@
          */
         public function store(Request $request)
         {
-            if (Gate::denies('Class_Edit')) {
-                abort(403);
-            }
-            $result = $this->class_rep->saveClass($request);
-            if (is_array($result) && !empty($result['error'])) {
-                return back()->with($result);
-            }
-            return back()->with($result);
+            //
         }
         
         /**
@@ -116,7 +104,14 @@
          */
         public function update(Request $request, $id)
         {
-            //
+            if (Gate::denies('Class_Edit')) {
+                abort(403);
+            }
+            $result = $this->class_rep->saveClass($request, $id);
+            if (is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+            return back()->with($result);
         }
         
         /**

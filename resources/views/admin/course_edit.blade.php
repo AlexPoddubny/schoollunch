@@ -31,9 +31,9 @@
         <label for="type" class="col-md-4 col-form-label text-md-right">Тип страви</label>
 
         <div class="col-md-6">
-            <select name="type_id" class="form-control @error('type_id') is-invalid @enderror" value="{{old('type_id') ?? $course->type_id}}">
+            <select name="type_id" class="form-control @error('type_id') is-invalid @enderror">
                 @foreach($types as $type)
-                    <option value="{{$type->id}}">{{$type->name}}</option>
+                    <option value="{{$type->id}}" {{($type->id == $course->type_id) ? 'selected' : '' }}>{{$type->name}}</option>
                 @endforeach
             </select>
 

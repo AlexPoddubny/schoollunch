@@ -1,7 +1,8 @@
 @if($user)
-<form method="POST" action="{{ route('users.store') }}">
+<form method="POST" action="{{ route('users.update', ['user' => $user->id]) }}">
     @csrf
-    <input name="id" type="hidden" value="{{$user->id}}">
+    {{ method_field('PUT') }}
+{{--    <input name="id" type="hidden" value="{{$user->id}}">--}}
 
     <div class="form-group row">
         <label for="firstname" class="col-md-4 col-form-label text-md-right">{{ __('messages.firstname') }}</label>

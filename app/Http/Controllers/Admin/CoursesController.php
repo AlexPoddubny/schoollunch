@@ -19,22 +19,11 @@
     {
         
         protected $courses_rep;
-        protected $products_rep;
-        protected $sizes_rep;
-        protected $types_rep;
         
-        public function __construct(
-            CoursesRepository $courses_rep,
-            ProductsRepository $products_rep,
-            SizesRepository $sizes_rep,
-            TypesRepository $types_rep
-        )
+        public function __construct(CoursesRepository $courses_rep)
         {
             parent::__construct();
             $this->courses_rep = $courses_rep;
-            $this->products_rep = $products_rep;
-            $this->sizes_rep = $sizes_rep;
-            $this->types_rep = $types_rep;
         }
     
         /**

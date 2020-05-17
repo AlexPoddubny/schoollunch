@@ -14,7 +14,7 @@
             $this->model = $user;
         }
     
-        public function saveUser($request)
+        public function saveUser($request, $id)
         {
             $data = $request->except('_token');
             $roles = [];
@@ -22,7 +22,7 @@
                 $roles = $data['roles'];
                 unset($data['roles']);
             }
-            $user = User::find($request->input('id'));
+            $user = User::find($id);
 //            $user = $this->getWhere($request->input('id'))->first();
             $user->fill($data);
             $user->save();

@@ -61,27 +61,32 @@
                     'as' => 'adminIndex'
                 ]
             );
-            Route::get('/users',[
+            /*Route::get('/users',[
                     'uses' => 'Admin\UsersController@index',
                     'as' => 'adminUsers'
                 ]
-            );
-            Route::resource('permissions', 'Admin\PermissionsController');
+            );*/
+//            Route::resource('permissions', 'Admin\PermissionsController');
             Route::resource('roles', 'Admin\RolesController');
             Route::resource('users', 'Admin\UsersController');
-            Route::get('schools/import', [
+            /*Route::get('schools/import', [
                     'uses' => 'Admin\SchoolsController@import',
                     'as' => 'schools.import'
                 ]
-            );
-            Route::post('schools/add', [
+            );*/
+            /*Route::post('schools/add', [
                     'uses' => 'Admin\SchoolsController@add',
                     'as' => 'schools.add'
                 ]
-            );
+            );*/
             Route::get('schools/edit/{school}/{type}', [
                     'uses' => 'Admin\SchoolsController@edit',
                     'as' => 'schools.edit.type'
+                ]
+            );
+            Route::get('schools/delete/{school}/{type}', [
+                    'uses' => 'Admin\SchoolsController@delete',
+                    'as' => 'schools.delete.type'
                 ]
             );
             Route::post('schools/generate', [

@@ -1,6 +1,7 @@
-<form action="{{ route('roles.store') }}" method="post">
+<form action="{{ route('roles.update', ['role' => $role->id]) }}" method="post">
     {{ @csrf_field() }}
-    <input name="id" type="hidden" value="{{$role->id}}">
+    {{ method_field('PUT') }}
+{{--    <input name="id" type="hidden" value="{{$role->id}}">--}}
     <div class="form-group row">
         <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('messages.role_name') }}</label>
         <div class="col-md-6">

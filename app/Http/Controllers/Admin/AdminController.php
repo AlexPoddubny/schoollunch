@@ -3,10 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Lavary\Menu\Menu;
 use Gate;
 
 
@@ -28,7 +24,7 @@ class AdminController extends Controller
                 $menu->add('Адмініструвати школи', ['route' => 'school.index', 'class' => 'nav-item'])->link->attr($attr);
             }
             if(Gate::allows('View_Cook')) {
-                $menu->add('Комбінат харчування', ['route' => 'courses.index', 'class' => 'nav-item'])->link->attr($attr);
+                $menu->add('Страви та продукти', ['route' => 'courses.index', 'class' => 'nav-item'])->link->attr($attr);
                 $menu->add('Комплексні обіди', ['route' => 'lunches.index', 'class' => 'nav-item'])->link->attr($attr);
             }
         });

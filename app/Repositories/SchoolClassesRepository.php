@@ -23,14 +23,13 @@
             $this->user_rep = $user_rep;
         }
     
-        public function saveClass($request)
+        public function saveClass($request, $id)
         {
             $data = $request->except('_token');
-            $schoolClass = SchoolClass::find($data['id']);
+            $schoolClass = SchoolClass::find($id);
             $schoolClass->fill($data);
             if (isset($data['teacher_id'])){
                 $user = User::find($data['teacher_id']);
-//                $user = $this->user_rep->getWhere($data['teacher_id'])->first();
                 if ($user && !$user->hasRole('ClassTeacher')){
                     $user->addRole('ClassTeacher');
                 }

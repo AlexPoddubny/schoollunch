@@ -14,13 +14,11 @@ use Gate;
 class SchoolsController extends AdminController
 {
     
-    protected $user_rep;
     protected $school_rep;
     
-    public function __construct(UsersRepository $user_rep, SchoolsRepository $school_rep)
+    public function __construct(SchoolsRepository $school_rep)
     {
         parent::__construct();
-        $this->user_rep = $user_rep;
         $this->school_rep = $school_rep;
     }
     
@@ -38,7 +36,9 @@ class SchoolsController extends AdminController
         $this->title .= 'Підключення шкіл';
         $schools = $this->school_rep->getAllWithRelated(['admin', 'cook'])->get();
         $this->content = view('admin.schools')
-            ->with(['schools' => $schools])
+            ->with([
+                'schools' => $schools
+            ])
             ->render();
         return $this->renderOutput();
     }
@@ -80,12 +80,13 @@ class SchoolsController extends AdminController
     {
         //
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -95,23 +96,20 @@ class SchoolsController extends AdminController
         $this->validate($request, [
             'schoolname' => ['required', 'string', 'max:100']
         ]);
-        $result = $this->school_rep->saveSchool($request);
-        if(is_array($result) && !empty($result['error'])) {
-            return back()->with($result);
-        }
-        return back()->with($result);
-    }
-    
-    public function add(Request $request)
-    {
-        if (Gate::denies('School_Register')){
-            abort(403);
-        }
-        $this->validate($request, [
-            'schoolname' => ['required', 'string', 'max:100']
-        ]);
         $schoolname = $request->input('schoolname');
         School::create(['name' => $schoolname]);
+        return redirect(route('adminIndex'));
+    }
+    
+    public function delete($id, $type)
+    {
+        if (Gate::denies('School_' . ucfirst($type) . '_Assign')){
+            abort(403);
+        }
+        $type .= '_id';
+        $school = School::findOrFail($id);
+        $school->$type = null;
+        $school->save();
         return redirect(route('adminIndex'));
     }
     
@@ -136,6 +134,7 @@ class SchoolsController extends AdminController
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     * @param $type
      * @return \Illuminate\Http\Response
      * @throws \Throwable
      */
@@ -150,7 +149,6 @@ class SchoolsController extends AdminController
             $this->title .= ' - Не призначено';
         }
         $user = $school->$type;
-//        dump($user);
         $this->content = view('admin.school_edit')
             ->with([
                 'school' => $school,
@@ -160,17 +158,30 @@ class SchoolsController extends AdminController
             ->render();
         return $this->renderOutput();
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Gate::denies('School_Register')){
+            abort(403);
+        }
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:100'],
+            'type' => ['required'],
+            'user_id' => ['required']
+        ]);
+        $result = $this->school_rep->saveSchool($request, $id);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('adminIndex'))->with($result);
     }
 
     /**

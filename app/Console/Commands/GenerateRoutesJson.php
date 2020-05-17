@@ -22,7 +22,7 @@ class GenerateRoutesJson extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generates routes list to JSON';
 
     /**
      * Create a new command instance.

@@ -13,7 +13,6 @@ class UsersController extends AdminController
 {
     
     protected $user_rep;
-    protected $role_rep;
     protected $rules = [
         'phone' => ['required', 'digits:10'],
         'email' => ['required', 'string', 'email', 'max:255'],
@@ -27,7 +26,6 @@ class UsersController extends AdminController
     {
         parent::__construct();
         $this->user_rep = $user_rep;
-        $this->role_rep = $role_rep;
     }
     
     /**
@@ -67,17 +65,7 @@ class UsersController extends AdminController
      */
     public function store(Request $request)
     {
-        // перенести у update
-        if (Gate::denies('User_Register')){
-            abort(403);
-        }
-        $this->validate($request, $this->rules);
-        $result = $this->user_rep->saveUser($request);
-//        $result = $this->role_rep->changeRoles($request);
-        if(is_array($result) && !empty($result['error'])) {
-            return back()->with($result);
-        }
-        return back()->with($result);
+        //
     }
 
     /**
@@ -87,6 +75,17 @@ class UsersController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         $user = User::find($id);
         if (!$user){
@@ -103,17 +102,6 @@ class UsersController extends AdminController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -122,7 +110,16 @@ class UsersController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        // перенести у update
+        if (Gate::denies('User_Register')){
+            abort(403);
+        }
+        $this->validate($request, $this->rules);
+        $result = $this->user_rep->saveUser($request, $id);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('users.index'))->with($result);
     }
 
     /**

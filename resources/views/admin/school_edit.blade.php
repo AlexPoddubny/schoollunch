@@ -1,6 +1,7 @@
-<form method="POST" action="{{ route('schools.store') }}">
+<form method="POST" action="{{ route('schools.update', ['school' => $school->id]) }}">
     @csrf
-    <input name="id" type="hidden" value="{{$school->id}}">
+    {{ method_field('PUT') }}
+{{--    <input name="id" type="hidden" value="{{$school->id}}">--}}
     <input name="type" type="hidden" value="{{$type}}">
     <input name="user_id" id="user-id" type="hidden" value="{{isset($user) ? $user->id : ''}}">
 

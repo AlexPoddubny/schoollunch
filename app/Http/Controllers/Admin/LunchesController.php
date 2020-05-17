@@ -19,26 +19,12 @@ use Gate;
 class LunchesController extends AdminController
 {
     
-    protected $courses_rep;
-    protected $types_rep;
-    protected $sizes_rep;
     protected $lunches_rep;
-    protected $categories_rep;
     
-    public function __construct(
-        CoursesRepository $courses_rep,
-        TypesRepository $types_rep,
-        SizesRepository $sizes_rep,
-        LunchesRepository $lunches_rep,
-        CategoriesRepository $categories_rep
-    )
+    public function __construct(LunchesRepository $lunches_rep)
     {
         parent::__construct();
-        $this->courses_rep = $courses_rep;
-        $this->types_rep = $types_rep;
-        $this->sizes_rep = $sizes_rep;
         $this->lunches_rep = $lunches_rep;
-        $this->categories_rep = $categories_rep;
     }
     
     /**
@@ -90,7 +76,6 @@ class LunchesController extends AdminController
         return $this->content = view('admin.courses_select')
             ->with([
                 'courses' => Course::where('type_id', $request->input('type'))->get()
-//                'courses' => $this->courses_rep->getWhere($request->input('type'), 'type_id')
             ])
             ->render();
     }

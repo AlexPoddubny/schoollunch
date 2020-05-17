@@ -1,10 +1,9 @@
 <div class="card">
     <div class="card-header">Головна інформація</div>
     <br>
-    <form method="POST" action="{{ route('schoolclass.store') }}">
+    <form method="POST" action="{{ route('schoolclass.update', ['schoolclass' => $schoolClass->id]) }}">
         @csrf
-        <input name="id" type="hidden" value="{{$schoolClass->id}}">
-
+        {{ method_field('PUT') }}
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.class_name') }}</label>
 
@@ -74,9 +73,12 @@
     </form>
     <br>
 </div>
+{{--
+
 <br>
 <div class="card">
     <div class="card-header">Учні класу</div>
     <br>
     @include('students_index')
 </div>
+--}}

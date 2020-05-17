@@ -9,7 +9,7 @@
         <tbody>
             @foreach($roles as $role)
                 <tr>
-                    <td><a href="{{ route('roles.show', ['role' => $role->id]) }}">{{$role->description}}</a></td>
+                    <td><a href="{{ route('roles.edit', ['role' => $role->id]) }}">{{$role->description}}</a></td>
                     <td style="text-align: center">{{$role->users_count}}</td>
                 </tr>
             @endforeach

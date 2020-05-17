@@ -13,14 +13,20 @@
             @foreach($schools as $school)
                 <tr>
                     <td>
-                        <a href="{{ route('schools.show', ['school' => $school->id]) }}">{{$school->name}}</a>
+                        <a href="{{ route('school.show', ['school' => $school->id]) }}">{{$school->name}}</a>
                     </td>
                     <!-- School Admin Assign -->
                     <td style="text-align: center">
                         @if($school->admin_id)
-                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">{{fullname($school->admin)}}</a>
-                            <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">
+                                {{fullname($school->admin)}}
+                            </a>
+                            <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a href="{{route('schools.delete.type', ['school' => $school->id, 'type' => 'admin'])}}">
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            </a>
                         @else
                             <a class="btn btn-primary" href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}" role="button">{{__('messages.assign')}}</a>
                         @endif
@@ -28,7 +34,15 @@
                     <!-- School Cook Assign -->
                     <td style="text-align: center">
                         @if($school->cook_id)
-                            <a href="{{ route('users.show', ['user' => $school->cook->id]) }} "target="_blank">{{fullname($school->cook)}}</a>
+                            <a href="{{ route('users.show', ['user' => $school->cook->id]) }} "target="_blank">
+                                {{fullname($school->cook)}}
+                            </a>
+                            <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a href="{{route('schools.delete.type', ['school' => $school->id, 'type' => 'cook'])}}">
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            </a>
                         @else
                             <a class="btn btn-primary" href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}" role="button">{{__('messages.assign')}}</a>
                         @endif
@@ -49,7 +63,7 @@
     </div>
 @endif
 <br>
-<form method="post" action="{{route('schools.add')}}">
+<form method="post" action="{{route('schools.store')}}">
     @csrf
     <div class="form-group row">
         <label for="schoolname" class="col-md-4 col-form-label text-md-right">{{__('messages.school_name')}}</label>

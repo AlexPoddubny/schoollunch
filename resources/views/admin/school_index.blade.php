@@ -25,7 +25,7 @@
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="break_num">Номер перерви</label>
-                    <input name="break_num" value="{{isset($n) ? $n + 2 : 1}}" class="form-control @error('break_num') is-invalid @enderror" type="number">
+                    <input name="break_num" value="{{isset($n) ? $n + 2 : 1}}" min="1" class="form-control @error('break_num') is-invalid @enderror" type="number">
                     @error('break_num')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

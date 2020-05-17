@@ -59,15 +59,7 @@ class RolesController extends AdminController
      */
     public function store(Request $request)
     {
-        if (Gate::denies('Roles_Edit')){
-            abort(403);
-        }
-        $result = $this->perm_rep->changePermissions($request);
-        if(is_array($result) && !empty($result['error'])) {
-            return back()->with($result);
-        }
-    
-        return back()->with($result);
+        //
     }
 
     /**
@@ -77,6 +69,17 @@ class RolesController extends AdminController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         if (Gate::denies('Roles_Edit')){
             abort(403);
@@ -94,17 +97,6 @@ class RolesController extends AdminController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -113,7 +105,15 @@ class RolesController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Gate::denies('Roles_Edit')){
+            abort(403);
+        }
+        $result = $this->perm_rep->changePermissions($request, $id);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+    
+        return back()->with($result);
     }
 
     /**

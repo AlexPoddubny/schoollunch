@@ -142,7 +142,6 @@ class SchoolController
             'break_time' => $data['begin'] . ' - ' . $data['end']
         ]);
         $school = School::find($data['school_id']);
-//        $school = $this->school_rep->getWhere($data['school_id'])->first();
         $school->breakTime()->save($break);
         return redirect(route('school.show', [
             'school' => $data['school_id']
@@ -162,16 +161,15 @@ class SchoolController
             'name' => $data['classname'],
         ]);
         $school = School::find($data['school_id']);
-//        $school = $this->school_rep->getWhere($data['school_id'])->first();
         $school->schoolClass()->save($schoolClass);
         return redirect(route('school.show', [
             'school' => $data['school_id']
         ]));
     }
     
-    public function copyClass()
+    public function copyClass(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
