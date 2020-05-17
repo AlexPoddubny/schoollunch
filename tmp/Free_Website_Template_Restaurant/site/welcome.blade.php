@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Home</title>
+    <title>{{ $title ?? '' }}</title>
     <meta charset="utf-8">
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="shortcut icon" href="images/favicon.ico"/>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/slider.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-migrate-1.1.1.js"></script>
-    <script src="js/superfish.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/sForm.js"></script>
-    <script src="js/jquery.carouFredSel-6.1.0-packed.js"></script>
-    <script src="js/tms-0.4.1.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slider.css') }}">
+
+    {{--Scripts--}}
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/jquery-migrate-1.1.1.js') }}"></script>
+    <script src="{{ asset('js/superfish.js') }}"></script>
+    <script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ asset('js/sForm.js') }}"></script>
+    <script src="{{ asset('js/jquery.carouFredSel-6.1.0-packed.js') }}"></script>
+    <script src="{{ asset('js/tms-0.4.1.js') }}"></script>
+
+    {{--Slider Script--}}
+
     <script>
 		$(window).load(function () {
 			$('.slider')._TMS({
@@ -56,6 +67,9 @@
 				});
 			});
     </script>
+
+    {{--End Slider Script--}}
+
     <!--[if lt IE 8]>
     <div style=' clear: both; text-align:center; position: relative;'>
         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
@@ -67,8 +81,8 @@
     </div>
     <![endif]-->
     <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <link rel="stylesheet" media="screen" href="css/ie.css">
+    <script src="{{ asset('js/html5shiv.js') }}"></script>
+    <link rel="stylesheet" media="screen" href="{{ asset('css/ie.css') }}">
 
     <![endif]-->
 </head>
