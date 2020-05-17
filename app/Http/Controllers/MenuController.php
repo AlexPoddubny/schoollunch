@@ -16,20 +16,11 @@ use Gate;
 class MenuController extends Controller
 {
 
-//    public $schoolClasses;
-    protected $school_rep;
-    protected $categories_rep;
     protected $menu_rep;
     
-    public function __construct(
-        SchoolsRepository $school_rep,
-        CategoriesRepository $categories_rep,
-        MenuRepository $menu_rep
-    )
+    public function __construct(MenuRepository $menu_rep)
     {
         parent::__construct();
-        $this->school_rep = $school_rep;
-        $this->categories_rep = $categories_rep;
         $this->menu_rep = $menu_rep;
     }
     
@@ -55,8 +46,6 @@ class MenuController extends Controller
             ->sortBy('breakTime.break_num')
             ->groupBy('date')
             ->sortKeys();
-        dump($menu);
-//        dd($menu);
         $this->content = view('menu')
             ->with([
                 'menus' => $menu,
