@@ -22,6 +22,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
+        $this->title = 'Меню комбінату харчування';
         $this->content = view('courses')
             ->with([
                 'allcourses' => Course::with('product', 'type')
