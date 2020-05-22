@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/h36888c/
-    - /bin/cp -R * $DEPLOYPATH
+    - export REPOPATH=/home/h36888c/repositories/schoollunch/*
+    - export SITEPATH=/home/h36888c/
+    - /bin/rsync -rav --exclude '.git' --exclude '.cpanel.yml' --del $REPOPATH $SITEPATH
