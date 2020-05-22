@@ -37,8 +37,9 @@
         <br>
     @endforeach
 @else
-    <p>Меню не вказано</p>
+    <p>Меню на {{date('Y-m-d')}} не складено</p>
 @endif
+<a href="{{ url()->previous() }}" class="btn btn-primary">На попередню сторінку</a>
 @can('Menu_Create')
     <a href="{{route('menu.create')}}" role="button" class="btn btn-primary">
         Додати позицію у меню

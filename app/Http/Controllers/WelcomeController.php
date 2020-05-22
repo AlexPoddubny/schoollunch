@@ -22,7 +22,7 @@ class WelcomeController extends Controller
         $this->title = 'Ласкаво просимо!';
         $schools_list = view('selector')
             ->with([
-                'schools' => School::all(),
+                'schools' => School::has('menu')->get(),
                 'route' => 'select'
             ])
             ->render();
