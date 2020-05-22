@@ -35,7 +35,7 @@
         )
         {
             parent::__construct();
-            $this->middleware(['auth', 'verified']);
+            $this->middleware(['auth'/*, 'verified'*/]);
             $this->school_rep = $school_rep;
             $this->classes_rep = $classes_rep;
             $this->user_rep = $user_rep;

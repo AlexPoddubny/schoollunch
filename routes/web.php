@@ -18,7 +18,8 @@
     Route::post('/select', 'WelcomeController@select')->name('select');
     Route::resource('/', 'WelcomeController');
     
-    Auth::routes(['verify' => true]);
+    //Auth::routes(['verify' => true]);
+    Auth::routes();
     
     Route::post('search', 'SearchController@search');//->name('search.result');
     
