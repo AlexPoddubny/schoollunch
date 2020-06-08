@@ -13,6 +13,7 @@
     use App\Type;
     use Illuminate\Http\Request;
     use Gate;
+    use Validator;
     
     class CoursesController
         extends AdminController
@@ -87,8 +88,9 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
-            /*$this->validate($request, [
-                'rs' => ['required', 'numeric', 'min:1'],
+//            dd($request);
+            $this->validate($request, [
+                'rc' => ['required', 'numeric', 'min:1'],
                 'name' => ['required', 'max:100'],
                 'type_id' => ['required'],
                 'albumens' => ['required'],
@@ -97,8 +99,7 @@
                 'calories' => ['required'],
                 'recipe' => ['required'],
                 'description' => ['required'],
-                'product' => ['array']
-            ]);*/
+            ]);
             $result = $this->courses_rep->saveCourse($request);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
@@ -195,6 +196,20 @@
         {
             if (Gate::denies('Course_Create')){
                 abort(403);
+            }
+            /*
+            $this->validate($request, [
+                'id' => 'required',
+                'brutto' => 'required',
+                'netto' => 'required'
+            ]);*/
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+                'brutto' => 'required',
+                'netto' => 'required|lte:brutto'
+            ]);
+            if ($validator->fails()){
+                return response()->json(['error' => $validator->errors()->all()]);
             }
             $id = $request->input('id');
             $products = session('products');

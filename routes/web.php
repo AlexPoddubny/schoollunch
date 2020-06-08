@@ -29,7 +29,8 @@
         ]
     );
     
-    Route::post('/home/search', 'HomeController@search');
+    Route::post('/home/search', 'HomeController@search')->name('home.search');
+    Route::get('home/remove/{child}', 'HomeController@remove')->name('home.remove');
     Route::resource('home', 'HomeController');
     
 //    Route::get('/search','SearchController@search')->name('search');
@@ -72,6 +73,7 @@
             );*/
 //            Route::resource('permissions', 'Admin\PermissionsController');
             Route::resource('roles', 'Admin\RolesController');
+            Route::post('users/search', 'Admin\UsersController@search')->name('users.search');
             Route::resource('users', 'Admin\UsersController');
             /*Route::get('schools/import', [
                     'uses' => 'Admin\SchoolsController@import',

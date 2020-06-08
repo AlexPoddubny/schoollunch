@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        {{--<div class="form-group row">
             <input name="teacher_id" id="user-id" type="hidden" value="{{$schoolClass->teacher_id ?? ''}}">
             <label for="teacher" class="col-md-4 col-form-label text-md-right">{{ __('messages.teacher') }}</label>
 
@@ -62,6 +62,20 @@
             <div class="col-md-6">
                 @livewire('search')
             </div>
+        </div>--}}
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.teacher') }}</label>
+            <div class="col-md-6">
+                {{--            @livewire('search-user')--}}
+                <input type="hidden" name="user" id="user_id">
+                <input type="text" class="form-control" name="query" id="user"
+                       placeholder="@isset($schoolClass->teacher_id) '' @else Оберіть користувача @endisset"
+                       value="@isset($schoolClass->teacher_id) {{fullname($schoolClass->teacher)}} @endisset">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4"></div>
+            <div class="form-group row col-md-6 text-md-left" id="result"></div>
         </div>
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">

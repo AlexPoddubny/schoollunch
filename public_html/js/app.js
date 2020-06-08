@@ -49683,10 +49683,10 @@ var routes = __webpack_require__(/*! ./routes.json */ "./resources/js/routes.jso
 /*!**********************************!*\
   !*** ./resources/js/routes.json ***!
   \**********************************/
-/*! exports provided: debugbar.openhandler, debugbar.clockwork, debugbar.telescope, debugbar.assets.css, debugbar.assets.js, debugbar.cache.delete, , login, logout, register, password.request, password.email, password.reset, password.update, password.confirm, verification.notice, verification.verify, verification.resend, getclasses, home.index, home.create, home.store, home.show, home.edit, home.update, home.destroy, students.confirm, students.index, students.create, students.store, students.show, students.edit, students.update, students.destroy, menu.view, menu.index, menu.create, menu.store, menu.show, menu.edit, menu.update, menu.destroy, course.show, courses.index, courses.create, courses.store, courses.show, courses.edit, courses.update, courses.destroy, adminIndex, users.index, permissions.index, permissions.create, permissions.store, permissions.show, permissions.edit, permissions.update, permissions.destroy, roles.index, roles.create, roles.store, roles.show, roles.edit, roles.update, roles.destroy, users.create, users.store, users.show, users.edit, users.update, users.destroy, schools.import, schools.add, schools.edit.type, schools.generate, schools.index, schools.create, schools.store, schools.show, schools.edit, schools.update, schools.destroy, school.select, school.add_break, school.add_class, school.copy_class, school.index, school.create, school.store, school.show, school.edit, school.update, school.destroy, schoolclass.index, schoolclass.create, schoolclass.store, schoolclass.show, schoolclass.edit, schoolclass.update, schoolclass.destroy, addproduct, delproduct, products.index, products.create, products.store, products.show, products.edit, products.update, products.destroy, sizes.index, sizes.create, sizes.store, sizes.show, sizes.edit, sizes.update, sizes.destroy, types.index, types.create, types.store, types.show, types.edit, types.update, types.destroy, delcourse, addcourse, getcourses, lunches.index, lunches.create, lunches.store, lunches.show, lunches.edit, lunches.update, lunches.destroy, default */
+/*! exports provided: debugbar.openhandler, debugbar.clockwork, debugbar.telescope, debugbar.assets.css, debugbar.assets.js, debugbar.cache.delete, , select, index, create, store, show, edit, update, destroy, login, logout, register, password.request, password.email, password.reset, password.update, password.confirm, getclasses, home.search, home.remove, home.index, home.create, home.store, home.show, home.edit, home.update, home.destroy, students.confirm, students.index, students.create, students.store, students.show, students.edit, students.update, students.destroy, menu.view, menu.index, menu.create, menu.store, menu.show, menu.edit, menu.update, menu.destroy, course.index, course.show, courses.index, courses.create, courses.store, courses.show, courses.edit, courses.update, courses.destroy, adminIndex, roles.index, roles.create, roles.store, roles.show, roles.edit, roles.update, roles.destroy, users.search, users.index, users.create, users.store, users.show, users.edit, users.update, users.destroy, schools.edit.type, schools.delete.type, schools.generate, schools.index, schools.create, schools.store, schools.show, schools.edit, schools.update, schools.destroy, school.select, school.add_break, school.add_class, school.copy_class, school.index, school.create, school.store, school.show, school.edit, school.update, school.destroy, schoolclass.index, schoolclass.create, schoolclass.store, schoolclass.show, schoolclass.edit, schoolclass.update, schoolclass.destroy, addproduct, delproduct, products.index, products.create, products.store, products.show, products.edit, products.update, products.destroy, sizes.index, sizes.create, sizes.store, sizes.show, sizes.edit, sizes.update, sizes.destroy, types.index, types.create, types.store, types.show, types.edit, types.update, types.destroy, delcourse, addcourse, getcourses, lunches.index, lunches.create, lunches.store, lunches.show, lunches.edit, lunches.update, lunches.destroy, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"debugbar.openhandler\":\"_debugbar/open\",\"debugbar.clockwork\":\"_debugbar/clockwork/{id}\",\"debugbar.telescope\":\"_debugbar/telescope/{id}\",\"debugbar.assets.css\":\"_debugbar/assets/stylesheets\",\"debugbar.assets.js\":\"_debugbar/assets/javascript\",\"debugbar.cache.delete\":\"_debugbar/cache/{key}/{tags?}\",\"\":\"admin/product/search\",\"login\":\"login\",\"logout\":\"logout\",\"register\":\"register\",\"password.request\":\"password/reset\",\"password.email\":\"password/email\",\"password.reset\":\"password/reset/{token}\",\"password.update\":\"password/reset\",\"password.confirm\":\"password/confirm\",\"verification.notice\":\"email/verify\",\"verification.verify\":\"email/verify/{id}/{hash}\",\"verification.resend\":\"email/resend\",\"getclasses\":\"getclasses\",\"home.index\":\"home\",\"home.create\":\"home/create\",\"home.store\":\"home\",\"home.show\":\"home/{home}\",\"home.edit\":\"home/{home}/edit\",\"home.update\":\"home/{home}\",\"home.destroy\":\"home/{home}\",\"students.confirm\":\"students/confirm/{student}/{parent}\",\"students.index\":\"students\",\"students.create\":\"students/create\",\"students.store\":\"students\",\"students.show\":\"students/{student}\",\"students.edit\":\"students/{student}/edit\",\"students.update\":\"students/{student}\",\"students.destroy\":\"students/{student}\",\"menu.view\":\"menu/view/{id?}\",\"menu.index\":\"menu\",\"menu.create\":\"menu/create\",\"menu.store\":\"menu\",\"menu.show\":\"menu/{menu}\",\"menu.edit\":\"menu/{menu}/edit\",\"menu.update\":\"menu/{menu}\",\"menu.destroy\":\"menu/{menu}\",\"course.show\":\"courses/{id}/{size?}\",\"courses.index\":\"admin/courses\",\"courses.create\":\"admin/courses/create\",\"courses.store\":\"admin/courses\",\"courses.show\":\"admin/courses/{course}\",\"courses.edit\":\"admin/courses/{course}/edit\",\"courses.update\":\"admin/courses/{course}\",\"courses.destroy\":\"admin/courses/{course}\",\"adminIndex\":\"admin\",\"users.index\":\"admin/users\",\"permissions.index\":\"admin/permissions\",\"permissions.create\":\"admin/permissions/create\",\"permissions.store\":\"admin/permissions\",\"permissions.show\":\"admin/permissions/{permission}\",\"permissions.edit\":\"admin/permissions/{permission}/edit\",\"permissions.update\":\"admin/permissions/{permission}\",\"permissions.destroy\":\"admin/permissions/{permission}\",\"roles.index\":\"admin/roles\",\"roles.create\":\"admin/roles/create\",\"roles.store\":\"admin/roles\",\"roles.show\":\"admin/roles/{role}\",\"roles.edit\":\"admin/roles/{role}/edit\",\"roles.update\":\"admin/roles/{role}\",\"roles.destroy\":\"admin/roles/{role}\",\"users.create\":\"admin/users/create\",\"users.store\":\"admin/users\",\"users.show\":\"admin/users/{user}\",\"users.edit\":\"admin/users/{user}/edit\",\"users.update\":\"admin/users/{user}\",\"users.destroy\":\"admin/users/{user}\",\"schools.import\":\"admin/schools/import\",\"schools.add\":\"admin/schools/add\",\"schools.edit.type\":\"admin/schools/edit/{school}/{type}\",\"schools.generate\":\"admin/schools/generate\",\"schools.index\":\"admin/schools\",\"schools.create\":\"admin/schools/create\",\"schools.store\":\"admin/schools\",\"schools.show\":\"admin/schools/{school}\",\"schools.edit\":\"admin/schools/{school}/edit\",\"schools.update\":\"admin/schools/{school}\",\"schools.destroy\":\"admin/schools/{school}\",\"school.select\":\"admin/school/select\",\"school.add_break\":\"admin/school/add_break\",\"school.add_class\":\"admin/school/add_class\",\"school.copy_class\":\"admin/school/copy_class/{class}\",\"school.index\":\"admin/school\",\"school.create\":\"admin/school/create\",\"school.store\":\"admin/school\",\"school.show\":\"admin/school/{school}\",\"school.edit\":\"admin/school/{school}/edit\",\"school.update\":\"admin/school/{school}\",\"school.destroy\":\"admin/school/{school}\",\"schoolclass.index\":\"admin/schoolclass\",\"schoolclass.create\":\"admin/schoolclass/create\",\"schoolclass.store\":\"admin/schoolclass\",\"schoolclass.show\":\"admin/schoolclass/{schoolclass}\",\"schoolclass.edit\":\"admin/schoolclass/{schoolclass}/edit\",\"schoolclass.update\":\"admin/schoolclass/{schoolclass}\",\"schoolclass.destroy\":\"admin/schoolclass/{schoolclass}\",\"addproduct\":\"admin/courses/addproduct\",\"delproduct\":\"admin/courses/delproduct\",\"products.index\":\"admin/products\",\"products.create\":\"admin/products/create\",\"products.store\":\"admin/products\",\"products.show\":\"admin/products/{product}\",\"products.edit\":\"admin/products/{product}/edit\",\"products.update\":\"admin/products/{product}\",\"products.destroy\":\"admin/products/{product}\",\"sizes.index\":\"admin/sizes\",\"sizes.create\":\"admin/sizes/create\",\"sizes.store\":\"admin/sizes\",\"sizes.show\":\"admin/sizes/{size}\",\"sizes.edit\":\"admin/sizes/{size}/edit\",\"sizes.update\":\"admin/sizes/{size}\",\"sizes.destroy\":\"admin/sizes/{size}\",\"types.index\":\"admin/types\",\"types.create\":\"admin/types/create\",\"types.store\":\"admin/types\",\"types.show\":\"admin/types/{type}\",\"types.edit\":\"admin/types/{type}/edit\",\"types.update\":\"admin/types/{type}\",\"types.destroy\":\"admin/types/{type}\",\"delcourse\":\"admin/lunches/delcourse\",\"addcourse\":\"admin/lunches/addcourse\",\"getcourses\":\"admin/lunches/getcourses\",\"lunches.index\":\"admin/lunches\",\"lunches.create\":\"admin/lunches/create\",\"lunches.store\":\"admin/lunches\",\"lunches.show\":\"admin/lunches/{lunch}\",\"lunches.edit\":\"admin/lunches/{lunch}/edit\",\"lunches.update\":\"admin/lunches/{lunch}\",\"lunches.destroy\":\"admin/lunches/{lunch}\"}");
+module.exports = JSON.parse("{\"debugbar.openhandler\":\"_debugbar/open\",\"debugbar.clockwork\":\"_debugbar/clockwork/{id}\",\"debugbar.telescope\":\"_debugbar/telescope/{id}\",\"debugbar.assets.css\":\"_debugbar/assets/stylesheets\",\"debugbar.assets.js\":\"_debugbar/assets/javascript\",\"debugbar.cache.delete\":\"_debugbar/cache/{key}/{tags?}\",\"\":\"admin/product/search\",\"select\":\"select\",\"index\":\"/\",\"create\":\"create\",\"store\":\"/\",\"show\":\"{}\",\"edit\":\"{}/edit\",\"update\":\"{}\",\"destroy\":\"{}\",\"login\":\"login\",\"logout\":\"logout\",\"register\":\"register\",\"password.request\":\"password/reset\",\"password.email\":\"password/email\",\"password.reset\":\"password/reset/{token}\",\"password.update\":\"password/reset\",\"password.confirm\":\"password/confirm\",\"getclasses\":\"getclasses\",\"home.search\":\"home/search\",\"home.remove\":\"home/remove/{child}\",\"home.index\":\"home\",\"home.create\":\"home/create\",\"home.store\":\"home\",\"home.show\":\"home/{home}\",\"home.edit\":\"home/{home}/edit\",\"home.update\":\"home/{home}\",\"home.destroy\":\"home/{home}\",\"students.confirm\":\"students/confirm/{student}/{parent}\",\"students.index\":\"students\",\"students.create\":\"students/create\",\"students.store\":\"students\",\"students.show\":\"students/{student}\",\"students.edit\":\"students/{student}/edit\",\"students.update\":\"students/{student}\",\"students.destroy\":\"students/{student}\",\"menu.view\":\"menu/view/{id?}\",\"menu.index\":\"menu\",\"menu.create\":\"menu/create\",\"menu.store\":\"menu\",\"menu.show\":\"menu/{menu}\",\"menu.edit\":\"menu/{menu}/edit\",\"menu.update\":\"menu/{menu}\",\"menu.destroy\":\"menu/{menu}\",\"course.index\":\"courses/index\",\"course.show\":\"courses/{id}/{size?}\",\"courses.index\":\"admin/courses\",\"courses.create\":\"admin/courses/create\",\"courses.store\":\"admin/courses\",\"courses.show\":\"admin/courses/{course}\",\"courses.edit\":\"admin/courses/{course}/edit\",\"courses.update\":\"admin/courses/{course}\",\"courses.destroy\":\"admin/courses/{course}\",\"adminIndex\":\"admin\",\"roles.index\":\"admin/roles\",\"roles.create\":\"admin/roles/create\",\"roles.store\":\"admin/roles\",\"roles.show\":\"admin/roles/{role}\",\"roles.edit\":\"admin/roles/{role}/edit\",\"roles.update\":\"admin/roles/{role}\",\"roles.destroy\":\"admin/roles/{role}\",\"users.search\":\"admin/users/search\",\"users.index\":\"admin/users\",\"users.create\":\"admin/users/create\",\"users.store\":\"admin/users\",\"users.show\":\"admin/users/{user}\",\"users.edit\":\"admin/users/{user}/edit\",\"users.update\":\"admin/users/{user}\",\"users.destroy\":\"admin/users/{user}\",\"schools.edit.type\":\"admin/schools/edit/{school}/{type}\",\"schools.delete.type\":\"admin/schools/delete/{school}/{type}\",\"schools.generate\":\"admin/schools/generate\",\"schools.index\":\"admin/schools\",\"schools.create\":\"admin/schools/create\",\"schools.store\":\"admin/schools\",\"schools.show\":\"admin/schools/{school}\",\"schools.edit\":\"admin/schools/{school}/edit\",\"schools.update\":\"admin/schools/{school}\",\"schools.destroy\":\"admin/schools/{school}\",\"school.select\":\"admin/school/select\",\"school.add_break\":\"admin/school/add_break\",\"school.add_class\":\"admin/school/add_class\",\"school.copy_class\":\"admin/school/copy_class/{class}\",\"school.index\":\"admin/school\",\"school.create\":\"admin/school/create\",\"school.store\":\"admin/school\",\"school.show\":\"admin/school/{school}\",\"school.edit\":\"admin/school/{school}/edit\",\"school.update\":\"admin/school/{school}\",\"school.destroy\":\"admin/school/{school}\",\"schoolclass.index\":\"admin/schoolclass\",\"schoolclass.create\":\"admin/schoolclass/create\",\"schoolclass.store\":\"admin/schoolclass\",\"schoolclass.show\":\"admin/schoolclass/{schoolclass}\",\"schoolclass.edit\":\"admin/schoolclass/{schoolclass}/edit\",\"schoolclass.update\":\"admin/schoolclass/{schoolclass}\",\"schoolclass.destroy\":\"admin/schoolclass/{schoolclass}\",\"addproduct\":\"admin/courses/addproduct\",\"delproduct\":\"admin/courses/delproduct\",\"products.index\":\"admin/products\",\"products.create\":\"admin/products/create\",\"products.store\":\"admin/products\",\"products.show\":\"admin/products/{product}\",\"products.edit\":\"admin/products/{product}/edit\",\"products.update\":\"admin/products/{product}\",\"products.destroy\":\"admin/products/{product}\",\"sizes.index\":\"admin/sizes\",\"sizes.create\":\"admin/sizes/create\",\"sizes.store\":\"admin/sizes\",\"sizes.show\":\"admin/sizes/{size}\",\"sizes.edit\":\"admin/sizes/{size}/edit\",\"sizes.update\":\"admin/sizes/{size}\",\"sizes.destroy\":\"admin/sizes/{size}\",\"types.index\":\"admin/types\",\"types.create\":\"admin/types/create\",\"types.store\":\"admin/types\",\"types.show\":\"admin/types/{type}\",\"types.edit\":\"admin/types/{type}/edit\",\"types.update\":\"admin/types/{type}\",\"types.destroy\":\"admin/types/{type}\",\"delcourse\":\"admin/lunches/delcourse\",\"addcourse\":\"admin/lunches/addcourse\",\"getcourses\":\"admin/lunches/getcourses\",\"lunches.index\":\"admin/lunches\",\"lunches.create\":\"admin/lunches/create\",\"lunches.store\":\"admin/lunches\",\"lunches.show\":\"admin/lunches/{lunch}\",\"lunches.edit\":\"admin/lunches/{lunch}/edit\",\"lunches.update\":\"admin/lunches/{lunch}\",\"lunches.destroy\":\"admin/lunches/{lunch}\"}");
 
 /***/ }),
 
@@ -49701,6 +49701,7 @@ module.exports = JSON.parse("{\"debugbar.openhandler\":\"_debugbar/open\",\"debu
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./route */ "./resources/js/route.js");
 
+var lunchesList = [];
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -49708,8 +49709,8 @@ $.ajaxSetup({
 });
 $(document).on('click', '.add-user', function (e) {
   e.preventDefault();
-  $('#username').attr('value', $(this).data('name'));
-  $('#user-id').attr('value', $(this).data('id'));
+  $('#user').val($(this).data('name'));
+  $('#user_id').attr('value', $(this).data('id'));
   $('.search').html('');
 });
 
@@ -49724,7 +49725,7 @@ function fillSelect(res) {
     }
 
     if (html != '') {
-      html = '<option disabled selected>Оберіть клас</option>' + html;
+      html = '<option disabled selected>Оберіть клас навчання вашої дитини</option>' + html;
       $('#classes').html(html);
       $('#classes_group').removeAttr('hidden');
     }
@@ -49750,28 +49751,29 @@ $('#schools').change(function () {
       fillSelect(res);
     },
     error: function error(res) {
-      console.log(res);
+      window.location = Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('login');
     }
   });
 });
 $('#classes').change(function () {
   $('#viewMenu').removeAttr('hidden');
-}); // $(document).on('keyup', '#query', function (e) {
+}); //****************************
+//   Search student
+//****************************
 
-$(document).on('click', '#search', function (e) {
-  var query = $('#query').val();
-  e.preventDefault();
+$(document).on('keyup', '#student', function (e) {
+  var query = $(this).val();
 
   if (query.length >= 3) {
     $.ajax({
-      url: '/home/search',
+      url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('home.search'),
       data: {
         query: query,
         schoolClass: $('#classes').val()
       },
       type: 'POST',
       success: function success(res) {
-        console.log(res);
+        // console.log(res);
         $('#result').html(res);
       },
       error: function error(res) {
@@ -49779,6 +49781,25 @@ $(document).on('click', '#search', function (e) {
       }
     });
   }
+}); //****************************
+//   Search user
+//****************************
+
+$(document).on('keyup', '#user', function (e) {
+  $.ajax({
+    url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('users.search'),
+    data: {
+      query: $(this).val()
+    },
+    type: 'POST',
+    success: function success(res) {
+      // console.log(res);
+      $('#result').html(res);
+    },
+    error: function error(res) {
+      console.log(res);
+    }
+  });
 });
 /*$(document).on('keyup', '#course_query', function() {
     var query = $('#course_query').val();
@@ -49810,9 +49831,17 @@ $(document).on('click', '.add-product', function (e) {
     $('#ingredients').html(html);
 })
 */
-//****************************
+
+function printErrorMsg(msg) {
+  $(".print-error-msg").find("ul").html('');
+  $(".print-error-msg").css('display', 'block');
+  $.each(msg, function (key, value) {
+    $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
+  });
+} //****************************
 //   Add product to course
 //****************************
+
 
 $(document).on('click', '#add-product', function (e) {
   e.preventDefault();
@@ -49827,7 +49856,12 @@ $(document).on('click', '#add-product', function (e) {
     type: 'POST',
     success: function success(res) {
       // console.log(res);
-      $('#products').html(res);
+      if ($.isEmptyObject(res.error)) {
+        $(".print-error-msg").css('display', 'none');
+        $('#products').html(res);
+      } else {
+        printErrorMsg(res.error);
+      }
     },
     error: function error(res) {
       console.log(res);
@@ -49958,13 +49992,23 @@ $(document).on('change', '.menu-select', function (e) {
     },
     type: 'POST',
     success: function success(res) {
-      // console.log(res);
-      $('#lunch_select').html(res);
+      console.log(res);
+      $('#lunch_select').html(res.list);
+      lunchesList = res.lunches;
+      showLunch();
     },
     error: function error(res) {
       console.log(res);
     }
   });
+});
+
+function showLunch() {
+  $('#lunch').html(lunchesList[$('#lunch_select').val()]);
+}
+
+$(document).on('change', '#lunch_select', function () {
+  showLunch();
 });
 /*
 

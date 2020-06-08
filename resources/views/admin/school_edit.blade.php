@@ -18,26 +18,30 @@
             @enderror
         </div>
     </div>
-
+{{--
     <div class="form-group row">
-        <label for="adminname" class="col-md-4 col-form-label text-md-right">{{ __('messages.' . $type . '_name') }}</label>
+        <label for="adminname" class="col-md-4 col-form-label text-md-right">{{ __('messages.' . $type . '_name') }}:</label>
 
         <div class="col-md-6">
-            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username"
-                   value="{{ isset($user) ? fullname($user) : '' }}"
+            <label for="adminname" id="username" class="col-md-6 col-form-label text-md-left">{{ isset($user) ? fullname($user) : 'Не призначено' }}</label>
+            --}}{{--<input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username"
+                   value=""
                    autocomplete="username" autofocus disabled>
-            @error('username')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
+            --}}{{--
+        </div>
+    </div>
+    --}}
+    <div class="form-group row">
+        <label for="name" class="col-md-4 col-form-label text-md-right">{{$type == 'admin' ? 'Адміністратор' : 'Технолог шкільного комбінату харчування'}}</label>
+        <div class="col-md-6">
+{{--            @livewire('search-user')--}}
+            <input type="hidden" name="user" id="user_id">
+            <input type="text" class="form-control" name="query" id="user" placeholder="@isset($user) '' @else Оберіть користувача @endisset" value="@isset($user) {{fullname($user)}} @endisset">
         </div>
     </div>
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">Обрати {{$type == 'admin' ? 'адміністратора' : 'технолога шкільного комбінату харчування'}}</label>
-        <div class="col-md-6">
-            @livewire('search')
-        </div>
+        <div class="col-md-4"></div>
+        <div class="form-group row col-md-6 text-md-left" id="result"></div>
     </div>
     <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">

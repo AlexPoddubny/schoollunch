@@ -15,7 +15,8 @@
         "lavary/laravel-menu": "^1.7",
         "livewire/livewire": "^1.0",
         "snapappointments/bootstrap-select": "^1.13",
-        "spatie/laravel-searchable": "^1.6"
+        "spatie/laravel-searchable": "^1.6",
+        "nicolaslopezj/searchable": "1.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

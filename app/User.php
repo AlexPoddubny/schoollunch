@@ -129,11 +129,26 @@
             }
         }
     
+        public function removeChild($child)
+        {
+            if (!empty($child)){
+                $this->child()->detach($child);
+            }
+        }
+    
         public function addRole($role_name)
         {
-            if(!empty($role_name)){
+            if(!empty($role_name) && !$this->hasRole($role_name)){
                 $role = Role::where('name', $role_name)->get()->first();
                 $this->roles()->attach($role->id);
+            }
+        }
+    
+        public function removeRole($role_name)
+        {
+            if(!empty($role_name) && $this->hasRole($role_name)){
+                $role = Role::where('name', $role_name)->get()->first();
+                $this->roles()->detach($role->id);
             }
         }
         

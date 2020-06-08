@@ -12,6 +12,7 @@ use App\School;
 use App\Size;
 use Illuminate\Http\Request;
 use Gate;
+use Arr;
 
 class MenuController extends Controller
 {
@@ -27,7 +28,7 @@ class MenuController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param null $school_id
+     * @param null $id
      * @return \Illuminate\Http\Response
      * @throws \Throwable
      */
@@ -81,14 +82,28 @@ class MenuController extends Controller
     
     public function getLunches(Request $request)
     {
-        return $this->content = view('lunches_list')
-            ->with([
-                'lunches' => Lunch::with('sizeCourse')
-                    ->where('category_id', $request->input('category'))
-                    ->where('privileged', $request->boolean('privileged'))
-                    ->get()
-            ])
-            ->render();
+        $lunches = Lunch::with('sizeCourse')
+            ->where('category_id', $request->input('category'))
+            ->where('privileged', $request->boolean('privileged'))
+            ->get()
+            ->keyBy('id');
+        $lunchesList = [];
+        foreach ($lunches as $n => $lunch){
+            $lunchesList[$n] = view('lunch')
+                ->with([
+                    'lunch' => $lunch,
+                    'sizes' => Size::all()->keyBy('id')
+                ])
+                ->render();
+        }
+        return response()->json([
+            'list' => view('lunches_list')
+                ->with([
+                    'lunches' => $lunches
+                ])
+                ->render(),
+            'lunches' => $lunchesList, //масив готових view на кожен обід з назвами страв та розміром
+        ]);
     }
     /*
     public function loadClasses(Request $request)

@@ -58,7 +58,7 @@
                             'schoolClass.school',
                             'schoolClass.breakTime.menu' => function($query){
                                 $query->where('date', date('Y-m-d'))
-                                    ->with('lunch.sizeCourse'); //=>function($query){$query->where('category_id'==)}
+                                    ->with('lunch.sizeCourse');
                         }])
                         ->get()
                         ->sortBy('fullname'),
@@ -95,10 +95,16 @@
          */
         public function store(Request $request)
         {
-            $result = $this->user_rep->saveChild($request, Auth::user());
+            $result = $this->user_rep->saveChild($request, $this->user);
             if(is_array($result) && !empty($result['error'])) {
                 return redirect('home')->with($result);
             }
+            return redirect('home')->with($result);
+        }
+    
+        public function remove($child)
+        {
+            $result = $this->user_rep->detachChild($child, $this->user);
             return redirect('home')->with($result);
         }
         
@@ -153,7 +159,7 @@
             $students = Student::where('fullname', 'like', '%' . $searchTerm['query'] . '%')
                 ->where('class_id', $searchTerm['schoolClass'])
                 ->get();
-            return $search = view('search.student')
+            return view('search.student')
                 ->with([
                     'students' => $students,
                     'name' => $request->input('name')

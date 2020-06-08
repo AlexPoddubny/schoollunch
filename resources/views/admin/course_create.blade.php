@@ -1,3 +1,8 @@
+{{--
+@if($errors->any())
+    {{$errors}}
+@endif
+--}}
 <form action="{{route('courses.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group row">
@@ -52,28 +57,46 @@
         </div>
     </div>
     {{--Інгредієнти--}}
+    <div class="alert alert-danger print-error-msg" style="display:none">
+        <ul></ul>
+    </div>
     <div class="row">
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="product_id">Оберіть продукт</label>
-                <select name="product_id" id="product_id" class="form-control">
+                <select name="product_id" id="product_id" class="form-control @error('albumens') is-invalid @enderror">
                     <option value="" selected disabled>Оберіть продукт</option>
                     @foreach($products as $product)
                         <option value="{{$product->id}}">{{$product->name}}</option>
                     @endforeach
                 </select>
+                @error('product_id')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="brutto">Вага брутто</label>
-                <input type="number" step="0.1" name="brutto" id="brutto" class="form-control">
+                <input type="number" step="0.1" name="brutto" id="brutto" class="form-control @error('albumens') is-invalid @enderror">
+                @error('brutto')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
                 <label for="netto">Вага нетто</label>
-                <input type="number" step="0.1" name="netto" id="netto" class="form-control">
+                <input type="number" step="0.1" name="netto" id="netto" class="form-control @error('albumens') is-invalid @enderror">
+                @error('netto')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
@@ -156,7 +179,7 @@
         <div class="col-md-12 col-sm-12 col-sm-12 col-xs-12">
             <div class="form-group">
                 <label for="recipe" class="col-md-12 col-form-label text-md-left">Технологія приготування</label>
-                <textarea name="recipe" class="col-md-12 form-control input-group @error('recipe') is-invalid @enderror" rows="10" value="{{old('recipe')}}"></textarea>
+                <textarea name="recipe" class="col-md-12 form-control input-group @error('recipe') is-invalid @enderror" rows="10">{{old('recipe')}}</textarea>
                 @error('recipe')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -169,7 +192,7 @@
         <div class="col-md-12 col-sm-12 col-sm-12 col-xs-12">
             <div class="form-group">
                 <label for="description" class="col-md-12 col-form-label text-md-left">Органолептичні характеристики якості готової страви:</label>
-                <textarea name="description" class="col-md-12 form-control input-group @error('description') is-invalid @enderror" rows="10" value="{{old('description')}}"></textarea>
+                <textarea name="description" class="col-md-12 form-control input-group @error('description') is-invalid @enderror" rows="10">{{old('description')}}</textarea>
                 @error('decription')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

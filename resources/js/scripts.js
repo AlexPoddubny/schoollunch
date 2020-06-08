@@ -1,4 +1,5 @@
 import route from "./route";
+let lunchesList = [];
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -7,8 +8,8 @@ $.ajaxSetup({
 
 $(document).on('click', '.add-user', function (e) {
     e.preventDefault();
-    $('#username').attr('value', $(this).data('name'));
-    $('#user-id').attr('value', $(this).data('id'));
+    $('#user').val($(this).data('name'));
+    $('#user_id').attr('value', $(this).data('id'));
     $('.search').html('');
 });
 
@@ -25,7 +26,7 @@ function fillSelect(res){
             }
         }
         if (html != '') {
-            html = '<option disabled selected>Оберіть клас</option>' + html;
+            html = '<option disabled selected>Оберіть клас навчання вашої дитини</option>' + html;
             $('#classes').html(html);
             $('#classes_group').removeAttr('hidden');
         }
@@ -51,7 +52,7 @@ $('#schools').change(function () {
             fillSelect(res);
         },
         error: function (res) {
-            console.log(res);
+            window.location = route('login');
         }
     })
 });
@@ -60,20 +61,21 @@ $('#classes').change(function () {
     $('#viewMenu').removeAttr('hidden');
 });
 
-// $(document).on('keyup', '#query', function (e) {
-$(document).on('click', '#search', function (e) {
-    var query = $('#query').val();
-    e.preventDefault();
+//****************************
+//   Search student
+//****************************
+$(document).on('keyup', '#student', function (e) {
+    var query = $(this).val();
     if (query.length >= 3){
         $.ajax({
-            url: '/home/search',
+            url: route('home.search'),
             data: {
                 query: query,
                 schoolClass: $('#classes').val()
             },
             type: 'POST',
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 $('#result').html(res);
             },
             error: function (res) {
@@ -83,6 +85,25 @@ $(document).on('click', '#search', function (e) {
     }
 });
 
+//****************************
+//   Search user
+//****************************
+$(document).on('keyup', '#user', function (e) {
+    $.ajax({
+        url: route('users.search'),
+        data: {
+            query: $(this).val(),
+        },
+        type: 'POST',
+        success: function (res) {
+            // console.log(res);
+            $('#result').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    });
+});
 /*$(document).on('keyup', '#course_query', function() {
     var query = $('#course_query').val();
     $.ajax({
@@ -114,6 +135,14 @@ $(document).on('click', '.add-product', function (e) {
 })
 */
 
+function printErrorMsg (msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display','block');
+    $.each( msg, function( key, value ) {
+        $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+    });
+}
+
 //****************************
 //   Add product to course
 //****************************
@@ -131,7 +160,12 @@ $(document).on('click', '#add-product', function (e) {
         type: 'POST',
         success: function (res) {
             // console.log(res);
-            $('#products').html(res);
+            if($.isEmptyObject(res.error)){
+                $(".print-error-msg").css('display','none');
+                $('#products').html(res);
+            } else {
+                printErrorMsg(res.error);
+            }
         },
         error: function (res) {
             console.log(res);
@@ -271,14 +305,24 @@ $(document).on('change', '.menu-select', function (e) {
         },
         type: 'POST',
         success: function (res) {
-            // console.log(res);
-            $('#lunch_select').html(res);
+            console.log(res);
+            $('#lunch_select').html(res.list);
+            lunchesList = res.lunches;
+            showLunch();
         },
         error: function (res) {
             console.log(res);
         }
     })
 });
+
+function showLunch(){
+    $('#lunch').html(lunchesList[$('#lunch_select').val()]);
+}
+
+$(document).on('change', '#lunch_select', function () {
+    showLunch();
+})
 
 /*
 

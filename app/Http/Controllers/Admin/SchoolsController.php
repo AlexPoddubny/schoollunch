@@ -149,6 +149,7 @@ class SchoolsController extends AdminController
             $this->title .= ' - Не призначено';
         }
         $user = $school->$type;
+//        dump($user);
         $this->content = view('admin.school_edit')
             ->with([
                 'school' => $school,

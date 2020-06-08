@@ -83,6 +83,10 @@
         </div>
     </div>
     <div class="form-group row">
+        <div class="col-md-4"></div>
+        <div class="col-md-6" id="lunch"></div>
+    </div>
+    <div class="form-group row">
         <button type="submit" class="btn btn-primary btn-block">
             Додати
         </button>

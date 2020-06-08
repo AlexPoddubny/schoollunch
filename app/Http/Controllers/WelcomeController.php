@@ -9,7 +9,7 @@ class WelcomeController extends Controller
 {
     public function __construct()
     {
-        //
+        parent::__construct();
     }
     
     /**
@@ -19,6 +19,9 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+        if ($this->user){
+            return redirect(route('home.index'));
+        }
         $this->title = 'Ласкаво просимо!';
         $schools_list = view('selector')
             ->with([

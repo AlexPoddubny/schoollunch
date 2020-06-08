@@ -47,7 +47,7 @@
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="end" class="control-label">Закінчення</label>
-                    <input name="end" type="time" class="form-control input-group @error('end') is-invalid @enderror" min="08:00" value="{{old('end')}}"/>
+                    <input name="end" type="time" class="form-control input-group @error('end') is-invalid @enderror" min="08:00" value="{{old('end')}}">
                     @error('end')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

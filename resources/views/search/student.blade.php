@@ -2,9 +2,9 @@
     @if($students->isEmpty())
         <p>Учня {{$name}} не знайдено</p>
     @else
-        <ul>
+        <ul class="list-group search">
             @foreach($students as $student)
-                <li>
+                <li class="list-group-item">
                     <form action="{{route('home.store')}}" method="post">
                         @csrf
                         <input type="text" hidden name="student" value="{{$student->id}}">

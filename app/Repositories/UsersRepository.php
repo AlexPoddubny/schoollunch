@@ -23,7 +23,6 @@
                 unset($data['roles']);
             }
             $user = User::find($id);
-//            $user = $this->getWhere($request->input('id'))->first();
             $user->fill($data);
             $user->save();
             $user->saveRoles($roles);
@@ -35,6 +34,15 @@
             $user->saveChild($request->input('student'));
             $user->addRole('Parent');
             return ['status' => 'Дитину додано'];
+        }
+    
+        public function detachChild($child, $user)
+        {
+            $user->removeChild($child);
+            if ($user->doesntHave('child')){
+                $user->removeRole('Parent');
+            }
+            return ['status' => 'Школяра видалено зі списку'];
         }
         
     }

@@ -132,4 +132,19 @@ class UsersController extends AdminController
     {
         //
     }
+    
+    public function search(Request $request)
+    {
+        $searchTerm = '%' . $request->input('query') .'%';
+        $users = User::where('firstname', 'like', $searchTerm)
+            ->orWhere('middlename', 'like', $searchTerm)
+            ->orWhere('lastname', 'like', $searchTerm)
+            ->get();
+        return view('search.users')
+            ->with([
+                'users' => $users,
+                'name' => $request->input('query')
+            ])
+            ->render();
+    }
 }

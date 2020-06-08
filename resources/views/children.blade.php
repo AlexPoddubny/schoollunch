@@ -26,6 +26,7 @@
                     <th scope="col" style="text-align: center">Школа</th>
                     <th scope="col" style="text-align: center">Клас</th>
                     <th scope="col" style="text-align: center">Підтвердження</th>
+                    <th scope="col" style="text-align: center"><span class="glyphicon glyphicon-remove"></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -42,9 +43,13 @@
                             {{$child->schoolClass->name}}
                         </td>
                         <td style="text-align: center">
-                            {{$child->pivot->confirmed_at ?? 'Не підтверджено'}}
+                            {{$child->pivot->confirmed_at ?? 'Не підтверджено. Зверніться до класного керівника для підтвердженя своєї особи.'}}
                         </td>
-
+                        <td style="text-align: center">
+                            <a href="{{route('home.remove', ['child' => $child->id])}}">
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -58,7 +63,7 @@
         <label for="school_id" class="col-md-4 col-form-label text-md-right">{{ __('messages.select_school') }}</label>
         <div class="col-md-6">
             <select name="school_id" class="form-control" id="schools">
-                <option disabled selected>Оберіть школу</option>
+                <option disabled selected>Оберіть школу навчання вашої дитини</option>
                 @foreach($schools as $school)
                     <option value="{{$school->id}}">{{$school->name}}</option>
                 @endforeach
@@ -67,7 +72,7 @@
     </div>
     <div id="classes_group" hidden>
         <div class="form-group row">
-            <label for="class_id" class="col-md-4 col-form-label text-md-right">Оберіть клас</label>
+            <label for="class_id" class="col-md-4 col-form-label text-md-right">Оберіть клас навчання дитини</label>
             <div class="col-md-6">
                 <select name="class_id" class="form-control" id="classes">
                     <option disabled selected>Оберіть клас</option>
@@ -75,17 +80,21 @@
             </div>
         </div>
         <div id="viewMenu" hidden>
-            <a class="btn btn-primary" href="#" role="button">Переглянути меню</a>
-            <p>або</p>
+            {{--<a class="btn btn-primary" href="#" role="button">Переглянути меню</a>
+            <p>або</p>--}}
             <div class="form-group row">
                 <label for="search" class="col-md-4 col-form-label text-md-right">Знайдіть учня</label>
                 <div class="col-md-6">
 {{--                    <input type="hidden" name="schoolClass" id="schoolClass">--}}
-                    <input type="text" class="form-control" name="query" id="query">
+                    <input type="text" class="form-control" name="query" id="student" placeholder="Вкажіть не менше 3-х літер ПІБ учня">
+{{--                    @livewire('search-student')--}}
                 </div>
-                <a id="search" class="btn btn-primary" href="#" role="button">Знайти</a>
+{{--                <a id="search" class="btn btn-primary" href="#" role="button">Знайти</a>--}}
             </div>
-            <div class="form-group row" id="result"></div>
+            <div class="form-group row">
+                <div class="col-md-4"></div>
+                <div class="form-group row col-md-6 text-md-left" id="result"></div>
+            </div>
         </div>
     </div>
 </div>

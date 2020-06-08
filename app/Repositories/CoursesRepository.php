@@ -19,6 +19,13 @@
         public function saveCourse($request, $id = null)
         {
             $data = $request->except('_token');
+            $products = session('products');
+            if (count($products) == 0){
+                return ['error' => 'Страву без інгредієнтів не може бути додано'];
+            }
+            foreach ($products as $n => $product){
+                $products[$n] = Arr::except($products[$n], 'name');
+            }
             if ($id){
                 $model = $this->model::find($id);
             } else {
@@ -29,10 +36,6 @@
             }
             $model->fill($data);
             $model->save();
-            $products = session('products');
-            foreach ($products as $n => $product){
-                $products[$n] = Arr::except($products[$n], 'name');
-            }
             $model->product()->sync($products);
             return ['status' => 'Страву збережено'];
         }
