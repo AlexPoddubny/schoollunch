@@ -305,13 +305,13 @@ $(document).on('change', '.menu-select', function (e) {
         },
         type: 'POST',
         success: function (res) {
-            console.log(res);
+            // console.log(res);
             $('#lunch_select').html(res.list);
             lunchesList = res.lunches;
             showLunch();
         },
         error: function (res) {
-            console.log(res);
+            // console.log(res);
         }
     })
 });

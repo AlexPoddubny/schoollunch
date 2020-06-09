@@ -49992,13 +49992,12 @@ $(document).on('change', '.menu-select', function (e) {
     },
     type: 'POST',
     success: function success(res) {
-      console.log(res);
+      // console.log(res);
       $('#lunch_select').html(res.list);
       lunchesList = res.lunches;
       showLunch();
     },
-    error: function error(res) {
-      console.log(res);
+    error: function error(res) {// console.log(res);
     }
   });
 });

@@ -142,6 +142,9 @@
             </div>
         </div>
     </div>
+    @isset($course->photo)
+        <img src="{{asset('/images/' . $course->photo)}}" alt="" style="object-fit: contain">
+    @endisset
     <div class="form-group">
         <label for="image">Завантажити фото страви</label>
         <input type="file" class="form-control-file" name="image" value="{{$course->photo}}">
