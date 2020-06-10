@@ -18,6 +18,8 @@
     Route::post('/select', 'WelcomeController@select')->name('select');
     Route::resource('/', 'WelcomeController');
     
+    Route::get('sendbasicemail','MailController@basic_email');
+    
     //Auth::routes(['verify' => true]);
     Auth::routes();
     
