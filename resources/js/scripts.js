@@ -279,6 +279,10 @@ $(document).on('click', '#addcourse', function (e) {
     });
 });
 
+//********************************
+//          Course delete
+//********************************
+
 $(document).on('click', '.del-course', function (e) {
     e.preventDefault();
     $.ajax({
@@ -289,6 +293,28 @@ $(document).on('click', '.del-course', function (e) {
         type: 'POST',
         success: function (res) {
             $('#courses').html(res);
+        },
+        error: function (res) {
+            console.log(res);
+        }
+    })
+})
+
+//********************************
+//        Child select
+//********************************
+
+$(document).on('click', '.add-child', function (e) {
+    e.preventDefault();
+    $.ajax({
+        url: route('home.store'),
+        data: {
+            student: $(this).data('id')
+        },
+        type: 'POST',
+        success: function (res) {
+            // console.log(res);
+            window.location = route('home.index');
         },
         error: function (res) {
             console.log(res);

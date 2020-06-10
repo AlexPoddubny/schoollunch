@@ -4,7 +4,7 @@
     @else
         <ul class="list-group search">
             @foreach($students as $student)
-                <li class="list-group-item">
+                {{--<li class="list-group-item">
                     <form action="{{route('home.store')}}" method="post">
                         @csrf
                         <input type="text" hidden name="student" value="{{$student->id}}">
@@ -13,6 +13,9 @@
                             Зареєструвати
                         </button>
                     </form>
+                </li>--}}
+                <li class="list-group-item">
+                    <a href="#" data-id="{{$student->id}}" class="add-child">{{$student->fullname}}</a>
                 </li>
             @endforeach
         </ul>

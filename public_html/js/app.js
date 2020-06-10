@@ -49966,7 +49966,10 @@ $(document).on('click', '#addcourse', function (e) {
       console.log(res);
     }
   });
-});
+}); //********************************
+//          Course delete
+//********************************
+
 $(document).on('click', '.del-course', function (e) {
   e.preventDefault();
   $.ajax({
@@ -49977,6 +49980,26 @@ $(document).on('click', '.del-course', function (e) {
     type: 'POST',
     success: function success(res) {
       $('#courses').html(res);
+    },
+    error: function error(res) {
+      console.log(res);
+    }
+  });
+}); //********************************
+//        Child select
+//********************************
+
+$(document).on('click', '.add-child', function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('home.store'),
+    data: {
+      student: $(this).data('id')
+    },
+    type: 'POST',
+    success: function success(res) {
+      // console.log(res);
+      window.location = Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('home.index');
     },
     error: function error(res) {
       console.log(res);
