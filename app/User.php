@@ -8,7 +8,7 @@
     use Illuminate\Support\Str;
     
     
-    class User extends Authenticatable implements MustVerifyEmail
+    class User extends Authenticatable //implements MustVerifyEmail
     {
         use Notifiable;
         
