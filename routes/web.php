@@ -20,8 +20,8 @@
     
     Route::get('sendbasicemail','MailController@basic_email');
     
-    //Auth::routes(['verify' => true]);
-    Auth::routes();
+    Auth::routes(['verify' => true]);
+//    Auth::routes();
     
     Route::post('search', 'SearchController@search');//->name('search.result');
     
