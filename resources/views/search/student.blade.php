@@ -2,7 +2,7 @@
     @if($students->isEmpty())
         <p>Учня {{$name}} не знайдено</p>
     @else
-        <ul class="list-group search">
+        <ul class="dropdown-menu" style="display:block; position:relative">
             @foreach($students as $student)
                 {{--<li class="list-group-item">
                     <form action="{{route('home.store')}}" method="post">
@@ -14,7 +14,7 @@
                         </button>
                     </form>
                 </li>--}}
-                <li class="list-group-item">
+                <li{{-- class="list-group-item"--}}>
                     <a href="#" data-id="{{$student->id}}" class="add-child">{{$student->fullname}}</a>
                 </li>
             @endforeach

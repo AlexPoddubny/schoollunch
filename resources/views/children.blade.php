@@ -88,13 +88,15 @@
 {{--                    <input type="hidden" name="schoolClass" id="schoolClass">--}}
                     <input type="text" class="form-control" name="query" id="student" placeholder="Вкажіть не менше 3-х літер ПІБ учня">
 {{--                    @livewire('search-student')--}}
+                    <div id="result"></div>
                 </div>
 {{--                <a id="search" class="btn btn-primary" href="#" role="button">Знайти</a>--}}
             </div>
+            {{--
             <div class="form-group row">
                 <div class="col-md-4"></div>
                 <div class="form-group row col-md-6 text-md-left" id="result"></div>
-            </div>
+            </div>--}}
         </div>
     </div>
 </div>

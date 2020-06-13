@@ -5,7 +5,7 @@
                 <th scope="col" style="text-align: center">П.І.Б.</th>
                 <th scope="col" style="text-align: center">E-mail</th>
                 <th scope="col" style="text-align: center">Телефон</th>
-                <th scope="col" style="text-align: center">Опції</th>
+                <th scope="col" style="text-align: center"><span class="glyphicon glyphicon-remove"></span></th>
             </tr>
         </thead>
         <tbody>
@@ -14,13 +14,17 @@
                     <td>
                         <a href="{{ route('users.edit', ['user' => $user->id]) }}">{{fullname($user)}}</a>
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         {{$user->email}}
                     </td>
-                    <td>
+                    <td style="text-align: center">
                         {{$user->phone}}
                     </td>
-                    <td>Опції</td>
+                    <td style="text-align: center">
+                        <a href="#" class="user-delete">
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

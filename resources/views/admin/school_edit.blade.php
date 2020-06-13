@@ -37,12 +37,15 @@
 {{--            @livewire('search-user')--}}
             <input type="hidden" name="user" id="user_id">
             <input type="text" class="form-control" name="query" id="user" placeholder="@isset($user) '' @else Оберіть користувача @endisset" value="@isset($user) {{fullname($user)}} @endisset">
+            <div id="result"></div>
         </div>
     </div>
+{{--
     <div class="form-group row">
         <div class="col-md-4"></div>
         <div class="form-group row col-md-6 text-md-left" id="result"></div>
     </div>
+--}}
     <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">
             <button type="submit" class="btn btn-primary">

@@ -49711,7 +49711,7 @@ $(document).on('click', '.add-user', function (e) {
   e.preventDefault();
   $('#user').val($(this).data('name'));
   $('#user_id').attr('value', $(this).data('id'));
-  $('.search').html('');
+  $('#result').html('');
 });
 
 function fillSelect(res) {
