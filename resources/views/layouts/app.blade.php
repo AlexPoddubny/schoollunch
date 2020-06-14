@@ -23,6 +23,8 @@
 {{--    @livewireStyles--}}
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=849977522159173&autoLogAppEvents=1" nonce="XH6Pe1Qw"></script>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

@@ -20,6 +20,9 @@
     
     Route::get('sendbasicemail','MailController@basic_email');
     
+    Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
+    Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+    
     Auth::routes(['verify' => true]);
 //    Auth::routes();
     
