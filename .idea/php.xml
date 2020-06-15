@@ -92,11 +92,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
-      <path value="$PROJECT_DIR$/vendor/snapappointments/bootstrap-select" />
-      <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/vendor/league/commonmark-ext-table" />
-      <path value="$PROJECT_DIR$/vendor/spatie/laravel-searchable" />
-      <path value="$PROJECT_DIR$/vendor/nicolaslopezj/searchable" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/laravel/socialite" />
       <path value="$PROJECT_DIR$/vendor/league/oauth1-client" />
