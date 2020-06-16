@@ -15,8 +15,9 @@
         return view('welcome_old');
     });*/
     
-    Route::post('/select', 'WelcomeController@select')->name('select');
     Route::resource('/', 'WelcomeController');
+    Route::post('/select', 'WelcomeController@select')->name('select');
+    Route::get('privacy', 'PrivacyController');
     
     Route::get('sendbasicemail','MailController@basic_email');
     
