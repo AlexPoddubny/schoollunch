@@ -56,7 +56,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     @lang('messages.login')
                                 </button>
-                                <a href="{{url('login/facebook')}}" class="btn btn-primary">Fb Login</a>
+{{--                                <a href="{{url('login/facebook')}}" class="btn btn-primary">Fb Login</a>--}}
 
 {{--                                <div class="fb-login-button btn" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true" data-width=""></div>--}}
 
