@@ -101,6 +101,7 @@
                 <th scope="col" style="text-align: center">Клас</th>
                 <th scope="col" style="text-align: center">Обідня перерва</th>
                 <th scope="col" style="text-align: center">Категорія</th>
+                <th scope="col" style="text-align: center">Кількість учнів</th>
                 <th scope="col" style="text-align: center">Класний керівник</th>
                 <th scope="col" style="text-align: center">Опції</th>
             </tr>
@@ -113,6 +114,7 @@
                     </td>
                     <td scope="col" style="text-align: center">{{$schoolClass->break_id ? $schoolClass->breakTime->break_num . '. ' . $schoolClass->breakTime->break_time : 'Не вказано'}}</td>
                     <td scope="col" style="text-align: center">{{$schoolClass->category->name ?? 'Не вказано'}}</td>
+                    <td scope="col" style="text-align: center">{{count($schoolClass->student)}}</td>
                     <td scope="col" style="text-align: center">
                         @if($schoolClass->teacher_id)
                             {{fullname($schoolClass->teacher)}}

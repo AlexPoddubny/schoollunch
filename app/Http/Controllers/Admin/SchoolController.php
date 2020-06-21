@@ -55,7 +55,6 @@ class SchoolController
             $schools = School::all();
         } elseif ($this->user->hasRole('SchoolAdmin')){
             $schools = School::where('admin_id', $this->user->id);
-//            $schools = $this->school_rep->getWhere($this->user->id, 'admin_id');
         } else {
             abort(403);
         }
@@ -120,7 +119,7 @@ class SchoolController
         $this->title .= $school->name;
         $this->content = view('admin.school_index')
             ->with([
-                'school' => $school
+                'school' => $school,
             ])
             ->render();
         return $this->renderOutput();
