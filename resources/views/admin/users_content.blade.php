@@ -21,7 +21,7 @@
                         {{$user->phone}}
                     </td>
                     <td style="text-align: center">
-                        <a href="#" class="user-delete">
+                        <a href="#" class="delete" data-model="users" data-id="{{$user->id}}">
                             <span class="glyphicon glyphicon-remove text-danger"></span>
                         </a>
                     </td>

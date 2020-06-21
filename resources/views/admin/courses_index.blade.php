@@ -23,10 +23,8 @@
                         <a href="{{route('courses.edit', ['course' => $course->id])}}">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-remove text-danger course-destroy"
-                                data-id="{{$course->id}}">
-                            </span>
+                        <a href="#" class="delete" data-model="courses" data-id="{{$course->id}}">
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
                         </a>
                     </td>
                 </tr>
@@ -46,6 +44,9 @@
                 @foreach($products as $product)
                     <li>
                         <a href="{{route('products.edit', ['product' => $product->id])}}">{{$product->name}}</a>
+                        <a href="#" class="delete" data-model="products" data-id="{{$product->id}}">
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                        </a>
                     </li>
                 @endforeach
             </ul>
@@ -86,8 +87,13 @@
                 @foreach($types as $type)
                     <li>
                         {{$type->sort}}. {{$type->name}}
+                        <a href="#" class="delete" data-model="types" data-id="{{$type->id}}">
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                        </a>
                     </li>
-                    @php $n = $type->sort @endphp
+                    @php
+                        $n = $type->sort
+                    @endphp
                 @endforeach
             </ul>
         </div>
@@ -97,7 +103,7 @@
         <div class="row">
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
-                    <label for="sort">Cорт</label>
+                    <label for="sort">Номер сортування</label>
                     <input type="number" class="form-control @error('sort') is-invalid @enderror" name="sort" value="{{isset($n) ? $n + 1 : 1}}" required autocomplete="sort">
                 </div>
             </div>
@@ -128,7 +134,12 @@
         <div class="col-md-12">
             <ul class="hr">
                 @foreach($sizes as $size)
-                    <li>{{$size->size}} грамів</li>
+                    <li>
+                        {{$size->size}} грамів
+                        <a href="#" class="delete" data-model="sizes" data-id="{{$size->id}}">
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                        </a>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -142,12 +153,14 @@
                     <input type="number" id="size" step="25" min="25" class="form-control @error('size') is-invalid @enderror" name="size"  required autocomplete="size">
                 </div>
             </div>
+            {{--
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="factor" class="control-label">Коефіциєнт (відносно 1 кг)</label>
                     <input type="number" id="factor" step="0.025" min="0" class="form-control" name="factor" value="{{old('factor')}}" required autocomplete="factor">
                 </div>
             </div>
+            --}}
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="newsize" class="control-label">&nbsp;</label>

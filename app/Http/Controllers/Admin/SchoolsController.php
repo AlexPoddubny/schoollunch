@@ -7,6 +7,7 @@ use App\Repositories\SchoolsRepository;
 use App\Repositories\UsersRepository;
 use App\Rules\NumRule;
 use App\School;
+use App\User;
 use Illuminate\Http\Request;
 use ImportSchools;
 use Gate;
@@ -106,11 +107,11 @@ class SchoolsController extends AdminController
         if (Gate::denies('School_' . ucfirst($type) . '_Assign')){
             abort(403);
         }
-        $type .= '_id';
-        $school = School::findOrFail($id);
-        $school->$type = null;
-        $school->save();
-        return redirect(route('adminIndex'));
+        $result = $this->school_rep->removeCookAdmin($id, $type);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('adminIndex'))->with($result);
     }
     
     /**
@@ -173,6 +174,7 @@ class SchoolsController extends AdminController
         if (Gate::denies('School_Register')){
             abort(403);
         }
+//        dd($request);
         $this->validate($request, [
             'name' => ['required', 'string', 'max:100'],
             'type' => ['required'],

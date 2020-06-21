@@ -10,8 +10,8 @@ class Size extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        'size',
-        'factor'
+        'size'
+//        'factor'
     ];
     
     /*public function course()

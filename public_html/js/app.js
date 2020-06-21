@@ -49707,6 +49707,12 @@ $.ajaxSetup({
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
+/*$(document).ready(function () {
+    $('select').selectize({
+        sortField: 'text'
+    });
+});*/
+
 $(document).on('click', '.add-user', function (e) {
   e.preventDefault();
   $('#user').val($(this).data('name'));
@@ -49832,11 +49838,11 @@ $(document).on('click', '.add-product', function (e) {
 })
 */
 
-function printErrorMsg(msg) {
-  $(".print-error-msg").find("ul").html('');
-  $(".print-error-msg").css('display', 'block');
+function printMsg(msg, type) {
+  $(".print-" + type + "-msg").find("ul").html('');
+  $(".print-" + type + "-msg").css('display', 'block');
   $.each(msg, function (key, value) {
-    $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
+    $(".print-" + type + "-msg").find("ul").append('<li>' + value + '</li>');
   });
 } //****************************
 //   Add product to course
@@ -49860,7 +49866,8 @@ $(document).on('click', '#add-product', function (e) {
         $(".print-error-msg").css('display', 'none');
         $('#products').html(res);
       } else {
-        printErrorMsg(res.error);
+        // console.log(res.error);
+        printMsg(res.error, 'error');
       }
     },
     error: function error(res) {
@@ -50031,6 +50038,32 @@ function showLunch() {
 
 $(document).on('change', '#lunch_select', function () {
   showLunch();
+}); //************************************
+//       Delete Model Instance
+//************************************
+
+$(document).on('click', '.delete', function (e) {
+  e.preventDefault();
+  var model = $(this).data('model');
+  $.ajax({
+    url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])(model + '.destroy', [$(this).data('id')]),
+    type: 'DELETE',
+    success: function success(res) {
+      // console.log(res.message);
+      if ($.isEmptyObject(res.error)) {
+        window.location.reload(); // = route(model + '.index');
+
+        $(".print-error-msg").css('display', 'none');
+        printMsg(res.message, 'success');
+      } else {
+        $(".print-success-msg").css('display', 'none');
+        printMsg(res.error, 'error');
+      }
+    },
+    error: function error(res) {
+      console.log(res); // printErrorMsg(res.error);
+    }
+  });
 });
 /*
 

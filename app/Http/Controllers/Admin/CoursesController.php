@@ -197,12 +197,6 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
-            /*
-            $this->validate($request, [
-                'id' => 'required',
-                'brutto' => 'required',
-                'netto' => 'required'
-            ]);*/
             $validator = Validator::make($request->all(), [
                 'id' => 'required',
                 'brutto' => 'required',

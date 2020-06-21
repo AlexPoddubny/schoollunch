@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\SizesRepository;
+use App\Size;
 use Illuminate\Http\Request;
 
 class SizesController extends AdminController
@@ -44,6 +45,7 @@ class SizesController extends AdminController
      */
     public function store(Request $request)
     {
+        // Add validation!
         $result = $this->size_rep->create($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -93,6 +95,11 @@ class SizesController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        $size = findOrFail($id);
+        $result = $size->delete();
+        if(is_array($result) && !empty($result['error'])) {
+            return response()->json(['error' => 'Неможливо видалити розмір ' . $size->size], 500);
+        }
+        return response()->json(['message' => 'Розмір видалено'], 200);
     }
 }

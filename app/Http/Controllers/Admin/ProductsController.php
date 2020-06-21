@@ -107,7 +107,7 @@ class ProductsController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        $result = Product::find($id)->update($request->except('_token', '_method'));
+        $result = Product::find($id)->update($request->input('name'));
         return redirect(route('courses.index'))->with($result);
     }
 
@@ -123,8 +123,12 @@ class ProductsController extends AdminController
             abort(403);
         }
         $product = Product::find($id);
-        $product->course()->detach();
+//        $product->course()->detach();
         $result = $product->delete();
-        return redirect(route('courses.index'))->with($result);
+//        return redirect(route('courses.index'))->with($result);
+        if(is_array($result) && !empty($result['error'])) {
+            return response(500);
+        }
+        return response(200);
     }
 }

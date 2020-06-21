@@ -17,8 +17,8 @@
                 @foreach($course->product as $product)
                     <tr>
                         <td>{{$product->name}}</td>
-                        <td style="text-align: center">{{$product->pivot->brutto * $size->factor}}</td>
-                        <td style="text-align: center">{{$product->pivot->netto * $size->factor}}</td>
+                        <td style="text-align: center">{{$product->pivot->brutto * $size->size / 1000}}</td>
+                        <td style="text-align: center">{{$product->pivot->netto * $size->size / 1000}}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -37,10 +37,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td scope="col" style="text-align: center">{{$course->albumens * $size->factor}}</td>
-                    <td scope="col" style="text-align: center">{{$course->fats * $size->factor}}</td>
-                    <td scope="col" style="text-align: center">{{$course->carbonhydrates * $size->factor}}</td>
-                    <td scope="col" style="text-align: center">{{$course->calories * $size->factor}}</td>
+                    <td scope="col" style="text-align: center">{{$course->albumens * $size->size / 1000}}</td>
+                    <td scope="col" style="text-align: center">{{$course->fats * $size->size / 1000}}</td>
+                    <td scope="col" style="text-align: center">{{$course->carbonhydrates * $size->size / 1000}}</td>
+                    <td scope="col" style="text-align: center">{{$course->calories * $size->size / 1000}}</td>
                 </tr>
             </tbody>
         </table>

@@ -18,20 +18,22 @@
             $this->model = $student;
         }
     
-        public function add(Request $request, SchoolClass $schoolClass)
+        public function add(Request $request, $classId)
         {
             $data = $request->except('_token');
             if (isset($data['privilege'])){
                 $data['privilege'] = $request->boolean('privilege');
             }
+            $schoolClass = SchoolClass::find($classId);
             $student = new Student($data);
             $schoolClass->student()->save($student);
-            return ['status' => 'Учня додано у клас'];
+            return ['status' => 'Учня додано до класу'];
         }
     
-        public function addMass(Request $request, SchoolClass $schoolClass)
+        public function addMass(Request $request, $classId)
         {
             $data = explode("\r\n", $request->input('list'));
+            $schoolClass = SchoolClass::find($classId);
             foreach ($data as $item){
                 $student = new Student();
                 $student['fullname'] = $item;
@@ -39,12 +41,5 @@
             }
             return ['status' => 'Учнів додано до класу'];
         }
-    
-        /*public function deleteStudent($id, SchoolClass $schoolClass)
-        {
-            $student = Student::find($id);
-            $schoolClass->detach($student);
-            return ['status' => 'Учня видалено з класу'];
-        }*/
         
     }

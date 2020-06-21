@@ -16,7 +16,7 @@ class CreateSizesTable extends Migration
         Schema::create('sizes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('size');
-            $table->double('factor');
+            $table->double('factor')->nullable();
         });
     }
 

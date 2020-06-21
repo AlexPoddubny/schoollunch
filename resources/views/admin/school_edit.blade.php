@@ -35,7 +35,7 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">{{$type == 'admin' ? 'Адміністратор' : 'Технолог шкільного комбінату харчування'}}</label>
         <div class="col-md-6">
 {{--            @livewire('search-user')--}}
-            <input type="hidden" name="user" id="user_id">
+            <input type="hidden" name="user_id" id="user_id">
             <input type="text" class="form-control" name="query" id="user" placeholder="@isset($user) '' @else Оберіть користувача @endisset" value="@isset($user) {{fullname($user)}} @endisset">
             <div id="result"></div>
         </div>

@@ -1,5 +1,4 @@
 <div class="card">
-    <div class="card-header">Головна інформація</div>
     <br>
     <form method="POST" action="{{ route('schoolclass.update', ['schoolclass' => $schoolClass->id]) }}">
         @csrf
@@ -67,15 +66,12 @@
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('messages.teacher') }}</label>
             <div class="col-md-6">
                 {{--            @livewire('search-user')--}}
-                <input type="hidden" name="user" id="user_id">
+                <input type="hidden" name="teacher_id" id="user_id">
                 <input type="text" class="form-control" name="query" id="user"
                        placeholder="@isset($schoolClass->teacher_id) '' @else Оберіть користувача @endisset"
                        value="@isset($schoolClass->teacher_id) {{fullname($schoolClass->teacher)}} @endisset">
+                <div id="result"></div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4"></div>
-            <div class="form-group row col-md-6 text-md-left" id="result"></div>
         </div>
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
@@ -84,15 +80,10 @@
                 </button>
             </div>
         </div>
+        <br>
     </form>
-    <br>
 </div>
-{{--
-
 <br>
 <div class="card">
-    <div class="card-header">Учні класу</div>
-    <br>
     @include('students_index')
 </div>
---}}

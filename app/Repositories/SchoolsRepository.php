@@ -45,6 +45,21 @@
             return ['status' => 'Інформацію про школу оновлено'];
         }
     
+        public function removeCookAdmin($id, $type)
+        {
+            $typeName = $type . '_id';
+            $school = School::findOrFail($id);
+            $user = User::findOrFail($school->$typeName);
+            $school->$typeName = null;
+            if ($type == 'admin'){
+                $user->removeRole('SchoolAdmin');
+            } else {
+                $user->removeRole('Cook');
+            }
+            $school->save();
+            return ['status' => 'Інформацію про школу оновлено'];
+        }
+    
         public function getSchoolsWithClasses()
         {
             return $this->model::with('schoolClass.student')->has('schoolClass.student')->get()->keyBy('id')->toArray();

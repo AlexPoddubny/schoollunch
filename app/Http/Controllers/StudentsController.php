@@ -19,9 +19,6 @@
         protected $students;
         protected $class_rep;
         protected $id;
-        protected $relations = [
-            'parent'
-        ];
         
         public function __construct(
             StudentsRepository $students,
@@ -38,12 +35,15 @@
             if(!($schoolClass = $this->user->schoolClass)){
                 abort(403);
             }
+            $this->title = 'Класне керівництво: ' . $schoolClass->name . ', ' . $schoolClass->school->name;
             $this->content = view('students_index')
                 ->with([
                     'students' => $schoolClass->student()
-                        ->with($this->relations)
+                        ->with('parent')
                         ->get()
-                        ->sortBy('fullname')
+                        ->sortBy('fullname'),
+                    'route' => 'students.store',
+                    'schoolClass' => $schoolClass
                 ])
                 ->render();
             return $this->renderOutput();
@@ -82,17 +82,14 @@
                 $this->validate($request, [
                     'fullname' => ['required', 'max:100']
                 ]);
-                $result = $this->students->add($request, $this->user->schoolClass);
+                $result = $this->students->add($request, $request->input('class'));
             } elseif (isset($request['list'])){
                 $this->validate($request,[
                     'list' => ['required']
                 ]);
-                $result = $this->students->addMass($request, $this->user->schoolClass);
+                $result = $this->students->addMass($request, $request->input('class'));
             } else {
                 return back();
-            }
-            if(is_array($result) && !empty($result['error'])) {
-                return back()->with($result);
             }
             return back()->with($result);
         }

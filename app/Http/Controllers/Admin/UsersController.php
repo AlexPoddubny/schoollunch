@@ -110,7 +110,6 @@ class UsersController extends AdminController
      */
     public function update(Request $request, $id)
     {
-        // перенести у update
         if (Gate::denies('User_Register')){
             abort(403);
         }
@@ -130,7 +129,12 @@ class UsersController extends AdminController
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $result = $user->delete();
+        if(is_array($result) && !empty($result['error'])) {
+            return response()->json(['error' => 'Неможливо видалити користувача ' . fullname($user)], 500);
+        }
+        return response()->json(['message' => 'Користувача видалено'], 200);
     }
     
     public function search(Request $request)

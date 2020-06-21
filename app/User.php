@@ -46,7 +46,7 @@
         
         public function school()
         {
-            return $this->hasMany(School::class, 'admin_id');
+            return $this->hasOne(School::class, 'admin_id');
         }
         
         public function cook()

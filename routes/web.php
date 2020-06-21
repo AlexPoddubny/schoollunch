@@ -123,12 +123,14 @@
                     'as' => 'school.add_class'
                 ]
             );
-            Route::post('school/copy_class/{class}', [
+            /*Route::post('school/replicate/{class}', [
                     'uses' => 'Admin\SchoolController@copyClass',
-                    'as' => 'school.copy_class'
+                    'as' => 'school.replicate'
                 ]
-            );
+            );*/
             Route::resource('school', 'Admin\SchoolController');
+            Route::get('schoolclass/removeteacher/{class}', 'Admin\SchoolClassesController@removeTeacher')->name('removeteacher');
+            Route::post('schoolclass/add', 'Admin\SchoolClassesController@addStudent')->name('addstudent');
             Route::resource('schoolclass', 'Admin\SchoolClassesController');
             Route::post('courses/addproduct', 'Admin\CoursesController@addProduct')->name('addproduct');
             Route::post('courses/delproduct', 'Admin\CoursesController@delProduct')->name('delproduct');

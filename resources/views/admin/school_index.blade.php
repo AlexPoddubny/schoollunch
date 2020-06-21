@@ -88,6 +88,12 @@
             </button>
         </div>
     </form>
+    <div class="alert alert-danger print-error-msg" style="display:none">
+        <ul></ul>
+    </div>
+    <div class="alert alert-success print-success-msg" style="display:none">
+        <ul></ul>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -105,16 +111,27 @@
                     <td scope="col" style="text-align: center">
                         <a href="{{route('schoolclass.edit', ['schoolclass' => $schoolClass->id])}}">{{$schoolClass->name}}</a>
                     </td>
-                    <td scope="col" style="text-align: center">{{$schoolClass->break_id == null ? 'Не вказано' : $schoolClass->breakTime->break_time}}</td>
+                    <td scope="col" style="text-align: center">{{$schoolClass->break_id ? $schoolClass->breakTime->break_num . '. ' . $schoolClass->breakTime->break_time : 'Не вказано'}}</td>
                     <td scope="col" style="text-align: center">{{$schoolClass->category->name ?? 'Не вказано'}}</td>
-                    <td scope="col" style="text-align: center">{{$schoolClass->teacher_id == null ? 'Не призначено' : fullname($schoolClass->teacher)}}</td>
                     <td scope="col" style="text-align: center">
-                        <form method="post" action="{{route('school.copy_class', ['class' => $schoolClass->id])}}">
-                            @csrf
-                            <button type="submit" class="btn btn-primary" id="copy_class">
-                                {{__('messages.copy_class')}}
-                            </button>
-                        </form>
+                        @if($schoolClass->teacher_id)
+                            {{fullname($schoolClass->teacher)}}
+                            <a href="{{route('removeteacher', ['class' => $schoolClass->id])}}">
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
+                            </a>
+                        @else
+                            Не призначено
+                        @endif
+                    </td>
+                    <td scope="col" style="text-align: center">
+                        {{--
+                        <a href="{{route('school.replicate', ['class' => $schoolClass->id])}}" title="Скопіювати клас">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </a>
+                        --}}
+                        <a href="#" class="delete" data-model="schoolclass" data-id="{{$schoolClass->id}}" title="Видалити клас">
+                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                        </a>
                     </td>
                 </tr>
             @endforeach
