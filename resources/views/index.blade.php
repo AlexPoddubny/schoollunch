@@ -48,6 +48,7 @@
 					{ data: 'middlename', name: 'middlename' },
 					{ data: 'email', name: 'email'},
 					{ data: 'phone', name: 'phone'},
+                    { data: 'action', name: 'action', orderable: false }
 					// { data: 'created_at', name: 'created_at' },
 					// { data: 'updated_at', name: 'updated_at' }
 				]

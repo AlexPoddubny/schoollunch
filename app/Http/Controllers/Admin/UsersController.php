@@ -50,7 +50,17 @@ class UsersController extends AdminController
     
     public function getData()
     {
-        return Datatables::of(User::query())->make(true);
+        $data = User::query();
+        return Datatables::of($data)
+            ->addColumn('action', function($data){
+                $links = '<a href="' . route('users.edit', ['user' => $data->id])
+                    . '"><span class="glyphicon glyphicon-pencil"></span></a>';
+                $links .= '<a href="#" class="delete" data-model="users" data-id="' . $data->id
+                    . '"><span class="glyphicon glyphicon-remove text-danger"></span></a>';
+                return $links;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
     
     /**
