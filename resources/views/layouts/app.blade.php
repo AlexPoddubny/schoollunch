@@ -10,7 +10,10 @@
     <title>{{ $title ?? '' }}</title>
 
     <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +23,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/font-glyphicons.css')}}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 
     {{--    @livewireStyles--}}
 </head>
@@ -85,5 +89,14 @@
         </main>
     </div>
 {{--    @livewireScripts--}}
+<!-- jQuery -->
+
+    <!-- DataTables -->
+
+    <!-- Bootstrap JavaScript -->
+{{--    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>--}}
+    <!-- App scripts -->
+    @stack('scripts')
+
 </body>
 </html>

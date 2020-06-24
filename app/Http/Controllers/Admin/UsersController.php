@@ -8,6 +8,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Gate;
+use Yajra\Datatables\Datatables;
 
 class UsersController extends AdminController
 {
@@ -45,6 +46,11 @@ class UsersController extends AdminController
             ->with(['users' => $users])
             ->render();
         return $this->renderOutput();
+    }
+    
+    public function getData()
+    {
+        return Datatables::of(User::query())->make(true);
     }
     
     /**

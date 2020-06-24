@@ -37,4 +37,5 @@ const app = new Vue({
 
 import route from './route';
 require('./scripts');
+// require('./DataTables');
 // console.log(route('students.index'));

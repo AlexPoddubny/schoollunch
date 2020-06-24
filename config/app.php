@@ -180,6 +180,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 //        App\Providers\ImportSchoolsServiceProvider::class,
 //        App\Helpers\Facades\ImportSchools::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Menu'      => Lavary\Menu\Facade::class,
         'ImportSchools' => App\Helpers\Facades\ImportSchools::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

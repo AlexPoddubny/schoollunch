@@ -79,6 +79,7 @@
             );*/
 //            Route::resource('permissions', 'Admin\PermissionsController');
             Route::resource('roles', 'Admin\RolesController');
+            Route::get('users/get-users-data', 'Admin\UsersController@getData')->name('datatables.users');
             Route::post('users/search', 'Admin\UsersController@search')->name('users.search');
             Route::resource('users', 'Admin\UsersController');
             /*Route::get('schools/import', [
