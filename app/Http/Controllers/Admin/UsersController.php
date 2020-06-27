@@ -41,9 +41,10 @@ class UsersController extends AdminController
             abort(403);
         }
         $this->title .= 'Користувачі';
-        $users = $this->user_rep->getPaginated(5);
+//        $users = $this->user_rep->getPaginated(5);
+        $this->scripts = view('datatables.users')->render();
         $this->content = view('admin.users_content')
-            ->with(['users' => $users])
+//            ->with(['users' => $users])
             ->render();
         return $this->renderOutput();
     }

@@ -9,6 +9,8 @@
                 <th scope="col" style="text-align: center">По батькові</th>
                 <th scope="col" style="text-align: center">E-mail</th>
                 <th scope="col" style="text-align: center">Телефон</th>
+                <th scope="col" style="text-align: center">Зареєстровано:</th>
+                <th scope="col" style="text-align: center">Підтверджено:</th>
                 <th scope="col" style="text-align: center">Дії</th>
 {{--                <th scope="col" style="text-align: center"><span class="glyphicon glyphicon-remove"></span></th>--}}
             </tr>

@@ -19,6 +19,7 @@ class Controller extends BaseController
     protected $title = 'Домашня сторінка';
     protected $content = FALSE;
     protected $template = 'index';
+    protected $scripts = FALSE;
     
     public function __construct()
     {
@@ -36,6 +37,9 @@ class Controller extends BaseController
         $this->vars = Arr::add($this->vars, 'navigation', $navigation);
         if($this->content){
             $this->vars = Arr::add($this->vars, 'content', $this->content);
+        }
+        if($this->scripts){
+            $this->vars = Arr::add($this->vars, 'scripts', $this->scripts);
         }
         return view($this->template)->with($this->vars);
     }
