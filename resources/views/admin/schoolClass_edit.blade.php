@@ -69,7 +69,7 @@
                 <input type="hidden" name="teacher_id" id="user_id">
                 <input type="text" class="form-control" name="query" id="user"
                        placeholder="@isset($schoolClass->teacher_id) '' @else Оберіть користувача @endisset"
-                       value="@isset($schoolClass->teacher_id) {{fullname($schoolClass->teacher)}} @endisset">
+                       value="@isset($schoolClass->teacher_id) {{$schoolClass->teacher->getFullName()}} @endisset">
                 <div id="result"></div>
             </div>
         </div>

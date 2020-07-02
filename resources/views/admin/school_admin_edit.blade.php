@@ -22,7 +22,7 @@
 
         <div class="col-md-6">
             <input id="username" type="text" class="form-control @error('adminname') is-invalid @enderror" name="username"
-                   value="{{ ($school->admin_id != null) ? fullname($school->admin) : '' }}"
+                   value="{{ ($school->admin_id != null) ? $school->admin->getFullName() : '' }}"
                    autocomplete="adminname" autofocus disabled>
             @error('adminname')
                 <span class="invalid-feedback" role="alert">

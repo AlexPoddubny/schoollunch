@@ -152,4 +152,9 @@
             }
         }
         
+        public function getFullName()
+        {
+            return $this->lastname . ' ' . $this->firstname . ' ' . $this->middlename;
+        }
+        
     }

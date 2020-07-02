@@ -22,7 +22,7 @@
                             @if(count($student->parent) > 0)
                                 @foreach($student->parent as $parent)
                                     <p>
-                                        {{fullname($parent)}}
+                                        {{$parent->getFullName()}}
                                         @if(!$parent->pivot->confirmed_at)
                                             <a href="{{route('students.confirm', [
                                                 'student' => $student->id,

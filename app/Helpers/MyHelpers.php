@@ -1,10 +1,5 @@
 <?php
     
-    function fullname(App\User $user)
-    {
-        return $user->lastname . ' ' . $user->firstname . ' ' . $user->middlename;
-    }
-    
     function after($haystack, $needle)
     {
         return substr($haystack, strpos($haystack, $needle) + strlen($needle));

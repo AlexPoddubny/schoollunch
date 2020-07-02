@@ -108,7 +108,7 @@ class UsersController extends AdminController
         if (!$user){
             abort(404);
         }
-        $this->title .= 'Користувач - ' . fullname($user);
+        $this->title .= 'Користувач - ' . $user->getFullName();
         $this->content = view('admin.user_edit')
             ->with([
                 'user' => $user,
@@ -149,7 +149,7 @@ class UsersController extends AdminController
         $user = User::findOrFail($id);
         $result = $user->delete();
         if(is_array($result) && !empty($result['error'])) {
-            return response()->json(['error' => 'Неможливо видалити користувача ' . fullname($user)], 500);
+            return response()->json(['error' => 'Неможливо видалити користувача ' . $user->getFullName()], 500);
         }
         return response()->json(['message' => 'Користувача видалено'], 200);
     }

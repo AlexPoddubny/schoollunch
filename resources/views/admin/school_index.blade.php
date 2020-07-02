@@ -117,7 +117,7 @@
                     <td scope="col" style="text-align: center">{{count($schoolClass->student)}}</td>
                     <td scope="col" style="text-align: center">
                         @if($schoolClass->teacher_id)
-                            {{fullname($schoolClass->teacher)}}
+                            {{$schoolClass->teacher->getFullName()}}
                             <a href="{{route('removeteacher', ['class' => $schoolClass->id])}}">
                                 <span class="glyphicon glyphicon-remove text-danger"></span>
                             </a>
