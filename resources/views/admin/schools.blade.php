@@ -19,7 +19,7 @@
                     <td style="text-align: center">
                         @if($school->admin_id)
                             <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">
-                                {{$school->admin->getFullName()}}
+                                {{$school->admin->fullName}}
                             </a>
                             <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}">
                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -35,7 +35,7 @@
                     <td style="text-align: center">
                         @if($school->cook_id)
                             <a href="{{ route('users.show', ['user' => $school->cook->id]) }} "target="_blank">
-                                {{$school->cook->getFullName()}}
+                                {{$school->cook->fullName}}
                             </a>
                             <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}">
                                 <span class="glyphicon glyphicon-pencil"></span>

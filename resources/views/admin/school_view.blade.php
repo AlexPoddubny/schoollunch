@@ -21,7 +21,7 @@
 
         <div class="col-md-6">
             <input type="text" class="form-control @error('adminname') is-invalid @enderror" name="username"
-                   value="{{ ($school->admin_id != null) ? $school->admin->getFullName() : '' }}"
+                   value="{{ ($school->admin_id != null) ? $school->admin->fullName : '' }}"
                    autocomplete="adminname" autofocus disabled>
             <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}" role="button">Змінити</a>
         </div>
@@ -31,7 +31,7 @@
 
         <div class="col-md-6">
             <input type="text" class="form-control @error('adminname') is-invalid @enderror" name="username"
-                   value="{{ ($school->cook_id != null) ? $school->cook->getFullName() : '' }}"
+                   value="{{ ($school->cook_id != null) ? $school->cook->fullName : '' }}"
                    autocomplete="cookname" autofocus disabled>
             <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}" role="button">Змінити</a>
         </div>

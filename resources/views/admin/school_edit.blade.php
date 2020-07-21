@@ -36,7 +36,7 @@
         <div class="col-md-6">
 {{--            @livewire('search-user')--}}
             <input type="hidden" name="user_id" id="user_id">
-            <input type="text" class="form-control" name="query" id="user" placeholder="@isset($user) '' @else Оберіть користувача @endisset" value="@isset($user) {{$user->getFullName()}} @endisset">
+            <input type="text" class="form-control" name="query" id="user" placeholder="@isset($user) '' @else Оберіть користувача @endisset" value="@isset($user) {{$user->fullName}} @endisset">
             <div id="result"></div>
         </div>
     </div>

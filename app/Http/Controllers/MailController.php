@@ -17,7 +17,7 @@ class MailController extends Controller
     {
         $data = ['name' => $this->user->firstname];
         Mail::send(['text' => 'mail'], $data, function ($message){
-            $message->to($this->user->email, $this->user->getFullName())
+            $message->to($this->user->email, $this->user->fullName)
                 ->subject('Laravel Basic Testing Mail');
             $message->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         });

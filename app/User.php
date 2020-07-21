@@ -39,6 +39,8 @@
             'email_verified_at' => 'datetime',
         ];
         
+        /* Relations */
+        
         public function roles()
         {
             return $this->belongsToMany(Role::class, 'users_roles');
@@ -65,6 +67,8 @@
                 ->withTimestamps()
                 ->withPivot('confirmed_at');
         }
+        
+        /* Model methods */
         
         public function canDo($permission, $require = false)
         {
@@ -151,10 +155,10 @@
                 $this->roles()->detach($role->id);
             }
         }
-        
-        public function getFullName()
+    
+        public function getFullNameAttribute()
         {
-            return $this->lastname . ' ' . $this->firstname . ' ' . $this->middlename;
+            return implode(' ', [$this->lastname, $this->firstname, $this->middlename]);
         }
         
     }
