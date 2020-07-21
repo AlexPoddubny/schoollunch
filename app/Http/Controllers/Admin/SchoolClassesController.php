@@ -136,7 +136,7 @@
                 abort(403);
             }
             $this->validate($request, [
-                'name' => ['required', 'regex:/(^\d{1,2}[-][А-Я]$)/u'],
+                'name' => ['required', 'regex:/(^[1-9][0-1]?[-][А-Я]$)/u'],
                 'break_id' => ['required'],
                 'category_id' => ['required']
             ]);

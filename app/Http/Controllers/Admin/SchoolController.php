@@ -153,7 +153,7 @@ class SchoolController
             abort(403);
         }
         $this->validate($request, [
-            'classname' => ['required', 'regex:/(^\d{1,2}[-][А-Я]$)/u']
+            'classname' => ['required', 'regex:/(^[1-9][0-1]?[-][А-Я]$)/u']
         ]);
         $data = $request->except('_token');
         $schoolClass = new schoolClass([
