@@ -49952,13 +49952,16 @@ $(document).on('change', '#type', function () {
       console.log(res);
     }
   });
-});
+}); //****************************
+//   Add course to lunch
+//****************************
+
 $(document).on('click', '#addcourse', function (e) {
   e.preventDefault();
   $.ajax({
     url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('addcourse'),
     data: {
-      id: $('#courses_list').val(),
+      course_id: $('#courses_list').val(),
       name: $('#courses_list option:selected').text(),
       size_id: $('#size').val(),
       type_id: $('#type').val(),
@@ -49967,8 +49970,14 @@ $(document).on('click', '#addcourse', function (e) {
     },
     type: 'POST',
     success: function success(res) {
-      // console.log(res);
-      $('#courses').html(res);
+      //console.log(res);
+      if ($.isEmptyObject(res.error)) {
+        $(".print-error-msg").css('display', 'none');
+        $('#courses').html(res);
+      } else {
+        // console.log(res.error);
+        printMsg(res.error, 'error');
+      }
     },
     error: function error(res) {
       console.log(res);

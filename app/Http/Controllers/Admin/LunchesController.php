@@ -5,16 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Course;
 use App\Lunch;
-use App\Repositories\CategoriesRepository;
-use App\Repositories\CoursesRepository;
 use App\Repositories\LunchesRepository;
-use App\Repositories\SizesRepository;
-use App\Repositories\TypesRepository;
 use App\Size;
 use App\Type;
 use Illuminate\Http\Request;
 use Arr;
 use Gate;
+use Validator;
 
 class LunchesController extends AdminController
 {
@@ -85,9 +82,19 @@ class LunchesController extends AdminController
         if (Gate::denies('Course_Create')){
             abort(403);
         }
-        $id = $request->input('id');
+        $validator = Validator::make($request->all(), [
+            'type_id' => 'required',
+            'course_id' => 'required',
+            'size_id' => 'required'
+        ]);
+        if ($validator->fails()){
+            return response()->json(['error' => $validator->errors()->all()]);
+        }
+        $id = $request->input('course_id');
         $courses = session('courses');
         if (!isset($courses[$id])){
+            $courses[$id] = $request->all();
+            /*
             $courses[$id] = [
                 'course_id' => $id,
                 'type_id' => $request->input('type_id'),
@@ -96,6 +103,7 @@ class LunchesController extends AdminController
                 'size' => $request->input('size'),
                 'name' => $request->input('name')
             ];
+            */
             session(['courses' => $courses]);
         }
         return $this->renderCourses();
