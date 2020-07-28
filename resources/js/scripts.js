@@ -158,14 +158,14 @@ $(document).on('click', '#add-product', function (e) {
     $.ajax({
         url: route('addproduct'),
         data: {
-            id: $('#product_id').val(),
+            product_id: $('#product_id').val(),
             name: $('#product_id option:selected').text(),
             brutto: $('#brutto').val(),
             netto: $('#netto').val(),
         },
         type: 'POST',
         success: function (res) {
-            // console.log(res);
+            //console.log(res);
             if($.isEmptyObject(res.error)){
                 $(".print-error-msg").css('display','none');
                 $('#products').html(res);

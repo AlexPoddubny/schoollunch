@@ -63,7 +63,7 @@
     <div class="row">
         <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
             <div class="form-group">
-                <label for="product_id">Оберіть продукт</label>
+                <label for="product_id">Продукт</label>
                 <select name="product_id" id="product_id" class="form-control @error('albumens') is-invalid @enderror">
                     <option value="" selected disabled>Оберіть продукт</option>
                     @foreach($products as $product)

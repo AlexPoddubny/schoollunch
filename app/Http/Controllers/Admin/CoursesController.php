@@ -91,7 +91,7 @@
 //            dd($request);
             $this->validate($request, [
                 'rc' => ['required', 'numeric', 'min:1'],
-                'name' => ['required', 'max:100'],
+                'name' => ['required', 'alpha', 'max:100'],
                 'type_id' => ['required'],
                 'albumens' => ['required'],
                 'fats' => ['required'],
@@ -198,22 +198,17 @@
                 abort(403);
             }
             $validator = Validator::make($request->all(), [
-                'id' => 'required',
+                'product_id' => 'required',
                 'brutto' => 'required',
                 'netto' => 'required|lte:brutto'
             ]);
             if ($validator->fails()){
                 return response()->json(['error' => $validator->errors()->all()]);
             }
-            $id = $request->input('id');
+            $id = $request->input('product_id');
             $products = session('products');
             if (!isset($products[$id])){
-                $products[$id] = [
-                    'product_id' => $id,
-                    'name' => $request->input('name'),
-                    'brutto' => $request->input('brutto'),
-                    'netto' => $request->input('netto'),
-                ];
+                $products[$id] = $request->all();
                 session(['products' => $products]);
             }
             return $this->renderProducts();

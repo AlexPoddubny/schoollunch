@@ -49855,14 +49855,14 @@ $(document).on('click', '#add-product', function (e) {
   $.ajax({
     url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('addproduct'),
     data: {
-      id: $('#product_id').val(),
+      product_id: $('#product_id').val(),
       name: $('#product_id option:selected').text(),
       brutto: $('#brutto').val(),
       netto: $('#netto').val()
     },
     type: 'POST',
     success: function success(res) {
-      // console.log(res);
+      //console.log(res);
       if ($.isEmptyObject(res.error)) {
         $(".print-error-msg").css('display', 'none');
         $('#products').html(res);

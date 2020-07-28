@@ -71,7 +71,7 @@ return [
         'array' => 'The :attribute must have less than :value items.',
     ],
     'lte' => [
-        'numeric' => 'The :attribute must be less than or equal :value.',
+        'numeric' => ':attribute має бути не більше за :value.',
         'file' => 'The :attribute must be less than or equal :value kilobytes.',
         'string' => 'The :attribute must be less than or equal :value characters.',
         'array' => 'The :attribute must not have more than :value items.',
@@ -133,6 +133,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        /*
+        'id' => [
+            'required' => 'Поле Продукт обов\'язкове до заповнення',
+        ],*/
+        'netto' => [
+            'lte' => 'Поле Вага нетто не може бути більше за Вага брутто'
+        ]
     ],
 
     /*
@@ -148,6 +155,9 @@ return [
 
     'attributes' => [
         'phone' => 'Номер телефону',
+        'brutto' => 'Вага брутто',
+        'netto' => 'Вага нетто',
+        'product_id' => 'Продукт'
     ],
 
 ];
