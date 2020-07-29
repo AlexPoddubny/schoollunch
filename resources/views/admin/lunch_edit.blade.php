@@ -46,49 +46,54 @@
     <div id="courses">
         {!! $ingredients !!}
     </div>
+
+    <div class="alert alert-danger print-error-msg" style="display:none">
+        <ul></ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
+            <div class="form-group">
+                <label for="type">Тип страви</label>
+                <select name="type" id="type" class="form-control">
+                    <option value="" selected disabled>Оберіть тип страви</option>
+                    @foreach($types as $type)
+                        <option value="{{$type->id}}">{{$type->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3" id="courses" >
+            <div class="form-group">
+                <label for="course" class="control-label">Страва</label>
+                <select name="course" id="courses_list" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
+            <div class="form-group">
+                <label for="size" class="control-label">Вага страви</label>
+                <select name="size" id="size" class="form-control">
+                    <option value="" selected disabled>Оберіть вагу страви</option>
+                    @foreach($sizes as $size)
+                        <option value="{{$size->id}}">{{$size->size}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
+            <div class="form-group">
+                <label for="newtype" class="control-label">&nbsp;</label>
+                <div class="form-group">
+                    <a href="#" role="button" id="addcourse" class="btn btn-primary">
+                        Додати страву
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">
             Зберегти комплекс
         </button>
     </div>
 </form>
-<div class="row">
-    <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-            <label for="type">Оберіть тип страви</label>
-            <select name="type" id="type" class="form-control">
-                <option value="" selected disabled>Оберіть тип страви</option>
-                @foreach($types as $type)
-                    <option value="{{$type->id}}">{{$type->name}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3" id="courses" >
-        <div class="form-group">
-            <label for="course" class="control-label">Оберіть страву</label>
-            <select name="course" id="courses_list" class="form-control">
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-            <label for="size" class="control-label">Оберіть вагу страви</label>
-            <select name="size" id="size" class="form-control">
-                @foreach($sizes as $size)
-                    <option value="{{$size->id}}">{{$size->size}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
-        <div class="form-group">
-            <label for="newtype" class="control-label">&nbsp;</label>
-            <div class="form-group">
-                <a href="#" role="button" id="addcourse" class="btn btn-primary">
-                    Додати страву
-                </a>
-            </div>
-        </div>
-    </div>
-</div>

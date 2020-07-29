@@ -16,7 +16,7 @@ return [
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',
-    'after_or_equal' => 'The :attribute must be a date after or equal to :date.',
+    'after_or_equal' => ':attribute має бути не раніше за :date.',
     'alpha' => 'The :attribute may only contain letters.',
     'alpha_dash' => 'The :attribute may only contain letters, numbers, dashes and underscores.',
     'alpha_num' => 'The :attribute may only contain letters and numbers.',
@@ -161,6 +161,16 @@ return [
         'course_id' => 'Страва',
         'type_id' => 'Тип страви',
         'size_id' => 'Вага страви',
+        'break_id' => 'Перерва',
+        'category_id' => 'Категорія харчування',
+        'lunch_id' => 'Обід',
+        'date' => 'Дата'
     ],
+    
+    'values' => [
+        'date' => [
+            'today' => 'сьогодні'
+        ]
+    ]
 
 ];

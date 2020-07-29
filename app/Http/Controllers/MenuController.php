@@ -18,6 +18,12 @@ class MenuController extends Controller
 {
 
     protected $menu_rep;
+    protected $rule = [
+        'date' => 'required|after_or_equal:today',
+        'break_id' => 'required',
+        'category_id' => 'required',
+        'lunch_id' => 'required',
+    ];
     
     public function __construct(MenuRepository $menu_rep)
     {
@@ -50,7 +56,8 @@ class MenuController extends Controller
         $this->content = view('menu')
             ->with([
                 'menus' => $menu,
-                'sizes' => Size::all()->keyBy('id')
+                'sizes' => Size::all()->keyBy('id'),
+                'school' => $school
             ])
             ->render();
         return $this->renderOutput();
@@ -129,6 +136,7 @@ class MenuController extends Controller
         if (Gate::denies('Menu_Create')){
             abort(403);
         }
+        $this->validate($request, $this->rule);
         $result = $this->menu_rep->saveMenu($request);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -178,6 +186,6 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response(200);
     }
 }

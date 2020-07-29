@@ -10,6 +10,9 @@
                             <th scope="col" style="text-align: center">№ комплексу</th>
                             <th scope="col" style="text-align: center">Категорія</th>
                             <th scope="col" style="text-align: center">Склад</th>
+                            @can('Menu_Create', $school)
+                                <th scope="col" style="text-align: center">Дії</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +30,16 @@
                                         @endforeach
                                     </ul>
                                 </td>
+                                @can('Menu_Create', $school)
+                                    <td>
+                                        <a href="{{route('menu.edit', ['menu' => $item->id])}}">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a href="#" class="delete" data-model="menu" data-id="{{$item->id}}">
+                                            <span class="glyphicon glyphicon-remove text-danger"></span>
+                                        </a>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>
@@ -40,7 +53,7 @@
     <p>Меню на {{date('Y-m-d')}} не складено</p>
 @endif
 <a href="{{ url()->previous() }}" class="btn btn-primary">На попередню сторінку</a>
-@can('Menu_Create')
+@can('Menu_Create', $school)
     <a href="{{route('menu.create')}}" role="button" class="btn btn-primary">
         Додати позицію у меню
     </a>

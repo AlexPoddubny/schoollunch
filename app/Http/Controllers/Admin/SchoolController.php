@@ -54,7 +54,7 @@ class SchoolController
         if ($this->user->hasRole('Admin')){
             $schools = School::all();
         } elseif ($this->user->hasRole('SchoolAdmin')){
-            $schools = School::where('admin_id', $this->user->id);
+            $schools = School::where('admin_id', $this->user->id)->get();
         } else {
             abort(403);
         }
@@ -153,7 +153,7 @@ class SchoolController
             abort(403);
         }
         $this->validate($request, [
-            'classname' => ['required', 'regex:/(^[1-9][0-1]?[-][А-Я]$)/u']
+            'classname' => ['required', 'regex:/(^[1-9][0-1]?-[А-Я]$)/u']
         ]);
         $data = $request->except('_token');
         $schoolClass = new schoolClass([

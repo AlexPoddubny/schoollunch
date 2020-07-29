@@ -49,6 +49,9 @@
         <label for="products" class="col-md-12 col-form-label text-md-center"><strong>Інгредієнти (на 1 кг страви)</strong></label>
     </div>
     {{--Інгредієнти--}}
+    <div class="alert alert-danger print-error-msg" style="display:none">
+        <ul></ul>
+    </div>
     <div class="form-group row">
         <div class="col-md-12 table-responsive" id="products">
             {!! $ingredients !!}

@@ -20,6 +20,17 @@
     {
         
         protected $courses_rep;
+        protected $rule = [
+            'rc' => ['required', 'numeric', 'min:1'],
+            'name' => ['required', 'alpha', 'max:100'],
+            'type_id' => ['required'],
+            'albumens' => ['required'],
+            'fats' => ['required'],
+            'carbonhydrates' => ['required'],
+            'calories' => ['required'],
+            'recipe' => ['required'],
+            'description' => ['required'],
+        ];
         
         public function __construct(CoursesRepository $courses_rep)
         {
@@ -88,18 +99,7 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
-//            dd($request);
-            $this->validate($request, [
-                'rc' => ['required', 'numeric', 'min:1'],
-                'name' => ['required', 'alpha', 'max:100'],
-                'type_id' => ['required'],
-                'albumens' => ['required'],
-                'fats' => ['required'],
-                'carbonhydrates' => ['required'],
-                'calories' => ['required'],
-                'recipe' => ['required'],
-                'description' => ['required'],
-            ]);
+            $this->validate($request, $this->rule);
             $result = $this->courses_rep->saveCourse($request);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
@@ -164,6 +164,7 @@
             if (Gate::denies('Course_Create')){
                 abort(403);
             }
+            $this->validate($request, $this->rule);
             $result = $this->courses_rep->saveCourse($request, $id);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);

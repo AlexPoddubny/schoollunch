@@ -30,9 +30,19 @@ class AuthServiceProvider extends ServiceProvider
         $perms = Permission::all();
         foreach ($perms as $perm) {
             $name = $perm->name;
-            Gate::define($name, function ($user) use ($name) {
-                return $user->canDo($name);
-            });
+            switch ($name) {
+                case 'Menu_Create':
+                    Gate::define($name, function ($user, $school) use ($name){
+                        return ($user->id === $school->cook_id) || $user->hasRole('Admin');
+                    });
+                    break;
+                default:
+                    Gate::define($name, function ($user) use ($name) {
+                        return $user->canDo($name);
+                    });
+                    break;
+            }
+            
         }
         
         /*
@@ -43,22 +53,22 @@ class AuthServiceProvider extends ServiceProvider
         */
         // користувач може бачити посилання на адміністрування на домашній сторінці
         Gate::define('View_Admin_Menu', function ($user){
-            return $user->hasRole(['Admin', 'SchoolAdmin', 'Cook']);
+            return $user->hasRole(['Admin', 'SchoolAdmin']);
         });
         // користувач може бачити посилання на редагування шкільного меню на домашній сторінці
         Gate::define('View_Cook_Menu', function ($user){
-            return $user->hasRole('Cook');
+            return $user->hasRole(['Admin', 'Cook']);
         });
         Gate::define('View_Class_Menu', function ($user){
             return $user->hasRole('ClassTeacher');
         });
-        
+        /*
         // користувач може бачити посилання на адміністрування школи на адмінпанелі
         Gate::define('View_School_Admin', function ($user){
             return $user->canDo('View_School_Admin');
         });
         
-        /*
+        
         // користувач може бачити посилання на адміністрування комбінату харчування на адмінпанелі та домашній сторінці
         Gate::define('View_Cook', function ($user){
             return $user->canDo('View_Cook');
