@@ -68,7 +68,7 @@
                 ->withPivot('confirmed_at');
         }
         
-        /* Model methods */
+        /* Permissions */
         
         public function canDo($permission, $require = false)
         {
@@ -159,6 +159,11 @@
         public function getFullNameAttribute()
         {
             return implode(' ', [$this->lastname, $this->firstname, $this->middlename]);
+        }
+    
+        public function isAdmin()
+        {
+            return $this->hasRole('Admin');
         }
         
     }
