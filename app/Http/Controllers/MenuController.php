@@ -62,21 +62,23 @@ class MenuController extends Controller
             ->render();
         return $this->renderOutput();
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function create()
+    public function create($id)
     {
-        if (Gate::denies('Menu_Create')){
+        $school = School::find($id);
+        if (Gate::denies('Menu_Create', $school)){
             abort(403);
         }
         // додати можливість створення пункту меню Адміністратором
-        $school = $this->user->cook;
 //        dd($school);
-        $this->title = 'Додати пункт до меню';
+        $this->title = 'Додати пункт до меню школи: ' . $school->name;
         $this->content = view('menu_add')
             ->with([
                 'school' => $school,
@@ -112,19 +114,7 @@ class MenuController extends Controller
             'lunches' => $lunchesList, //масив готових view на кожен обід з назвами страв та розміром
         ]);
     }
-    /*
-    public function loadClasses(Request $request)
-    {
-        return $this->content = view('classes_list')
-            ->with([
-                'classes' => SchoolClass::where('school_id', $this->user->cook->id)
-                    ->where('break_id', $request->input('break_id'))
-                    ->where('category_id', $request->input('category'))
-                    ->get()
-            ])
-            ->render();
-    }*/
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -133,7 +123,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::denies('Menu_Create')){
+        if (Gate::denies('Menu_Create', School::find($request->input('school_id')))){
             abort(403);
         }
         $this->validate($request, $this->rule);
@@ -141,7 +131,9 @@ class MenuController extends Controller
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-        return redirect(route('menu.index'));
+        return redirect(route('menu.view', [
+            'id' => $request->input('school_id')
+        ]));
     }
 
     /**
@@ -163,7 +155,27 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $menu = Menu::findOrFail($id);
+        $school = School::findOrFail($menu->school_id);
+        if (Gate::denies('Menu_Create', $school)){
+            abort(403);
+        }
+        $this->title = 'Редагування шкільного меню: ' . $school->name;
+        $lunch = Lunch::with('sizeCourse')
+            ->where('id', $menu->lunch_id)
+            ->get()
+            ->first();
+        $lunches = Lunch::where('category_id', $lunch->category_id)
+            ->get();
+        $this->content = view('menu_edit')
+            ->with([
+                'menu' => $menu,
+                'breaks' => $school->breakTime,
+                'categories' => Category::all(),
+                'lunches' => $lunches,
+            ])
+            ->render();
+        return $this->renderOutput();
     }
 
     /**
@@ -175,7 +187,18 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Gate::denies('Menu_Create', School::find($id))){
+            abort(403);
+        }
+        $this->validate($request, $this->rule);
+        $menu = Menu::find($id);
+        $result = $menu->update($request->all());
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect(route('menu.view', [
+            'id' => $menu->school_id
+        ]));
     }
 
     /**
@@ -186,6 +209,14 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        return response(200);
+        $menu = Menu::findOrFail($id);
+        if (Gate::denies('Menu_Create', School::findOrFail($menu->school_id))){
+            abort(403);
+        }
+        $result = $menu->delete();
+        if(is_array($result) && !empty($result['error'])) {
+            return response()->json(['error' => 'Неможливо видалити позицію меню'], 500);
+        }
+        return response()->json(['message' => 'Позицію меню видалено'], 200);
     }
 }

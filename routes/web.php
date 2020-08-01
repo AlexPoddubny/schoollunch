@@ -20,10 +20,10 @@
     Route::get('privacy', 'PrivacyController');
     
     Route::get('sendbasicemail','MailController@basic_email');
-    
+    /*
     Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
     Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-    
+    */
     Auth::routes(['verify' => true]);
 //    Auth::routes();
     
@@ -39,8 +39,6 @@
     Route::get('home/remove/{child}', 'HomeController@remove')->name('home.remove');
     Route::resource('home', 'HomeController');
     
-//    Route::get('/search','SearchController@search')->name('search');
-
     Route::get('students/confirm/{student}/{parent}', [
         'uses' => 'StudentsController@confirm',
         'as' => 'students.confirm'
@@ -54,6 +52,7 @@
         'uses' => 'MenuController@index',
         'as' => 'menu.view'
     ]);
+    Route::get('menu/create/{id}', 'MenuController@create')->name('menu.add');
     Route::resource('menu', 'MenuController');
     Route::get('courses/index', 'CoursesController@index')->name('course.index');
     Route::get('courses/{id}/{size?}', [

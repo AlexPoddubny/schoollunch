@@ -53,13 +53,13 @@ class Controller extends BaseController
             if(Gate::allows('Child_Select')){
                 $menu->add('Мої школяри', ['route' => 'home.index', 'class' => 'nav-item'])->link->attr($attr);
             }
-            if(Gate::allows('View_Class_Menu')) {
+            if(Gate::allows('View_Class')) {
                 $menu->add('Класне керівництво', ['route' => 'students.index', 'class' => 'nav-item'])->link->attr($attr);
             }
-            if(Gate::allows('View_Cook_Menu')) {
+            if(Gate::allows('View_Cook')) {
                 $menu->add('Щоденне меню', ['route' => 'menu.index', 'class' => 'nav-item'])->link->attr($attr);
             }
-            if(Gate::allows(['View_Admin_Menu'])) {
+            if(Gate::allows('View_Admin') || Gate::allows('View_School_Admin')) {
                 $menu->add('Адмініструвати', ['url' => 'admin', 'class' => 'nav-item'])->link->attr($attr);
             }
         });

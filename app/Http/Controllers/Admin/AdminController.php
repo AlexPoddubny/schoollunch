@@ -36,7 +36,7 @@ class AdminController extends Controller
             if(Gate::allows('View_School_Admin')) {
                 $menu->add('Адмініструвати школи', ['route' => 'school.index', 'class' => 'nav-item'])->link->attr($attr);
             }
-            if(Gate::allows('View_Cook')) {
+            if(Gate::allows('Course_Create')) {
                 $menu->add('Страви та продукти', ['route' => 'courses.index', 'class' => 'nav-item'])->link->attr($attr);
                 $menu->add('Комплексні обіди', ['route' => 'lunches.index', 'class' => 'nav-item'])->link->attr($attr);
             }

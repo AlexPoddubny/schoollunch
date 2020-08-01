@@ -54,7 +54,7 @@
 @endif
 <a href="{{ url()->previous() }}" class="btn btn-primary">На попередню сторінку</a>
 @can('Menu_Create', $school)
-    <a href="{{route('menu.create')}}" role="button" class="btn btn-primary">
+    <a href="{{route('menu.add', ['id' => $school->id])}}" role="button" class="btn btn-primary">
         Додати позицію у меню
     </a>
 @endcan

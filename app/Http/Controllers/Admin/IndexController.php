@@ -9,9 +9,9 @@ class IndexController extends AdminController
     
     public function index()
     {
-        if (Gate::denies(['View_Admin_Menu'])){
+        /*if (Gate::denies(['View_Admin_Menu'])){
             return redirect(route('home.index'));
-        }
+        }*/
         if ($this->user->hasRole('Admin')){
             return redirect(route('schools.index'));
         }

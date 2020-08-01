@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             switch ($name) {
                 case 'Menu_Create':
                     Gate::define($name, function ($user, $school) use ($name){
-                        return ($user->id === $school->cook_id) || $user->hasRole('Admin');
+                        return ($user->canDo($name) && $user->id === $school->cook_id) || $user->isAdmin();
                     });
                     break;
                 default:
@@ -42,7 +42,6 @@ class AuthServiceProvider extends ServiceProvider
                     });
                     break;
             }
-            
         }
         
         /*
@@ -50,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('View_Admin', function ($user){
             return $user->canDo('View_Admin');
         });
-        */
+        
         // користувач може бачити посилання на адміністрування на домашній сторінці
         Gate::define('View_Admin_Menu', function ($user){
             return $user->hasRole(['Admin', 'SchoolAdmin']);
