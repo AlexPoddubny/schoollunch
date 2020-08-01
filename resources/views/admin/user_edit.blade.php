@@ -98,7 +98,30 @@
                         class="form-check-input"
                         value="{{$role->id}}"
                         {{ ($user->hasRole($role->name)) ? 'checked' : ''}}>
-                    <label class="form-check-label">{{$role->description}}</label>
+                    <label class="form-check-label">
+                        {{$role->description}}
+                        @if($user->hasRole($role->name))
+                            @switch($role->name)
+                                @case('SchoolAdmin')
+                                    <a href="{{ route('school.show', ['school' => $user->school->id]) }}">
+                                        {{$user->school->name}}
+                                    </a>
+                                @break
+                                @case('Cook')
+                                    <a href="{{ route('school.show', ['school' => $user->cook->id]) }}">
+                                        {{$user->cook->name}}
+                                    </a>
+                                @break
+                                @case('ClassTeacher')
+                                    <a href="{{route('schoolclass.edit', ['schoolclass' => $user->schoolClass->id])}}">
+                                        {{$user->schoolClass->name . ' класу'}}</a>,&nbsp;
+                                    <a href="{{ route('school.show', ['school' => $user->schoolClass->school->id]) }}">
+                                        {{$user->schoolClass->school->name}}
+                                    </a>
+                                @break
+                            @endswitch
+                        @endif
+                    </label>
                 </div>
             @endforeach
         </div>

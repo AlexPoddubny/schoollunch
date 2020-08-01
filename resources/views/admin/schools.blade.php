@@ -18,7 +18,7 @@
                     <!-- School Admin Assign -->
                     <td style="text-align: center">
                         @if($school->admin_id)
-                            <a href="{{ route('users.show', ['user' => $school->admin->id]) }}">
+                            <a href="{{ route('users.edit', ['user' => $school->admin->id]) }}">
                                 {{$school->admin->fullName}}
                             </a>
                             <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'admin'])}}">
@@ -34,7 +34,7 @@
                     <!-- School Cook Assign -->
                     <td style="text-align: center">
                         @if($school->cook_id)
-                            <a href="{{ route('users.show', ['user' => $school->cook->id]) }} "target="_blank">
+                            <a href="{{ route('users.edit', ['user' => $school->cook->id]) }} ">
                                 {{$school->cook->fullName}}
                             </a>
                             <a href="{{route('schools.edit.type', ['school' => $school->id, 'type' => 'cook'])}}">
