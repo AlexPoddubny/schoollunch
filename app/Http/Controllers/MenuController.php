@@ -76,8 +76,6 @@ class MenuController extends Controller
         if (Gate::denies('Menu_Create', $school)){
             abort(403);
         }
-        // додати можливість створення пункту меню Адміністратором
-//        dd($school);
         $this->title = 'Додати пункт до меню школи: ' . $school->name;
         $this->content = view('menu_add')
             ->with([
@@ -87,6 +85,13 @@ class MenuController extends Controller
             ])
             ->render();
         return $this->renderOutput();
+    }
+    
+    public function select(Request $request)
+    {
+        return redirect(route('menu.view', [
+            'id' => $request->input('school')
+        ]));
     }
     
     public function getLunches(Request $request)
@@ -118,8 +123,9 @@ class MenuController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -146,12 +152,13 @@ class MenuController extends Controller
     {
         //
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function edit($id)
     {
@@ -177,13 +184,14 @@ class MenuController extends Controller
             ->render();
         return $this->renderOutput();
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {

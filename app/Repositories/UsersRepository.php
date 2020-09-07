@@ -22,9 +22,8 @@
                 $roles = $data['roles'];
                 unset($data['roles']);
             }
-            $user = User::find($id);
-            $user->fill($data);
-            $user->save();
+            $user = User::findOrFail($id);
+            $user->update($data);
             $user->saveRoles($roles);
             return ['status' => 'Дані користувача оновлено'];
         }

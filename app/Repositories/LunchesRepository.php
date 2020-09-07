@@ -24,11 +24,12 @@
             }
             if ($id) {
                 $model = $this->model::find($id);
+                $model->update($data);
             } else {
                 $model = new $this->model;
+                $model->fill($data);
+                $model->save();
             }
-            $model->fill($data);
-            $model->save();
             $courses = session('courses');
             foreach ($courses as $n => $course){
                 $courses[$n] = Arr::only($courses[$n], ['course_id', 'size_id']);

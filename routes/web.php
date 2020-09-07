@@ -15,7 +15,7 @@
         return view('welcome_old');
     });*/
     
-    Route::resource('/', 'WelcomeController');
+    Route::resource('/', 'WelcomeController')->only(['index', 'select']);
     Route::post('/select', 'WelcomeController@select')->name('select');
     Route::get('privacy', 'PrivacyController');
     
