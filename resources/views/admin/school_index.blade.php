@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-header">Перерви</div>
+    <p>Додайте шкільні перерви</p>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -69,7 +70,10 @@
 <br>
 <div class="card">
     <div class="card-header">Класи</div>
-    <br>
+    <p>Додайте класи школи.
+        <br>
+        Для кожного класу оберіть обідню перерву, категорію харчування та вкажіть класного керівника.
+    </p>
     <form method="post" action="{{route('school.add_class')}}">
         @csrf
         <input name="school_id" type="hidden" value="{{$school->id}}">

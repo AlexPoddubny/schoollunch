@@ -1,59 +1,61 @@
 @if(count($students) > 0 )
-    <div class="card-header">Учні класу</div>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col" style="text-align: center">П.І.Б.</th>
-                    <th scope="col" style="text-align: center">Батьки</th>
-                    <th scope="col" style="text-align: center">Пільгове харчування</th>
-                    <th scope="col" style="text-align: center">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($students as $student)
+    <div class="card">
+        <div class="card-header">Учні класу</div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>
-                            <a href="{{ route('students.show', ['student' => $student->id]) }}">{{$student->fullname}}</a>
-                        </td>
-                        <td style="text-align: center">
-                            @if(count($student->parent) > 0)
-                                @foreach($student->parent as $parent)
-                                    <p>
-                                        {{$parent->fullName}}
-                                        @if(!$parent->pivot->confirmed_at)
-                                            <a href="{{route('students.confirm', [
-                                                'student' => $student->id,
-                                                'parent' => $parent->id
-                                                ])}}">Підтвердити</a>
-                                        @endif
-                                    </p>
-                                @endforeach
-                            @endif
-                        </td>
-                        <td style="text-align: center">
-                            {{$student->privilege ? 'Так' : 'Ні'}}
-                        </td>
-                        <td style="text-align: center">
-                            <form id="delete{{$student->id}}" action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <a href="javascript:{}" onclick="document.getElementById('delete{{$student->id}}').submit();">
-                                    <span class="glyphicon glyphicon-remove text-danger"></span>
-                                </a>
-                            </form>
-                        </td>
+                        <th scope="col" style="text-align: center">П.І.Б.</th>
+                        <th scope="col" style="text-align: center">Батьки</th>
+                        <th scope="col" style="text-align: center">Пільгове харчування</th>
+                        <th scope="col" style="text-align: center">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($students as $student)
+                        <tr>
+                            <td>
+                                <a href="{{ route('students.show', ['student' => $student->id]) }}">{{$student->fullname}}</a>
+                            </td>
+                            <td style="text-align: center">
+                                @if(count($student->parent) > 0)
+                                    @foreach($student->parent as $parent)
+                                        <p>
+                                            {{$parent->fullName}}
+                                            @if(!$parent->pivot->confirmed_at)
+                                                <a href="{{route('students.confirm', [
+                                                    'student' => $student->id,
+                                                    'parent' => $parent->id
+                                                    ])}}">Підтвердити</a>
+                                            @endif
+                                        </p>
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td style="text-align: center">
+                                {{$student->privilege ? 'Так' : 'Ні'}}
+                            </td>
+                            <td style="text-align: center">
+                                <form id="delete{{$student->id}}" action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <a href="javascript:{}" onclick="document.getElementById('delete{{$student->id}}').submit();">
+                                        <span class="glyphicon glyphicon-remove text-danger"></span>
+                                    </a>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endif
 <div class="card">
     <div class="card-header">Додавання учнів</div>
-    <br>
+    <p>Додайте учнів класу згідно класного журналу</p>
     <form method="post" action="{{route($route)}}">
         @csrf
         <div class="form-group row">

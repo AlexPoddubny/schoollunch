@@ -1,5 +1,5 @@
 <div class="card">
-    <br>
+    <p>Оберіть обідню перерву, категорію харчування та вкажіть класного керівника</p>
     <form method="POST" action="{{ route('schoolclass.update', ['schoolclass' => $schoolClass->id]) }}">
         @csrf
         {{ method_field('PUT') }}
