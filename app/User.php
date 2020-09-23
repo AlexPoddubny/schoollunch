@@ -128,7 +128,7 @@
     
         public function saveChild($student)
         {
-            if (!empty($student)) {
+            if (!empty($student) && !$this->hasChild($student)) {
                 $this->child()->attach($student);
             }
         }
@@ -138,6 +138,19 @@
             if (!empty($child)){
                 $this->child()->detach($child);
             }
+        }
+    
+        public function hasChild($student)
+        {
+            if (!empty($student)) {
+                foreach ($this->child as $child){
+                    if ($child->id == $student){
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return false;
         }
     
         public function addRole($role_name)

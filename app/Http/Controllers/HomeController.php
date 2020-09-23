@@ -49,6 +49,7 @@
          */
         public function index()
         {
+            dump($this->user->child->groupBy('id'));//->get()->groupBy('fullname')->sortBy('fullname'));
             $this->content = view('children')
                 ->with([
                     'user' => $this->user,
@@ -96,9 +97,6 @@
         public function store(Request $request)
         {
             $result = $this->user_rep->saveChild($request, $this->user);
-            if(is_array($result) && !empty($result['error'])) {
-                return redirect('home')->with($result);
-            }
             return redirect('home')->with($result);
         }
     
