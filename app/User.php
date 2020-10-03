@@ -174,9 +174,14 @@
             return implode(' ', [$this->lastname, $this->firstname, $this->middlename]);
         }
     
-        public function isAdmin()
+        public function getIsAdminAttribute()
         {
             return $this->hasRole('Admin');
+        }
+    
+        public function getIsCookAttribute()
+        {
+            return $this->hasRole('Cook');
         }
         
     }

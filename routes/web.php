@@ -48,10 +48,7 @@
     
     Route::post('getlunches', 'MenuController@getLunches');
     Route::post('loadclasses', 'MenuController@loadClasses');
-    Route::get('menu/view/{id?}', [
-        'uses' => 'MenuController@index',
-        'as' => 'menu.view'
-    ]);
+    Route::post('menu.select', 'MenuController@select')->name('menu.select');
     Route::get('menu/create/{id}', 'MenuController@create')->name('menu.add');
     Route::resource('menu', 'MenuController');
     Route::get('courses/index', 'CoursesController@index')->name('course.index');

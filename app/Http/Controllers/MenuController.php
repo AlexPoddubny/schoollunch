@@ -38,29 +38,23 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Throwable
      */
-    public function index($id = null)
+    public function index()
     {
-        if ($id){
-            $school = School::find($id);
+        if ($this->user->isCook) {
+//            $school = $this->user->cook;
+            return redirect(route('menu.show', [
+                'id' => $this->user->cook->id
+            ]));
         } else {
-            $school = $this->user->cook;
+            $schools = School::all();
+            $this->content = view('selector')
+                ->with([
+                    'schools' => $schools,
+                    'route' => 'menu.select'
+                ])
+                ->render();
+            return $this->renderOutput();
         }
-        $this->title = $school->name . ': Меню столової';
-        $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
-            ->where('school_id', $school->id)
-            ->whereBetween('date', [date('Y-m-d'), date('Y-m-d', strtotime("next friday"))])
-            ->get()
-            ->sortBy('breakTime.break_num')
-            ->groupBy('date')
-            ->sortKeys();
-        $this->content = view('menu')
-            ->with([
-                'menus' => $menu,
-                'sizes' => Size::all()->keyBy('id'),
-                'school' => $school
-            ])
-            ->render();
-        return $this->renderOutput();
     }
     
     /**
@@ -89,8 +83,8 @@ class MenuController extends Controller
     
     public function select(Request $request)
     {
-        return redirect(route('menu.view', [
-            'id' => $request->input('school')
+        return redirect(route('menu.show', [
+            'menu' => $request->input('school')
         ]));
     }
     
@@ -137,8 +131,8 @@ class MenuController extends Controller
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-        return redirect(route('menu.view', [
-            'id' => $request->input('school_id')
+        return redirect(route('menu.show', [
+            'menu' => $request->input('school_id')
         ]));
     }
 
@@ -150,7 +144,23 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        //
+        $school = School::findOrFail($id);
+        $this->title = $school->name . ': Меню столової';
+        $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
+            ->where('school_id', $school->id)
+            ->whereBetween('date', [date('Y-m-d'), date('Y-m-d', strtotime("next friday"))])
+            ->get()
+            ->sortBy('breakTime.break_num')
+            ->groupBy('date')
+            ->sortKeys();
+        $this->content = view('menu')
+            ->with([
+                'menus' => $menu,
+                'sizes' => Size::all()->keyBy('id'),
+                'school' => $school
+            ])
+            ->render();
+        return $this->renderOutput();
     }
     
     /**
@@ -204,8 +214,8 @@ class MenuController extends Controller
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
-        return redirect(route('menu.view', [
-            'id' => $menu->school_id
+        return redirect(route('menu.show', [
+            'menu' => $menu->school_id
         ]));
     }
 

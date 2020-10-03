@@ -49,7 +49,6 @@
          */
         public function index()
         {
-            dump($this->user->child->groupBy('id'));//->get()->groupBy('fullname')->sortBy('fullname'));
             $this->content = view('children')
                 ->with([
                     'user' => $this->user,

@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             switch ($name) {
                 case 'Menu_Create':
                     Gate::define($name, function ($user, $school) use ($name){
-                        return ($user->canDo($name) && $user->id === $school->cook_id) || $user->isAdmin();
+                        return ($user->canDo($name) && $user->id === $school->cook_id) || $user->isAdmin;
                     });
                     break;
                 default:

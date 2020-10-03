@@ -147,6 +147,9 @@ class UsersController extends AdminController
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        if ($user->isAdmin || $user == $this->user){
+            return response()->json(['error' => 'Неможливо видалити користувача ' . $user->fullName], 500);
+        }
         $result = $user->delete();
         if(is_array($result) && !empty($result['error'])) {
             return response()->json(['error' => 'Неможливо видалити користувача ' . $user->fullName], 500);
