@@ -21,7 +21,7 @@
             <select name="break_id" id="break_id" class="form-control class-select @error('break_id') is-invalid @enderror">
                 <option selected disabled>Оберіть перерву</option>
                 @foreach($breaks as $break)
-                    <option value="{{$break->id}}">{{$break->break_num}}. {{$break->break_time}}</option>
+                    <option value="{{$break->id}}" {{ (old('break_id') == $break->id ? "selected":"") }}>{{$break->break_num}}. {{$break->break_time}}</option>
                 @endforeach
             </select>
 
@@ -38,7 +38,7 @@
             <select name="category_id" id="category_id" class="form-control menu-select class-select @error('category_id') is-invalid @enderror">
                 <option selected disabled>Оберіть категорію харчування</option>
                 @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{$category->id}}" {{ (old('category_id') == $category->id ? "selected":"") }}>{{$category->name}}</option>
                 @endforeach
             </select>
 

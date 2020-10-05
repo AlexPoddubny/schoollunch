@@ -8,11 +8,14 @@
             {{$child->fullname}}, {{$child->schoolClass->name}} клас, <a href="{{route('menu.show', ['menu' => $child->schoolClass->school->id])}}">{{$child->schoolClass->school->name}}</a>, на перерві {{$child->schoolClass->breakTime->break_num}} о {{$child->schoolClass->breakTime->break_time}}:
             @foreach($child->schoolClass->breakTime->menu as $menu)
                 <ul>
-                    @foreach($menu->lunch->sizeCourse as $course)
-                        <li>
-                            <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">{{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)</a>
-                        </li>
-                    @endforeach
+                    @if ($menu->privileged == $child->privilege)
+                        Комплекс №{{$menu->lunch->number}}
+                        @foreach($menu->lunch->sizeCourse as $course)
+                            <li>
+                                <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">{{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)</a>
+                            </li>
+                        @endforeach
+                    @endif
                 </ul>
             @endforeach
         </div>
