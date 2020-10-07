@@ -49726,7 +49726,7 @@ function fillSelect(res) {
     var html = '';
 
     for (var i = 0; i < res.length; i++) {
-      if (res[i]['student'].length > 0) {
+      if (res[i]['student'].length > 0 && res[i]['break_id']) {
         html += '<option value="' + res[i]['id'] + '">' + res[i]['name'] + '</option>';
       }
     }
@@ -49743,7 +49743,10 @@ function hideElements() {
   $('#classes').html('');
   $('#classes_group').attr('hidden', true);
   $('#viewMenu').attr('hidden', true);
-}
+} //****************************
+//   Get Classes
+//****************************
+
 
 $('#schools').change(function () {
   hideElements();
@@ -49755,6 +49758,7 @@ $('#schools').change(function () {
     },
     type: 'POST',
     success: function success(res) {
+      // console.log(res);
       fillSelect(res);
     },
     error: function error(res) {
@@ -49771,7 +49775,7 @@ $('#classes').change(function () {
 $(document).on('keyup', '#student', function (e) {
   var query = $(this).val();
 
-  if (query.length >= 3) {
+  if (query.length >= 1) {
     $.ajax({
       url: Object(_route__WEBPACK_IMPORTED_MODULE_0__["default"])('home.search'),
       data: {
@@ -49787,6 +49791,8 @@ $(document).on('keyup', '#student', function (e) {
         console.log(res);
       }
     });
+  } else {
+    $('#result').html('');
   }
 }); //****************************
 //   Search user

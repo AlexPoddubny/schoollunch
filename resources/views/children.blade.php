@@ -9,7 +9,7 @@
             @foreach($child->schoolClass->breakTime->menu as $menu)
                 <ul>
                     @if ($menu->privileged == $child->privilege)
-                        Комплекс №{{$menu->lunch->number}}
+                        <strong><u>Комплекс №{{$menu->lunch->number}}:</u></strong>
                         @foreach($menu->lunch->sizeCourse as $course)
                             <li>
                                 <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">{{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)</a>

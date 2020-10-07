@@ -21,22 +21,21 @@
         public $user_rep;
         protected $title = 'Мої школяри';
         protected $user;
-        
-        
+    
+    
         /**
          * Create a new controller instance.
          *
-         * @return void
+         * @param SchoolClassesRepository $classes_rep
+         * @param UsersRepository $user_rep
          */
         public function __construct(
-            SchoolsRepository $school_rep,
             SchoolClassesRepository $classes_rep,
             UsersRepository $user_rep
         )
         {
             parent::__construct();
             $this->middleware(['auth', 'verified']);
-            $this->school_rep = $school_rep;
             $this->classes_rep = $classes_rep;
             $this->user_rep = $user_rep;
         }

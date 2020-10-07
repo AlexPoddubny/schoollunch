@@ -19,6 +19,7 @@ class CoursesController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function index()
     {
@@ -33,11 +34,11 @@ class CoursesController extends Controller
             ->render();
         return $this->renderOutput();
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -54,12 +55,13 @@ class CoursesController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function show($id, $size = 6)
     {

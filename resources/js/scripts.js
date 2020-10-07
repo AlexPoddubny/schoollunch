@@ -23,7 +23,7 @@ function fillSelect(res){
     if (res.length > 0) {
         var html = '';
         for (var i = 0; i < res.length; i++) {
-            if (res[i]['student'].length > 0){
+            if (res[i]['student'].length > 0 && res[i]['break_id']){
                 html += '<option value="'
                     + res[i]['id']
                     + '">'
@@ -45,6 +45,9 @@ function hideElements(){
     $('#viewMenu').attr('hidden', true);
 }
 
+//****************************
+//   Get Classes
+//****************************
 $('#schools').change(function () {
     hideElements();
     var value = $('#schools').val();
@@ -55,6 +58,7 @@ $('#schools').change(function () {
         },
         type: 'POST',
         success: function (res) {
+            // console.log(res);
             fillSelect(res);
         },
         error: function (res) {
@@ -72,7 +76,7 @@ $('#classes').change(function () {
 //****************************
 $(document).on('keyup', '#student', function (e) {
     var query = $(this).val();
-    if (query.length >= 3){
+    if (query.length >= 1){
         $.ajax({
             url: route('home.search'),
             data: {
@@ -88,6 +92,8 @@ $(document).on('keyup', '#student', function (e) {
                 console.log(res);
             }
         })
+    } else {
+        $('#result').html('');
     }
 });
 
