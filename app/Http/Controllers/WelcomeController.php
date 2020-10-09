@@ -40,8 +40,8 @@ class WelcomeController extends Controller
     public function select(Request $request)
     {
 //        dd($request);
-        return redirect(route('menu.view', [
-            'id' => $request->input('school')
+        return redirect(route('menu.show', [
+            'menu' => $request->input('school')
         ]));
     }
 
