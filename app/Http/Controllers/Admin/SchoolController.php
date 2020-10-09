@@ -11,6 +11,7 @@ use App\School;
 use App\SchoolClass;
 use Illuminate\Http\Request;
 use Gate;
+use Illuminate\Validation\Rule;
 
 class SchoolController
     extends AdminController
@@ -48,6 +49,7 @@ class SchoolController
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function index()
     {
@@ -106,12 +108,13 @@ class SchoolController
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function show($id)
     {
@@ -133,7 +136,7 @@ class SchoolController
         $this->validate($request, [
             'break_num' => ['required', 'integer', 'min:1'],
             'begin' => ['required', 'date_format:H:i'],
-            'end' => ['required', 'date_format:H:i'] //разобраться с after:begin
+            'end' => ['required', 'date_format:H:i', 'after:begin']
         ]);
         $data = $request->except('_token');
         $break = new BreakTime([
@@ -153,11 +156,19 @@ class SchoolController
             abort(403);
         }
         $this->validate($request, [
-            'classname' => 'required|regex:/(^[1-9][0-1]?-[А-Я]$)/u'
+            'name' => [
+                'required',
+                'regex:/(^[1-9][0-1]?-[А-Я]$)/u',
+                Rule::unique('school_classes')->where(function ($query) use ($request){
+                    return $query->where('school_id', $request->input('school_id'));
+                })
+            ]], [
+            'name.unique' => 'Цей клас у школі вже існує',
+            'name.regex' => 'Формат назви: 1-А...11-А'
         ]);
         $data = $request->except('_token');
         $schoolClass = new schoolClass([
-            'name' => $data['classname'],
+            'name' => $data['name'],
         ]);
         $school = School::find($data['school_id']);
         $school->schoolClass()->save($schoolClass);

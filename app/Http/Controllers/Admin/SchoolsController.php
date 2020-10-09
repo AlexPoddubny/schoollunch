@@ -62,7 +62,7 @@ class SchoolsController extends AdminController
         }
         $this->validate($request, [
             'firstnum' => ['required', 'integer', 'min:1'],
-            'lastnum' => ['required', 'integer', new NumRule($request->get('firstnum'))],
+            'lastnum' => ['required', 'integer', 'gt:firstnum'],
             'schoolsname' => ['required', 'string', 'min:5', 'max:100']
         ]);
         $data = $request->except('_token');

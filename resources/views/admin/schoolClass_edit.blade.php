@@ -23,7 +23,7 @@
                 <select name="break_id" class="form-control">
                     <option disabled {{($schoolClass->break_id == null) ? 'selected' : ''}}>Оберіть обідню перерву</option>
                     @foreach($schoolClass->school->breakTime as $breakTime)
-                        <option value="{{$breakTime->id}}" {{($schoolClass->break_id == $breakTime->id) ? 'selected' : ''}}>{{$breakTime->break_time}}</option>
+                        <option value="{{$breakTime->id}}" {{($schoolClass->break_id == $breakTime->id) ? 'selected' : ''}}>{{$breakTime->break_num}}. {{$breakTime->break_time}}</option>
                     @endforeach
                 </select>
             </div>

@@ -15,25 +15,16 @@
         return view('welcome_old');
     });*/
     
-    Route::resource('/', 'WelcomeController')->only(['index', 'select']);
+    Route::resource('/', 'WelcomeController')->only(['index']);
     Route::post('/select', 'WelcomeController@select')->name('select');
-    Route::get('privacy', 'PrivacyController');
     
     Route::get('sendbasicemail','MailController@basic_email');
-    /*
-    Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
-    Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-    */
+
     Auth::routes(['verify' => true]);
-//    Auth::routes();
     
-    Route::post('search', 'SearchController@search');//->name('search.result');
+//    Route::post('search', 'SearchController@search');
     
-    Route::post('getclasses', [
-            'uses' => 'HomeController@getClasses',
-            'as' => 'getclasses'
-        ]
-    );
+    Route::post('getclasses', 'HomeController@getClasses')->name('getclasses');
     
     Route::post('/home/search', 'HomeController@search')->name('home.search');
     Route::get('home/remove/{child}', 'HomeController@remove')->name('home.remove');
@@ -57,7 +48,7 @@
         'as' => 'course.show'
     ]);
     
-    Route::resource('courses', 'CoursesController');
+    Route::resource('courses', 'CoursesController')->only(['index', 'show']);
     
     Route::group([
             'prefix' => 'admin',

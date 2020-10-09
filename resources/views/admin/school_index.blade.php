@@ -78,10 +78,10 @@
         @csrf
         <input name="school_id" type="hidden" value="{{$school->id}}">
         <div class="form-group row">
-            <label for="classname" class="col-md-4 col-form-label text-md-right">{{__('messages.class_name')}}</label>
+            <label for="name" class="col-md-4 col-form-label text-md-right">{{__('messages.class_name')}}</label>
             <div class="col-md-4">
-                <input type="text" class="form-control @error('classname') is-invalid @enderror" name="classname" value="{{old('classname')}}">
-                @error('classname')
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{old('name')}}">
+                @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

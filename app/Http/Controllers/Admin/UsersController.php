@@ -146,9 +146,15 @@ class UsersController extends AdminController
      */
     public function destroy($id)
     {
+        if (Gate::denies('User_Register')){
+            return response()->json(['error' => 'Дію заборонено'], 500);
+        }
         $user = User::findOrFail($id);
-        if ($user->isAdmin || $user == $this->user){
-            return response()->json(['error' => 'Неможливо видалити користувача ' . $user->fullName], 500);
+        if ($user->isAdmin){
+            return response()->json(['error' => 'Неможливо видалити системного адміністратора'], 500);
+        }
+        if ($user == $this->user){
+            return response()->json(['error' => 'Неможливо видалити власний аккаунт'], 500);
         }
         $result = $user->delete();
         if(is_array($result) && !empty($result['error'])) {

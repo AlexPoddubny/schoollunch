@@ -65,9 +65,9 @@ return [
     'ipv6' => 'The :attribute must be a valid IPv6 address.',
     'json' => 'The :attribute must be a valid JSON string.',
     'lt' => [
-        'numeric' => 'The :attribute must be less than :value.',
+        'numeric' => ':attribute має бути більший за :value.',
         'file' => 'The :attribute must be less than :value kilobytes.',
-        'string' => 'The :attribute must be less than :value characters.',
+//        'string' => 'The :attribute must be less than :value characters.',
         'array' => 'The :attribute must have less than :value items.',
     ],
     'lte' => [
@@ -139,6 +139,9 @@ return [
         ],*/
         'netto' => [
             'lte' => 'Поле Вага нетто не може бути більше за Вага брутто'
+        ],
+        'lastnum' => [
+            'gt' => 'Номер останньої школи має бути більший за номер першої школи'
         ]
     ],
 
@@ -158,6 +161,7 @@ return [
         'brutto' => 'Вага брутто',
         'netto' => 'Вага нетто',
         'product_id' => 'Продукт',
+        'lastnum' => 'Кінцевий номер',
         'course_id' => 'Страва',
         'type_id' => 'Тип страви',
         'size_id' => 'Вага страви',
