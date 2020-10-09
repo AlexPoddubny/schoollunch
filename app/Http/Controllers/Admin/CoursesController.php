@@ -144,7 +144,7 @@
             $this->content = view('admin.course_edit')
                 ->with([
                     'course' => $course,
-                    'ingredients' => $this->renderProducts(),
+                    'ingredients' => $this->courses_rep->renderItems(Product::class),
                     'types' => Type::all(),
                     'products' => Product::all()->sortBy('name')
                 ])
@@ -212,7 +212,7 @@
                 $products[$id] = $request->all();
                 session(['products' => $products]);
             }
-            return $this->renderProducts();
+            return $this->courses_rep->renderItems(Product::class);
         }
     
         public function delProduct(Request $request)
@@ -221,16 +221,7 @@
                 abort(403);
             }
             $this->courses_rep->deleteItem($request, Product::class);
-            return $this->renderProducts();
-        }
-    
-        protected function renderProducts()
-        {
-            return view('admin.products_list')
-                ->with([
-                    'items' => session('products')
-                ])
-                ->render();
+            return $this->courses_rep->renderItems(Product::class);
         }
         
     }

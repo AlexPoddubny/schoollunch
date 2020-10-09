@@ -61,5 +61,19 @@
                 session([$type => $items]);
             }
         }
+    
+        public function renderItems($type)
+        {
+            $type = strtolower(after($type, '\\')) . 's';
+            $view = 'admin.' . $type . '_list';
+            if (view()->exists($view)) {
+                return view($view)
+                    ->with([
+                        'items' => session($type)
+                    ])
+                    ->render();
+            }
+            return null;
+        }
         
     }

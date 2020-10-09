@@ -94,19 +94,9 @@ class LunchesController extends AdminController
         $courses = session('courses');
         if (!isset($courses[$id])){
             $courses[$id] = $request->all();
-            /*
-            $courses[$id] = [
-                'course_id' => $id,
-                'type_id' => $request->input('type_id'),
-                'size_id' => $request->input('size_id'),
-                'type' => $request->input('type'),
-                'size' => $request->input('size'),
-                'name' => $request->input('name')
-            ];
-            */
             session(['courses' => $courses]);
         }
-        return $this->renderCourses();
+        return $this->lunches_rep->renderItems(Course::class);
     }
     
     public function delCourse(Request $request)
@@ -115,16 +105,7 @@ class LunchesController extends AdminController
             abort(403);
         }
         $this->lunches_rep->deleteItem($request, Course::class);
-        return $this->renderCourses();
-    }
-    
-    public function renderCourses()
-    {
-        return $this->content = view('admin.courses_list')
-            ->with([
-                'items' => session('courses')
-            ])
-            ->render();
+        return $this->lunches_rep->renderItems(Course::class);
     }
 
     /**
@@ -194,7 +175,7 @@ class LunchesController extends AdminController
                 'lunch' => $lunch,
                 'types' => $types,
                 'sizes' => $sizes,
-                'ingredients' => $this->renderCourses(),
+                'ingredients' => $this->lunches_rep->renderItems(Course::class),
                 'categories' => Category::all()
             ])
             ->render();
