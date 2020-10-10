@@ -32,10 +32,8 @@
                             <a href="{{route('lunches.edit', ['lunch' => $lunch->id])}}">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-remove text-danger lunch-destroy"
-                                    data-id="{{$lunch->id}}">
-                                </span>
+                            <a href="#" class="delete" data-model="lunches" data-id="{{$lunch->id}}">
+                                <span class="glyphicon glyphicon-remove text-danger"></span>
                             </a>
                             {{--<form action="{{route('lunches.destroy', ['lunch' => $lunch->id])}}" method="POST">
                                 @csrf

@@ -213,7 +213,7 @@ class LunchesController extends AdminController
             abort(403);
         }
         $lunch = Lunch::findOrFail($id);
-        if ($lunch->has('menu')){
+        if (count($lunch->menu) > 0){
             return response(500);
         }
         $lunch->sizeCourse()->detach();

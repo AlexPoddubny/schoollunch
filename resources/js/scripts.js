@@ -116,36 +116,6 @@ $(document).on('keyup', '#user', function (e) {
         }
     });
 });
-/*$(document).on('keyup', '#course_query', function() {
-    var query = $('#course_query').val();
-    $.ajax({
-        url: '/admin/product/search',
-        data: {
-            query: query
-        },
-        type: 'POST',
-        success: function (res) {
-            $('#result').html(res);
-        },
-        error: function (res) {
-            console.log(res);
-        }
-    })
-});*/
-
-/*
-$(document).on('click', '.add-product', function (e) {
-    e.preventDefault();
-    var id = $(this).data('id');
-    var title = $(this).html();
-    var html = $('#ingredients').html();
-    html += '<tr><td>' + '<input type="hidden" name="product[]" value="' + id + '">' + title + '</td>'
-        + '<td style="text-align: center"><input type="number" step="0.5" name="brutto[]" class="form-control"></td>'
-        + '<td style="text-align: center"><input type="number" step="0.5" name="netto[]" class="form-control"></td>'
-        + '<td></td></tr>';
-    $('#ingredients').html(html);
-})
-*/
 
 function printMsg (msg, type) {
     $(".print-" + type + "-msg").find("ul").html('');
@@ -212,6 +182,7 @@ $(document).on('click', '.del-product', function (e) {
 //****************************
 //      Delete course
 //****************************
+/*
 $(document).on('click', '.course-destroy', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
@@ -227,10 +198,12 @@ $(document).on('click', '.course-destroy', function (e) {
         }
     })
 })
+*/
 
 //****************************
 //      Delete lunch
 //****************************
+/*
 $(document).on('click', '.lunch-destroy', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
@@ -245,6 +218,7 @@ $(document).on('click', '.lunch-destroy', function (e) {
         }
     })
 })
+*/
 
 $(document).on('keyup change blur', '#size', function () {
     $('#factor').val(parseInt($(this).val()) / 1000);
@@ -400,41 +374,3 @@ $(document).on('click', '.delete', function (e) {
         }
     });
 })
-
-/*
-
-$(document).on('click', '.edit-product', function () {
-    var id = $(this).data('id');
-    // console.log(id);
-    $.ajax({
-        url: route('products.edit', [id]),//'products/' + id + '/edit',
-        type: 'GET',
-        success: function (res) {
-            console.log(res);
-        },
-        error: function (res) {
-            console.log(res);
-        }
-    })
-});
-*/
-/*
-$(document).on('change', '.class-select', function (e) {
-    $.ajax({
-        url: '/loadclasses',
-        data: {
-            break_id: $('#break_id').val(),
-            category: $('#category_id').val()
-        },
-        type: 'POST',
-        success: function (res) {
-            console.log(res);
-            $('#classes_list').html(res);
-        },
-        error: function (res) {
-            console.log(res);
-        }
-    })
-});
-*/
-
