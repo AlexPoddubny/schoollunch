@@ -38,7 +38,7 @@
         public function detachChild($child, $user)
         {
             $user->removeChild($child);
-            if ($user->doesntHave('child')){
+            if (count($user->child) == 0){
                 $user->removeRole('Parent');
             }
             return ['status' => 'Школяра видалено зі списку'];
