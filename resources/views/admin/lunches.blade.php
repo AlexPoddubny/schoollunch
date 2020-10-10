@@ -19,9 +19,9 @@
                         <td scope="col" style="text-align: center">{{$lunch->privileged}}</td>
                         <td scope="col">
                             <ul>
-                                @foreach($lunch->sizeCourse as $course)
+                                @foreach($lunch->sizeCourse->sortBy('type.sort') as $course)
                                     <li>
-                                        <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">
+                                        {{$course->type->sort}}. <a href="{{route('course.show', ['id' => $course->id, 'size' => $course->pivot->size_id])}}">
                                             {{$course->name}} ({{$sizes[$course->pivot->size_id]->size}} гр.)
                                         </a>
                                     </li>
@@ -29,17 +29,21 @@
                             </ul>
                         </td>
                         <td scope="col" style="text-align: center">
-                            <a href="{{route('lunches.edit', ['lunch' => $lunch->id])}}">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                            <a href="#" class="delete" data-model="lunches" data-id="{{$lunch->id}}">
-                                <span class="glyphicon glyphicon-remove text-danger"></span>
-                            </a>
-                            {{--<form action="{{route('lunches.destroy', ['lunch' => $lunch->id])}}" method="POST">
-                                @csrf
-                                {{ method_field('DELETE') }}
-                                <input type="submit" value=""><span class="glyphicon glyphicon-remove text-danger"></span>
-                            </form>--}}
+                            <p>
+                                <a href="{{route('lunches.edit', ['lunch' => $lunch->id])}}">
+                                    <span class="glyphicon glyphicon-pencil" title="Редагувати"></span>
+                                </a>
+                            </p>
+                            <p>
+                                <a href="{{route('lunch.replicate', ['lunch' => $lunch->id])}}">
+                                    <span class="glyphicon glyphicon-share" title="Скопіювати"></span>
+                                </a>
+                            </p>
+                            <p>
+                                <a href="#" class="delete" data-model="lunches" data-id="{{$lunch->id}}">
+                                    <span class="glyphicon glyphicon-remove text-danger" title="Видалити"></span>
+                                </a>
+                            </p>
                         </td>
 
                     </tr>

@@ -156,7 +156,6 @@ class LunchesController extends AdminController
         $this->title = 'Редагування обіду №' . $lunch->number;
         $sizes = Size::all()->keyBy('id');
         $types = Type::all()->keyBy('id');
-//        dump($sizes, $types);
         $courses = [];
         foreach ($lunch->sizeCourse as $course){
             $courses[$course->id] = [
@@ -168,7 +167,6 @@ class LunchesController extends AdminController
                 'name' => $course->name
             ];
         }
-//        dd($courses);
         session(['courses' => $courses]);
         $this->content = view('admin.lunch_edit')
             ->with([
@@ -227,6 +225,29 @@ class LunchesController extends AdminController
     protected function detachAllMenus($lunch)
     {
         $lunch->menu()->update(['lunch_id' => null]);
+    }
+    
+    public function replicate($id)
+    {
+        if (Gate::denies('Course_Create')){
+            abort(403);
+        }
+        $lunch = Lunch::findOrFail($id);
+        $clone = $lunch->replicate();
+        $courses = [];
+        foreach ($lunch->sizeCourse as $course){
+            $courses[] = [
+                'course_id' => $course->pivot->course_id,
+                'size_id' => $course->pivot->size_id,
+            ];
+        }
+        $clone->push();
+        $clone->number = $this->lunches_rep->getLastNum() + 1;
+        $clone->save();
+        $clone->sizeCourse()->sync($courses);
+        return redirect(route('lunches.edit', [
+            'lunch' => $clone->id
+        ]));
     }
     
 }

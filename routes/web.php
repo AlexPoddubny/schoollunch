@@ -130,6 +130,7 @@
             Route::post('lunches/delcourse', 'Admin\LunchesController@delCourse')->name('delcourse');
             Route::post('lunches/addcourse', 'Admin\LunchesController@addCourse')->name('addcourse');
             Route::post('lunches/getcourses', 'Admin\LunchesController@getCourses')->name('getcourses');
+            Route::get('lunches/replicate/{lunch}', 'Admin\LunchesController@replicate')->name('lunch.replicate');
             Route::resource('lunches', 'Admin\LunchesController');
         
     }
