@@ -171,7 +171,25 @@
     
         public function getFullNameAttribute()
         {
-            return implode(' ', [$this->lastname, $this->firstname, $this->middlename]);
+            return implode(' ', [
+                $this->lastname,
+                $this->firstname,
+                $this->middlename
+            ]);
+        }
+    
+        protected function initial($name)
+        {
+            return mb_substr($name, 0, 1) . '. ';
+        }
+        
+        public function getLastNameInitialsAttribute()
+        {
+            return implode(' ', [
+                $this->lastname,
+                $this->initial($this->firstname),
+                $this->initial($this->middlename),
+            ]);
         }
     
         public function getIsAdminAttribute()
