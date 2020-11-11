@@ -1,11 +1,11 @@
 @if(count($menus) > 0)
     <h3>
-        Меню столової на тиждень з {{date('Y-m-d', strtotime("monday"))}}:
+        Двотижневе меню з {{date('Y-m-d', strtotime("last monday"))}}:
     </h3>
     @foreach($menus as $date => $menu)
         <div class="card">
             <details {{($date == date('Y-m-d')) ? "open" : ""}}>
-                <summary>{{$date}}</summary>
+                <summary>{{($date == date('Y-m-d')) ? "Сьогодні, " : ""}}{{$date}}, {{\Carbon\Carbon::parse($date)->locale('uk')->getTranslatedDayName('dddd')}}</summary>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -49,6 +49,45 @@
                         </tbody>
                     </table>
                 </div>
+                @can('Menu_Create', $school)
+                    <form action="{{route('menu.replicate')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="school_id" value="{{$school->id}}">
+                        <input type="hidden" name="fromdate" value="{{$date}}">
+                        <input type="hidden" name="type" value="day">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-sm-4 col-xs-4">
+                                <div class="form-group">
+                                    <label for="todate" class="control-label">Скопіювати денне меню на іншу дату:</label>
+                                    <input type="date"
+                                        class="form-control
+                                        @error('todate')
+                                           is-invalid
+                                        @enderror"
+                                        name="todate"
+                                        value="{{$nextDay}}"
+                                        required
+                                        autocomplete="todate">
+                                    @error('todate')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
+                                <div class="form-group">
+                                    <label for="button" class="control-label">&nbsp;</label>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">
+                                            Скопіювати
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                @endcan
             </details>
         </div>
         <br>

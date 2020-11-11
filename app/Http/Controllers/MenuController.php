@@ -145,19 +145,26 @@ class MenuController extends Controller
     public function show($id)
     {
         $school = School::findOrFail($id);
-        $this->title = $school->name . ': Меню столової';
+        $this->title = $school->name . ': Меню їдальні';
         $menu = Menu::with('lunch.sizeCourse.type', 'lunch.category', 'breakTime')
             ->where('school_id', $school->id)
-            ->whereBetween('date', [date('Y-m-d'), date('Y-m-d', strtotime("next friday"))])
+            ->whereBetween('date', [date('Y-m-d', strtotime("last monday")), date('Y-m-d', strtotime("saturday next week"))])
             ->get()
             ->sortBy('breakTime.break_num')
             ->groupBy('date')
             ->sortKeys();
+        // day to copy menu
+        $days = $menu->keys()->all();
+        $nextDay = date_format(date_modify(date_create(end($days)), '1 day'), 'Y-m-d');
+        if (date('w', strtotime($nextDay)) == 0){
+            $nextDay = date('Y-m-d', strtotime('monday'));
+        }
         $this->content = view('menu')
             ->with([
                 'menus' => $menu,
                 'sizes' => Size::all()->keyBy('id'),
-                'school' => $school
+                'school' => $school,
+                'nextDay' => $nextDay
             ])
             ->render();
         return $this->renderOutput();
@@ -189,7 +196,7 @@ class MenuController extends Controller
                 'menu' => $menu,
                 'breaks' => $school->breakTime,
                 'categories' => Category::all(),
-                'lunches' => $lunches,
+                'lunches' => $lunches
             ])
             ->render();
         return $this->renderOutput();
@@ -205,11 +212,12 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Gate::denies('Menu_Create', School::find($id))){
+        $menu = Menu::find($id);
+        $school = School::findOrFail($menu->school_id);
+        if (Gate::denies('Menu_Create', $school)){
             abort(403);
         }
         $this->validate($request, $this->rule);
-        $menu = Menu::find($id);
         $result = $menu->update($request->all());
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);
@@ -237,4 +245,26 @@ class MenuController extends Controller
         }
         return response()->json(['message' => 'Позицію меню видалено'], 200);
     }
+    
+    public function replicate(Request $request)
+    {
+        if (Gate::denies('Menu_Create', School::find($request->input('school_id')))){
+            abort(403);
+        }
+        $this->validate($request, [
+            'todate' => 'required'
+        ]);
+        $menus = Menu::where('school_id', $request->input('school_id'))
+            ->where('date', $request->input('fromdate'))
+            ->get();
+        foreach ($menus as $menu){
+            $menu->replicate()->fill([
+                'date' => $request->input('todate')
+            ])->save();
+        }
+        return redirect(route('menu.show', [
+            'menu' => $request->input('school_id')
+        ]));
+    }
+    
 }

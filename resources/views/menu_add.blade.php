@@ -49,15 +49,6 @@
             @enderror
         </div>
     </div>
-    {{--
-    <div class="form-group row">
-        <label for="category" class="col-md-4 col-form-label text-md-right">Оберіть класи</label>
-        <div class="col-md-6">
-            <ul id="classes_list">
-            </ul>
-        </div>
-    </div>
---}}
     <div class="form-group row">
         <div class="col-md-6 offset-md-4">
             <div class="form-check">
@@ -74,7 +65,6 @@
         <div class="col-md-6">
             <select name="lunch_id" id="lunch_select" class="form-control @error('lunch_id') is-invalid @enderror">
             </select>
-
             @error('lunch_id')
             <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

@@ -153,14 +153,6 @@
                     <input type="number" id="size" step="25" min="25" class="form-control @error('size') is-invalid @enderror" name="size"  required autocomplete="size">
                 </div>
             </div>
-            {{--
-            <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
-                <div class="form-group">
-                    <label for="factor" class="control-label">Коефіциєнт (відносно 1 кг)</label>
-                    <input type="number" id="factor" step="0.025" min="0" class="form-control" name="factor" value="{{old('factor')}}" required autocomplete="factor">
-                </div>
-            </div>
-            --}}
             <div class="col-md-3 col-sm-3 col-sm-3 col-xs-3">
                 <div class="form-group">
                     <label for="newsize" class="control-label">&nbsp;</label>
