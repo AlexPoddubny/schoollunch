@@ -43,7 +43,7 @@ class MenuController extends Controller
         if ($this->user->isCook) {
 //            $school = $this->user->cook;
             return redirect(route('menu.show', [
-                'id' => $this->user->cook->id
+                'menu' => $this->user->cook->id
             ]));
         } else {
             $schools = School::all();
